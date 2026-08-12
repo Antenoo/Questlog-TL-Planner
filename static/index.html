@@ -698,6 +698,12 @@
     .activity-item-copy b{display:block;font-size:11px;margin-bottom:2px}
     .activity-item-copy p{margin:0;color:#b9c6d4;font-size:10px;line-height:1.4;white-space:pre-line}
     .activity-item-copy time{display:block;margin-top:4px;color:#708398;font-size:9px}
+    .official-update-card{margin:12px 0;padding:12px;border:1px solid #355b7b;border-radius:11px;background:linear-gradient(135deg,#112333,#101922);box-shadow:inset 3px 0 0 #6ab7ff}
+    .official-update-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:7px}
+    .official-update-head h4{margin:0;color:#d9edff}
+    .official-update-head a{white-space:nowrap;font-size:10px}
+    .official-update-card ul{margin:7px 0 0;padding-left:18px;color:#bfd0df;font-size:11px;line-height:1.5}
+    .official-update-card .caution{margin-top:8px;padding-top:8px;border-top:1px solid #2b465d;color:#f2d28a;font-size:10px;line-height:1.45}
     .workspace-intro{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-2px 0 8px;padding:0 2px}
     .workspace-intro b{font-size:12px}
     .workspace-intro span{font-size:10px;color:var(--muted)}
@@ -726,7 +732,7 @@
   <div class="app-title-row">
     <div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Local web app v__PLANNER_VERSION__ • flowing navigation and activity feedback</div>
+      <div class="sub">Local web app v__PLANNER_VERSION__ • inertial wheel scrolling and 4.7.0 context</div>
     </div>
     <span class="app-version-chip">Local planner <b>v__PLANNER_VERSION__</b></span>
   </div>
@@ -915,12 +921,16 @@ let settingsScrollSpyQueued = false;
 let settingsScrollTarget = null;
 let plannerScrollRequestId = 0;
 let plannerScrollFrame = 0;
+let plannerWheelFrame = 0;
+let plannerWheelTarget = 0;
+let plannerWheelLastInputAt = 0;
 let plannerNotices = [];
 let activityCenterOpen = false;
 
 const plannerReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const PLANNER_ACTIVITY_KEY = 'questlogPlannerActivity';
 const PLANNER_ACTIVITY_LIMIT = 30;
+const OFFICIAL_UPDATE_470_URL = 'https://www.playthroneandliberty.com/en-us/news/articles/update-4-7-0';
 
 const $ = id => document.getElementById(id);
 
@@ -1082,6 +1092,25 @@ function plannerStickyOffset(){
   const style=getComputedStyle(tabs);
   if(style.position!=='sticky') return 14;
   return Math.max(14,tabs.getBoundingClientRect().height+14);
+}
+
+function officialUpdate470Html(){
+  return `
+    <div class="official-update-card">
+      <div class="official-update-head">
+        <div><h4>Official Update 4.7.0 — planner impact</h4><div class="muted">Published August 12, 2026 • official game information</div></div>
+        <a href="${OFFICIAL_UPDATE_470_URL}" target="_blank" rel="noopener">Read patch notes</a>
+      </div>
+      <ul>
+        <li>Weapon drop rates increased for <b>Ascended Talandre and Nix Field Bosses</b>.</li>
+        <li>Ramux gained 3 equipment rewards and 10 Skill Cores, including <b>Wand: Nightmare Melody</b> and <b>Gauntlets: Crimson Imprint</b>.</li>
+        <li>Talandre and Nix Guild Raid rewards increased; personal Guild eligibility still matters.</li>
+        <li>Trait Unlockstone and Trait Enchantment Stone crafting fees fell from <b>218,180</b> to <b>43,000 Sollant</b> each.</li>
+        <li>A Remnants of Nix bug that could block Redfrost Item acquisition after dying immediately following a drop was fixed.</li>
+        <li>Helping Hand eligibility expanded and 160 pre-Nix Gear Lithographs were added; these are not auto-scored until their exact reward contents and item mappings are verified.</li>
+      </ul>
+      <div class="caution"><b>No numeric drop rates were published.</b> The planner marks these routes as improved but does not invent percentages or automatically alter boss-priority scores.</div>
+    </div>`;
 }
 
 function plannerNoticeType(value){
@@ -1274,6 +1303,83 @@ function cancelPlannerScroll({holdPosition=false}={}){
   if(hadSettingsTarget) queueSettingsScrollSpy();
 }
 
+function cancelPlannerWheel(){
+  if(plannerWheelFrame){
+    cancelAnimationFrame(plannerWheelFrame);
+    plannerWheelFrame=0;
+  }
+  plannerWheelTarget=window.scrollY;
+}
+
+function plannerWheelDelta(event){
+  const scale=event.deltaMode===1 ? 34 : event.deltaMode===2 ? window.innerHeight*.88 : 1;
+  return event.deltaY*scale;
+}
+
+function plannerNestedScroller(target,delta){
+  for(let el=target instanceof Element ? target : null;el && el!==document.body;el=el.parentElement){
+    const style=getComputedStyle(el);
+    if(!['auto','scroll','overlay'].includes(style.overflowY)) continue;
+    if(el.scrollHeight<=el.clientHeight+1) continue;
+
+    const canMove=delta<0
+      ? el.scrollTop>1
+      : el.scrollTop+el.clientHeight<el.scrollHeight-1;
+    if(canMove) return el;
+  }
+  return null;
+}
+
+function plannerWheelEligible(event,delta){
+  if(plannerReducedMotion.matches || event.defaultPrevented || event.ctrlKey || event.metaKey) return false;
+  if(!Number.isFinite(delta) || Math.abs(delta)<.5 || Math.abs(event.deltaX)>Math.abs(event.deltaY)) return false;
+  if(event.deltaMode===0 && Math.abs(event.deltaY)<12) return false; // Preserve already-smooth precision touchpads.
+  if(event.target instanceof Element && event.target.closest('select,input[type="number"],input[type="range"],textarea,[contenteditable="true"]')) return false;
+  if(plannerNestedScroller(event.target,delta)) return false;
+  return true;
+}
+
+function animatePlannerWheel(now){
+  if(!plannerWheelFrame) return;
+  const current=window.scrollY;
+  const distance=plannerWheelTarget-current;
+  const elapsed=Math.max(0,now-(animatePlannerWheel.lastAt || now));
+  animatePlannerWheel.lastAt=now;
+  const blend=1-Math.exp(-Math.max(8,elapsed)/105);
+  const next=current+distance*blend;
+
+  window.scrollTo({top:Math.abs(distance)<.45?plannerWheelTarget:next,behavior:'auto'});
+
+  if(Math.abs(distance)<.45 && performance.now()-plannerWheelLastInputAt>60){
+    cancelPlannerWheel();
+    animatePlannerWheel.lastAt=0;
+    return;
+  }
+  plannerWheelFrame=requestAnimationFrame(animatePlannerWheel);
+}
+
+function handlePlannerWheel(event){
+  const delta=plannerWheelDelta(event);
+
+  // Any wheel input takes control away from a click-triggered navigation jump.
+  if(plannerScrollFrame || settingsScrollTarget) cancelPlannerScroll({holdPosition:true});
+  if(!plannerWheelEligible(event,delta)){
+    cancelPlannerWheel();
+    return;
+  }
+
+  event.preventDefault();
+  const maxTop=Math.max(0,document.documentElement.scrollHeight-window.innerHeight);
+  if(!plannerWheelFrame) plannerWheelTarget=window.scrollY;
+  plannerWheelTarget=Math.max(0,Math.min(maxTop,plannerWheelTarget+delta*.92));
+  plannerWheelLastInputAt=performance.now();
+
+  if(!plannerWheelFrame){
+    animatePlannerWheel.lastAt=0;
+    plannerWheelFrame=requestAnimationFrame(animatePlannerWheel);
+  }
+}
+
 function plannerScrollDuration(distance){
   return Math.max(360,Math.min(980,260+Math.sqrt(Math.max(0,distance))*12));
 }
@@ -1284,6 +1390,7 @@ function plannerScrollEase(progress){
 }
 
 function scrollPlannerTo(targetOrTop,{smooth=true,offset=null,settingsSection=null,defer=false}={}){
+  cancelPlannerWheel();
   cancelPlannerScroll();
   const requestId=plannerScrollRequestId;
 
@@ -1352,10 +1459,11 @@ function cancelPlannerScrollForUser(){
   cancelPlannerScroll({holdPosition:true});
 }
 
-window.addEventListener('wheel',cancelPlannerScrollForUser,{passive:true});
+window.addEventListener('wheel',handlePlannerWheel,{passive:false});
 window.addEventListener('touchstart',cancelPlannerScrollForUser,{passive:true});
 window.addEventListener('keydown',event=>{
   if(['PageUp','PageDown','Home','End','ArrowUp','ArrowDown',' '].includes(event.key)){
+    cancelPlannerWheel();
     cancelPlannerScrollForUser();
   }
 });
@@ -4065,6 +4173,7 @@ function renderBossPriority(){
     </div>` : '';
 
   $('viewBoss').innerHTML = `
+    ${officialUpdate470Html()}
     <div class="boss-layout">
       <div class="boss-card">
         <h3>${previewMode ? 'Archboss Schedule Preview' : "Today's Archboss Decision"} ${previewMode ? '<span class="preview-badge">Preview mode</span>' : ''}</h3>
@@ -5183,8 +5292,15 @@ function frontendHealthChecks(){
   checks.push(healthClientCheck(
     'motion_aware_navigation',
     'Motion-aware navigation',
-    typeof scrollPlannerTo==='function' && typeof cancelPlannerScrollForUser==='function' && typeof plannerScrollDuration==='function' && typeof plannerScrollEase==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
-    'Workspace, Settings, item-card, and back-to-top navigation share one distance-aware eased controller that remains cancellable and honors reduced-motion preferences.'
+    typeof scrollPlannerTo==='function' && typeof handlePlannerWheel==='function' && typeof plannerNestedScroller==='function' && typeof plannerScrollDuration==='function' && typeof plannerScrollEase==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
+    'Click navigation and discrete mouse-wheel input use separate eased controllers; nested scroll areas, precision touchpads, and reduced-motion preferences retain native behavior.'
+  ));
+
+  checks.push(healthClientCheck(
+    'official_game_update_470',
+    'Official game update 4.7.0 context',
+    typeof officialUpdate470Html==='function' && OFFICIAL_UPDATE_470_URL.includes('/update-4-7-0') ? 'pass' : 'fail',
+    'Official drop-table, Field Boss, Guild Raid, Sollant, and Redfrost changes are surfaced without inventing unpublished numeric drop rates.'
   ));
 
   checks.push(healthClientCheck(
@@ -6483,6 +6599,7 @@ function renderDashboard(){
   `).join('');
 
   $('dashboardBody').innerHTML = `
+    ${officialUpdate470Html()}
     <div class="status-bar">
       <div class="status-box"><b>${counts['not-started']}</b><span>Not started</span></div>
       <div class="status-box"><b>${counts.farming}</b><span>Farming</span></div>

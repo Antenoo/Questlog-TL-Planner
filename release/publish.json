@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.8",
-  "publish": false,
+  "version": "22.0.9",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Replaces native smooth scrolling with a distance-aware eased animation for softer acceleration, longer glides, and gentler settling while preserving instant reduced-motion behavior and immediate user cancellation. Adds a compact session-local Planner Activity center with unread counts and non-blocking toasts for saves, scans, updates, exports, warnings, and failures. Browser alert messages are replaced with persistent local activity feedback; destructive confirmations remain explicit. Planner data and scan state are unchanged."
+  "notes": "Adds inertial scrolling for discrete mouse-wheel input with progressive easing and accumulation, while preserving native behavior for nested scroll panels, precision touchpads, form controls, and reduced-motion preferences. Surfaces official Throne and Liberty Update 4.7.0 planner context for improved Ascended Talandre and Nix Field Boss weapon drops, Ramux additions, Guild Raid rewards, reduced Trait-stone Sollant fees, Redfrost acquisition fixes, Helping Hand, and Lithographs. No unpublished drop percentages are invented and boss scores are not changed automatically. Planner data and scan state are unchanged."
 }

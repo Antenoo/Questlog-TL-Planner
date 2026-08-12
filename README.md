@@ -1717,3 +1717,39 @@ planner actions.
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials,
 Sollant, weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.9 - Inertial wheel scrolling and official 4.7.0 context
+
+This release extends the motion controller to physical mouse-wheel input and records
+the planner impact of the official Throne and Liberty Update 4.7.0 notes.
+
+### Mouse-wheel motion
+
+- Discrete wheel steps accumulate into one smoothly eased destination instead of moving
+  the page in rigid jumps.
+- The glide remains interruptible by new navigation, keyboard input, or touch; a change
+  in wheel direction immediately retargets the eased destination.
+- Nested activity panels, update notes, form controls, and other independently scrollable
+  areas retain their native behavior.
+- Small precision-touchpad deltas remain native because those devices already provide
+  smooth pixel-level motion.
+- Reduced-motion preferences continue to disable animation.
+
+### Official Update 4.7.0 context
+
+- Ascended Talandre and Nix Field Boss weapon drop rates increased, but the official notes
+  did not publish numeric percentages.
+- Ramux gained three equipment rewards and ten Skill Cores, including Wand: Nightmare
+  Melody and Gauntlets: Crimson Imprint.
+- Talandre and Nix Guild Raid rewards increased; personal eligibility is still required.
+- Trait Unlockstone and Trait Enchantment Stone crafting fees fell from 218,180 to
+  43,000 Sollant each.
+- A Remnants of Nix issue that could prevent Redfrost Item acquisition after a death was
+  fixed.
+- Expanded Helping Hand rewards and new pre-Nix Gear Lithographs are shown as context but
+  are not auto-scored without exact reward contents and item mappings.
+
+The planner does not invent drop rates or automatically alter boss scores from qualitative
+patch-note wording. Planner data, cached Questlog pages, scan history, progress, priorities,
+materials, Sollant, weekly/daily state, backups, and user knowledge are unchanged.
