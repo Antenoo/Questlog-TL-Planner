@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.12",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Adds a reduced-motion-aware revolving planner promise inspired by the supplied reference: the fixed phrase stays in place while upgrade, boss, crafting, and weekly goals transition vertically. Replaces the always-visible workspace button grid with an original two-level application header: a live context rail for completion, next target, patch review, and health; a compact logo/navigation bar; and accessible grouped mega menus for Plan, Progress, Library, and System destinations. Menus support pointer hover, click/tap, Escape, outside-click closing, current-group highlighting, and responsive two-column mobile context. Planner data and scan state are unchanged."
