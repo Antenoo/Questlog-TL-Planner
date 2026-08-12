@@ -154,7 +154,7 @@
     .settings-nav button:hover,.settings-nav button.active{background:#1b2735;color:#edf5ff}
     .settings-nav button.active{box-shadow:inset 3px 0 0 #6ab7ff}
     .settings-main{min-width:0}
-    .settings-card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px;margin-bottom:11px;scroll-margin-top:24px}
+    .settings-card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px;margin-bottom:11px;scroll-margin-top:26px}
     .settings-card h3{margin:0 0 5px}
     .settings-card>p{margin:0 0 11px;color:var(--muted);font-size:11px;line-height:1.45}
     .setting-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,280px);gap:16px;align-items:center;padding:10px 0;border-top:1px solid #222d3a}
@@ -681,6 +681,9 @@
     }
 
     @media(max-width:760px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.livegrid{grid-template-columns:repeat(2,1fr)}}
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto!important}
+    }
   </style>
 </head>
 <body>
@@ -688,7 +691,7 @@
   <div class="app-title-row">
     <div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Local web app v__PLANNER_VERSION__ • reliable update navigation</div>
+      <div class="sub">Local web app v__PLANNER_VERSION__ • fluid motion-aware navigation</div>
     </div>
     <span class="app-version-chip">Local planner <b>v__PLANNER_VERSION__</b></span>
   </div>
@@ -862,6 +865,11 @@ let liveUpdateState = {status:'idle',release:null,error:''};
 let liveUpdateChecking = false;
 let activeSettingsSection = 'startup';
 let settingsScrollSpyQueued = false;
+let settingsScrollTarget = null;
+let plannerScrollRequestId = 0;
+let plannerScrollFrame = 0;
+
+const plannerReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const $ = id => document.getElementById(id);
 
@@ -1016,17 +1024,120 @@ const VIEW_HOSTS = {
   raw:'viewRaw'
 };
 
+function plannerStickyOffset(){
+  const tabs=document.querySelector('.tabs');
+  if(!tabs) return 14;
+
+  const style=getComputedStyle(tabs);
+  if(style.position!=='sticky') return 14;
+  return Math.max(14,tabs.getBoundingClientRect().height+14);
+}
+
+function finishPlannerScroll(requestId){
+  if(requestId!==plannerScrollRequestId) return;
+  if(plannerScrollFrame){
+    cancelAnimationFrame(plannerScrollFrame);
+    plannerScrollFrame=0;
+  }
+  settingsScrollTarget=null;
+  queueSettingsScrollSpy();
+}
+
+function cancelPlannerScroll({holdPosition=false}={}){
+  plannerScrollRequestId+=1;
+  if(plannerScrollFrame){
+    cancelAnimationFrame(plannerScrollFrame);
+    plannerScrollFrame=0;
+  }
+  const hadSettingsTarget=Boolean(settingsScrollTarget);
+  settingsScrollTarget=null;
+  if(holdPosition){
+    window.scrollTo({top:window.scrollY,behavior:'auto'});
+  }
+  if(hadSettingsTarget) queueSettingsScrollSpy();
+}
+
+function scrollPlannerTo(targetOrTop,{smooth=true,offset=null,settingsSection=null,defer=false}={}){
+  cancelPlannerScroll();
+  const requestId=plannerScrollRequestId;
+
+  if(SETTINGS_SECTIONS.includes(settingsSection)){
+    settingsScrollTarget=settingsSection;
+    setSettingsNavActive(settingsSection);
+  }
+
+  const run=()=>{
+    if(requestId!==plannerScrollRequestId) return;
+
+    const target=typeof targetOrTop==='function' ? targetOrTop() : targetOrTop;
+    const maxTop=Math.max(0,document.documentElement.scrollHeight-window.innerHeight);
+    let top;
+
+    if(typeof target==='number'){
+      top=target;
+    }else if(target instanceof Element){
+      const resolvedOffset=typeof offset==='function' ? Number(offset()) : Number(offset);
+      const cssMargin=Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+      top=window.scrollY + target.getBoundingClientRect().top -
+        (Number.isFinite(resolvedOffset)?resolvedOffset:cssMargin);
+    }else{
+      finishPlannerScroll(requestId);
+      return;
+    }
+
+    top=Math.max(0,Math.min(maxTop,top));
+    const behavior=smooth && !plannerReducedMotion.matches ? 'smooth' : 'auto';
+    window.scrollTo({top,behavior});
+
+    if(behavior==='auto'){
+      plannerScrollFrame=requestAnimationFrame(()=>finishPlannerScroll(requestId));
+      return;
+    }
+
+    const started=performance.now();
+    let settledFrames=0;
+    const watch=now=>{
+      if(requestId!==plannerScrollRequestId) return;
+      if(Math.abs(window.scrollY-top)<=2) settledFrames+=1;
+      else settledFrames=0;
+
+      if(settledFrames>=2 || now-started>=1600){
+        finishPlannerScroll(requestId);
+        return;
+      }
+      plannerScrollFrame=requestAnimationFrame(watch);
+    };
+    plannerScrollFrame=requestAnimationFrame(watch);
+  };
+
+  if(defer){
+    requestAnimationFrame(()=>requestAnimationFrame(run));
+  }else{
+    run();
+  }
+  return true;
+}
+
+function cancelPlannerScrollForUser(){
+  if(!plannerScrollFrame && !settingsScrollTarget) return;
+  cancelPlannerScroll({holdPosition:true});
+}
+
+window.addEventListener('wheel',cancelPlannerScrollForUser,{passive:true});
+window.addEventListener('touchstart',cancelPlannerScrollForUser,{passive:true});
+window.addEventListener('keydown',event=>{
+  if(['PageUp','PageDown','Home','End','ArrowUp','ArrowDown',' '].includes(event.key)){
+    cancelPlannerScrollForUser();
+  }
+});
+
 function scrollPlannerTabsIntoView(){
   const tabs=document.querySelector('.tabs');
   if(!tabs) return;
 
   // Let the selected view finish rendering first, then bring the tab bar and
   // the beginning of the selected content into the viewport.
-  requestAnimationFrame(()=>{
-    requestAnimationFrame(()=>{
-      tabs.scrollIntoView({behavior:'smooth',block:'start'});
-    });
-  });
+  scrollPlannerTo(()=>document.querySelector('.tabs'),{smooth:true,defer:true});
 }
 
 function activateView(view,{ensureResults=false,scroll=false}={}){
@@ -1078,16 +1189,9 @@ function activateView(view,{ensureResults=false,scroll=false}={}){
 const SETTINGS_SECTIONS = ['startup','scanning','planner','safety','updates','about'];
 
 function settingsStickyOffset(){
-  if(document.body.classList.contains('settings-view-active')) return 14;
-
-  const tabs=document.querySelector('.tabs');
-  if(!tabs) return 14;
-
-  const style=getComputedStyle(tabs);
-  if(style.position!=='sticky') return 14;
-
-  const rect=tabs.getBoundingClientRect();
-  return Math.max(14,rect.height+14);
+  return document.body.classList.contains('settings-view-active')
+    ? 14
+    : plannerStickyOffset();
 }
 
 function settingsFocusY(){
@@ -1118,18 +1222,11 @@ function scrollToSettingsSection(section,{smooth=true}={}){
   setSettingsNavActive(section);
   updateSettingsStickyOffset();
 
-  // Keep the heading visibly inside the viewport instead of touching the top.
-  const offset=settingsStickyOffset()+12;
-  const top=Math.max(
-    0,
-    window.scrollY + target.getBoundingClientRect().top - offset
-  );
-
-  window.scrollTo({
-    top,
-    behavior:smooth?'smooth':'auto'
+  return scrollPlannerTo(target,{
+    smooth,
+    offset:()=>settingsStickyOffset()+12,
+    settingsSection:section
   });
-  return true;
 }
 
 function openSettingsSection(section,{smooth=true}={}){
@@ -1142,11 +1239,15 @@ function openSettingsSection(section,{smooth=true}={}){
   // renderSettings() replaces the Settings DOM, so wait for layout twice before
   // calculating the destination. Capture the requested section because the
   // scroll spy can update activeSettingsSection while a smooth jump is running.
-  requestAnimationFrame(()=>{
-    requestAnimationFrame(()=>{
-      scrollToSettingsSection(targetSection,{smooth});
-    });
-  });
+  scrollPlannerTo(
+    ()=>document.getElementById(`settings-${targetSection}`),
+    {
+      smooth,
+      offset:()=>settingsStickyOffset()+12,
+      settingsSection:targetSection,
+      defer:true
+    }
+  );
   return true;
 }
 
@@ -1157,6 +1258,13 @@ function updateSettingsScrollSpy(){
   if(!host || host.style.display==='none') return;
 
   updateSettingsStickyOffset();
+
+  // Keep the clicked destination highlighted while the shared scroll
+  // controller moves through intermediate sections.
+  if(settingsScrollTarget){
+    setSettingsNavActive(settingsScrollTarget);
+    return;
+  }
 
   const focusY=settingsFocusY();
   const sections=SETTINGS_SECTIONS
@@ -2635,7 +2743,7 @@ function openUpgradePathSlot(slotIndex){
   $('viewRaw').style.display='none';
 
   const card=document.querySelector(`[data-path-slot="${Number(slotIndex)}"]`);
-  if(card) card.scrollIntoView({behavior:'smooth',block:'start'});
+  if(card) scrollPlannerTo(card,{smooth:true,offset:plannerStickyOffset});
 }
 
 
@@ -4785,14 +4893,21 @@ function frontendHealthChecks(){
   checks.push(healthClientCheck(
     'settings_section_navigation',
     'Settings section navigation',
-    SETTINGS_SECTIONS.length===6 && typeof scrollToSettingsSection==='function' && typeof updateSettingsScrollSpy==='function' ? 'pass' : 'fail',
-    `${SETTINGS_SECTIONS.length} Settings section(s) registered with deep-link scrolling and midpoint-based section tracking.`
+    SETTINGS_SECTIONS.length===6 && typeof scrollToSettingsSection==='function' && typeof updateSettingsScrollSpy==='function' && typeof scrollPlannerTo==='function' ? 'pass' : 'fail',
+    `${SETTINGS_SECTIONS.length} Settings section(s) registered with motion-aware scrolling, locked destinations, and midpoint-based section tracking.`
+  ));
+
+  checks.push(healthClientCheck(
+    'motion_aware_navigation',
+    'Motion-aware navigation',
+    typeof scrollPlannerTo==='function' && typeof cancelPlannerScrollForUser==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
+    'Workspace, Settings, item-card, and back-to-top navigation share one cancellable controller that honors reduced-motion preferences.'
   ));
 
   checks.push(healthClientCheck(
     'workspace_navigation',
     'Grouped workspace navigation',
-    document.querySelectorAll('.tab-group').length===4 && Boolean($('backTopBtn')) ? 'pass' : 'fail',
+    document.querySelectorAll('.tab-group').length===4 && Boolean($('backTopBtn')) && typeof plannerStickyOffset==='function' ? 'pass' : 'fail',
     `${document.querySelectorAll('.tab-group').length} navigation group(s) rendered; back-to-top control ${$('backTopBtn')?'available':'missing'}.`
   ));
 
@@ -5172,7 +5287,7 @@ function openFarmItem(idx){
     const completedDrawer = card.closest('details.completed-drawer');
     if(completedDrawer) completedDrawer.open = true;
     card.open = true;
-    card.scrollIntoView({behavior:'smooth', block:'start'});
+    scrollPlannerTo(card,{smooth:true,offset:plannerStickyOffset});
   }
 }
 
@@ -6716,12 +6831,12 @@ function updateBackTopVisibility(){
 }
 window.addEventListener('scroll',updateBackTopVisibility,{passive:true});
 if(backTopBtn){
-  backTopBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+  backTopBtn.onclick=()=>scrollPlannerTo(0,{smooth:true});
 }
 updateBackTopVisibility();
 
 document.querySelectorAll('.tab').forEach(btn=>{
-  btn.onclick = () => activateView(btn.dataset.view);
+  btn.onclick = () => activateView(btn.dataset.view,{scroll:true});
 });
 
 $('expandAllBtn').onclick = () => {

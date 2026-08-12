@@ -1677,3 +1677,21 @@ This release fixes the top **Check for Updates** navigation shortcut.
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials,
 Sollant, weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.7 - Fluid motion-aware navigation
+
+This release gives the planner one consistent scrolling system.
+
+- Workspace tabs, Settings sections, item cards, and **Back to top** now use one
+  shared motion controller.
+- A newer navigation click cancels an older pending or active scroll.
+- Item headings stop below the sticky workspace navigation on desktop and use a
+  compact offset when the navigation is no longer sticky.
+- Settings keeps the requested section highlighted while moving through intermediate
+  sections, preventing scrollspy flicker during programmatic navigation.
+- Mouse-wheel, touch, and keyboard scrolling immediately return control to the user.
+- Windows and browser reduced-motion preferences disable smooth animation automatically.
+
+Planner data, cached Questlog pages, scan history, progress, priorities, materials,
+Sollant, weekly/daily state, backups, and user knowledge are unchanged.
