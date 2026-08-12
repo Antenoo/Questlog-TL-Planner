@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.10",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Speeds up inertial mouse-wheel easing by about 16% while preserving accumulation, precision-touchpad behavior, nested scroll panels, form controls, and reduced-motion preferences. Adds a persistent Patch Impact Inbox with a visual hero, review summary tiles, filters, evidence/action cards, and Needs review, Watching, or Reviewed workflow for six official Update 4.7.0 impacts. Compact dashboard and boss banners open the inbox without repeating a dense patch-note list. Review states never alter scores, probabilities, or costs automatically. Planner data and scan state are unchanged."
