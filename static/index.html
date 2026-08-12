@@ -698,12 +698,53 @@
     .activity-item-copy b{display:block;font-size:11px;margin-bottom:2px}
     .activity-item-copy p{margin:0;color:#b9c6d4;font-size:10px;line-height:1.4;white-space:pre-line}
     .activity-item-copy time{display:block;margin-top:4px;color:#708398;font-size:9px}
-    .official-update-card{margin:12px 0;padding:12px;border:1px solid #355b7b;border-radius:11px;background:linear-gradient(135deg,#112333,#101922);box-shadow:inset 3px 0 0 #6ab7ff}
-    .official-update-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:7px}
-    .official-update-head h4{margin:0;color:#d9edff}
-    .official-update-head a{white-space:nowrap;font-size:10px}
-    .official-update-card ul{margin:7px 0 0;padding-left:18px;color:#bfd0df;font-size:11px;line-height:1.5}
-    .official-update-card .caution{margin-top:8px;padding-top:8px;border-top:1px solid #2b465d;color:#f2d28a;font-size:10px;line-height:1.45}
+    .official-update-card{position:relative;overflow:hidden;margin:14px 0;padding:16px;border:1px solid #355b7b;border-radius:14px;background:radial-gradient(circle at 88% 15%,rgba(91,92,225,.22),transparent 28%),linear-gradient(135deg,#142a3d,#101922 66%);box-shadow:0 12px 30px rgba(0,0,0,.17),inset 3px 0 0 #6ab7ff}
+    .official-update-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+    .official-update-head h4{margin:3px 0 4px;color:#e7f4ff;font-size:16px}
+    .official-update-head p{margin:0;max-width:620px;color:#aebfd0;font-size:11px;line-height:1.5}
+    .official-update-kicker,.patch-hero-kicker{text-transform:uppercase;letter-spacing:.13em;color:#7fc5ff;font-size:9px;font-weight:900}
+    .official-update-mark{display:flex;align-items:center;justify-content:center;flex:0 0 54px;height:54px;border:1px solid rgba(127,197,255,.32);border-radius:15px;background:rgba(21,37,55,.76);color:#cceaff;font-size:18px;font-weight:950;box-shadow:inset 0 0 24px rgba(106,183,255,.08)}
+    .official-update-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px;max-width:520px}
+    .official-update-stats>div{padding:8px 10px;border:1px solid #2b4258;border-radius:9px;background:rgba(9,16,24,.5)}
+    .official-update-stats b{display:block;color:#f4f8fc;font-size:15px}
+    .official-update-stats span{color:#8296aa;font-size:9px}
+    .official-update-actions{display:flex;align-items:center;gap:12px;margin-top:13px}
+    .official-update-actions button{padding:7px 11px;font-size:10px}
+    .official-update-actions a{font-size:10px}
+    .patch-inbox-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:24px;align-items:center;overflow:hidden;margin:4px 0 18px;padding:28px;border:1px solid #33485f;border-radius:18px;background:radial-gradient(circle at 80% 18%,rgba(111,73,220,.28),transparent 32%),radial-gradient(circle at 20% 100%,rgba(57,136,189,.18),transparent 35%),#101923;box-shadow:0 18px 40px rgba(0,0,0,.22)}
+    .patch-hero-copy{max-width:720px}
+    .patch-hero-copy h2{margin:6px 0 8px;color:#f4f8ff;font-size:28px;line-height:1.1}
+    .patch-hero-copy>p{max-width:650px;margin:0;color:#aebdcb;font-size:12px;line-height:1.65}
+    .patch-hero-actions{display:flex;align-items:center;gap:14px;margin-top:18px}
+    .patch-hero-actions .button-link{display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;text-decoration:none;font-size:10px}
+    .patch-hero-actions>span{color:#73879b;font-size:10px}
+    .patch-hero-art{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:142px;border:1px solid rgba(160,130,255,.26);border-radius:20px;background:linear-gradient(145deg,rgba(42,36,77,.82),rgba(17,27,39,.64));box-shadow:inset 0 0 42px rgba(111,73,220,.12)}
+    .patch-hero-art>span{color:#a99aff;font-size:15px;font-weight:900;letter-spacing:.14em}
+    .patch-hero-art>b{margin:2px 0;color:#fff;font-size:46px;line-height:1}
+    .patch-hero-art>small{color:#8d9db0;font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+    .patch-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px}
+    .patch-summary-card{position:relative;text-align:left;padding:14px;border:1px solid #2b3b4d;border-radius:12px;background:#111a24;color:#dbe8f4;box-shadow:none}
+    .patch-summary-card:hover,.patch-summary-card.active{border-color:#619ad0;background:#162433;transform:translateY(-1px)}
+    .patch-summary-card.review{box-shadow:inset 0 3px 0 #e7b75b}.patch-summary-card.watching{box-shadow:inset 0 3px 0 #6ab7ff}.patch-summary-card.reviewed{box-shadow:inset 0 3px 0 #65d493}
+    .patch-summary-card span{display:block;color:#9badbf;font-size:10px;font-weight:800}
+    .patch-summary-card b{display:block;margin:5px 0 2px;color:#fff;font-size:24px}
+    .patch-summary-card small{color:#6f8295;font-size:9px}
+    .patch-inbox-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 2px 10px}
+    .patch-inbox-toolbar>div:first-child{display:flex;align-items:baseline;gap:8px}.patch-inbox-toolbar>div:first-child span{color:#71859a;font-size:10px}
+    .patch-filter-chips{display:flex;gap:5px}.patch-filter-chips button{padding:5px 9px;border-radius:999px;background:#121d28;color:#8fa4b8;font-size:9px;box-shadow:none}.patch-filter-chips button.active{background:#244665;color:#eaf6ff;border-color:#4b7da8}
+    .patch-impact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .patch-impact-card{position:relative;padding:16px;border:1px solid #293a4c;border-radius:14px;background:linear-gradient(145deg,#121d28,#0f1720);box-shadow:0 9px 22px rgba(0,0,0,.14)}
+    .patch-impact-card.priority-high{border-top-color:#d2926e}.patch-impact-card.priority-medium{border-top-color:#6b9fc9}.patch-impact-card.priority-low{border-top-color:#557466}
+    .patch-impact-top{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:11px;align-items:start}
+    .patch-impact-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #35516b;border-radius:11px;background:#172b3d;color:#8ecaff;font-size:17px;font-weight:900}
+    .patch-impact-meta{display:flex;gap:7px;color:#71879c;font-size:8px;text-transform:uppercase;letter-spacing:.08em}.patch-impact-meta span+span:before{content:'•';margin-right:7px}
+    .patch-impact-heading h3{margin:4px 0 0;color:#e5eff8;font-size:13px;line-height:1.35}
+    .patch-status{padding:4px 7px;border:1px solid #43556a;border-radius:999px;color:#a9b6c4;font-size:8px;font-weight:900;text-transform:uppercase;white-space:nowrap}.patch-status.needs-review{border-color:#755e34;color:#f0c975;background:#2b2417}.patch-status.watching{border-color:#345c7f;color:#8dcaff;background:#14283a}.patch-status.reviewed{border-color:#35684b;color:#86e1a8;background:#142b20}
+    .patch-impact-zones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+    .patch-impact-zones>div{min-height:92px;padding:11px;border-radius:10px}.patch-evidence{background:#0d151e;border:1px solid #223243}.patch-action{background:#132233;border:1px solid #29445e}
+    .patch-impact-zones span{color:#7590a8;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.patch-impact-zones p{margin:5px 0 0;color:#b4c2cf;font-size:10px;line-height:1.5}
+    .patch-card-actions{display:flex;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid #22303e}.patch-status-button{padding:5px 8px;background:transparent;color:#73889c;border-color:#2b3c4e;border-radius:7px;font-size:8px;box-shadow:none}.patch-status-button.active{background:#21364a;color:#d8ecff;border-color:#48759b}
+    .patch-safety-note{margin-top:14px;padding:11px 13px;border:1px solid #5d4c2d;border-radius:10px;background:#211d15;color:#d8c38f;font-size:10px;line-height:1.5}
     .workspace-intro{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-2px 0 8px;padding:0 2px}
     .workspace-intro b{font-size:12px}
     .workspace-intro span{font-size:10px;color:var(--muted)}
@@ -711,6 +752,7 @@
       .tabs{position:static}
       .tab-group{width:100%}
       .active-view-hint{display:none}
+      .patch-impact-grid{grid-template-columns:1fr}
     }
     @media(max-width:760px){
       .scan-primary,.scan-secondary,.scan-maintenance,.result-actions-primary,.result-tools-body{align-items:stretch}
@@ -718,6 +760,13 @@
       #backTopBtn{right:12px;bottom:12px}
       .toast-region,.activity-center{top:10px;right:10px;left:10px;width:auto}
       .activity-center{max-height:calc(100vh - 20px)}
+      .patch-inbox-hero{grid-template-columns:1fr;padding:20px}.patch-hero-art{display:none}.patch-hero-copy h2{font-size:23px}
+      .patch-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .patch-inbox-toolbar{align-items:flex-start;flex-direction:column}.patch-filter-chips{flex-wrap:wrap}
+      .patch-impact-top{grid-template-columns:38px minmax(0,1fr)}.patch-status{grid-column:2;justify-self:start}
+      .patch-impact-zones{grid-template-columns:1fr}.patch-impact-zones>div{min-height:0}
+      .patch-card-actions{flex-wrap:wrap}
+      .official-update-mark{display:none}.official-update-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
 
     @media(max-width:760px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.livegrid{grid-template-columns:repeat(2,1fr)}}
@@ -732,7 +781,7 @@
   <div class="app-title-row">
     <div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Local web app v__PLANNER_VERSION__ • inertial wheel scrolling and 4.7.0 context</div>
+      <div class="sub">Local web app v__PLANNER_VERSION__ • faster wheel motion and Patch Impact Inbox</div>
     </div>
     <span class="app-version-chip">Local planner <b>v__PLANNER_VERSION__</b></span>
   </div>
@@ -830,6 +879,7 @@
         <span class="tab-group-label">Plan</span>
         <button class="tab active" data-view="dashboard">Farm Dashboard</button>
         <button class="tab" data-view="boss">Boss Priority</button>
+        <button class="tab" data-view="patches">Patch Inbox</button>
         <button class="tab" data-view="week">Week Planner</button>
       </div>
       <div class="tab-group">
@@ -858,6 +908,7 @@
       <div id="dashboardBody"></div>
     </div>
     <div id="viewBoss" style="display:none"></div>
+    <div id="viewPatches" style="display:none"></div>
     <div id="viewWeek" style="display:none"></div>
     <div id="viewFarm" style="display:none"></div>
     <div id="viewPaths" style="display:none"></div>
@@ -926,11 +977,51 @@ let plannerWheelTarget = 0;
 let plannerWheelLastInputAt = 0;
 let plannerNotices = [];
 let activityCenterOpen = false;
+let patchInboxFilter = 'all';
 
 const plannerReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const PLANNER_ACTIVITY_KEY = 'questlogPlannerActivity';
 const PLANNER_ACTIVITY_LIMIT = 30;
 const OFFICIAL_UPDATE_470_URL = 'https://www.playthroneandliberty.com/en-us/news/articles/update-4-7-0';
+const PLANNER_WHEEL_EASE_MS = 88;
+const PATCH_IMPACTS_470 = [
+  {
+    id:'field-boss-drops',icon:'↑',area:'Field Bosses',priority:'high',defaultStatus:'watching',
+    title:'Nix and Ascended Talandre weapon drops increased',
+    evidence:'The official notes confirm higher weapon drop rates, but do not publish numeric percentages.',
+    action:'Keep current probability assumptions unchanged. Watch updated Questlog tables or verified player data before recalculating boss value.'
+  },
+  {
+    id:'ramux-rewards',icon:'+',area:'Drop table',priority:'high',defaultStatus:'needs-review',
+    title:'Ramux gained equipment and Skill Core rewards',
+    evidence:'Three equipment rewards and ten Skill Cores were added, including Wand: Nightmare Melody and Gauntlets: Crimson Imprint.',
+    action:'Refresh Ramux source data after Questlog publishes the new table, then map any rewards required by the active build.'
+  },
+  {
+    id:'guild-raid-rewards',icon:'◆',area:'Guild Raids',priority:'medium',defaultStatus:'watching',
+    title:'Talandre and Nix Guild Raid rewards increased',
+    evidence:'Reward output increased, while personal Guild participation eligibility still controls whether the route has value.',
+    action:'Preserve the eligibility toggle. Revisit Guild Raid weighting when exact reward quantities are available.'
+  },
+  {
+    id:'trait-stone-fees',icon:'₩',area:'Economy',priority:'high',defaultStatus:'needs-review',
+    title:'Trait-stone crafting fees dropped sharply',
+    evidence:'Trait Unlockstone and Trait Enchantment Stone fees fell from 218,180 to 43,000 Sollant each.',
+    action:'Audit any Sollant estimates that include these recipes and update only formulas that actually reference the old fee.'
+  },
+  {
+    id:'redfrost-fix',icon:'✓',area:'Bug fix',priority:'low',defaultStatus:'reviewed',
+    title:'Redfrost acquisition-after-death issue fixed',
+    evidence:'Remnants of Nix drops should no longer be lost when a player dies immediately after the enemy drops the item.',
+    action:'No probability adjustment needed. Keep as verified route context for future troubleshooting.'
+  },
+  {
+    id:'helping-hand-lithographs',icon:'?',area:'New routes',priority:'medium',defaultStatus:'needs-review',
+    title:'Helping Hand expanded and 160 Lithographs added',
+    evidence:'Helping Hand eligibility expanded, and pre-Nix Gear Lithographs were added without complete reward contents or item mappings in the notes.',
+    action:'Hold scoring changes until exact reward contents and Lithograph-to-item mappings can be verified.'
+  }
+];
 
 const $ = id => document.getElementById(id);
 
@@ -1017,6 +1108,7 @@ const SETTINGS_DEFAULTS = {
 const SETTINGS_TABS = [
   ['dashboard','Farm Dashboard'],
   ['boss','Boss Priority'],
+  ['patches','Patch Inbox'],
   ['week','Week Planner'],
   ['farm','Farm Plan'],
   ['paths','Upgrade Paths'],
@@ -1055,6 +1147,9 @@ function normalizedSettings(){
   s.default_guild_eligible=Boolean(s.default_guild_eligible);
   s.update_repository=String(s.update_repository || '').trim();
   s.auto_check_updates=Boolean(s.auto_check_updates);
+  s.patch_inbox_reviews=(s.patch_inbox_reviews && typeof s.patch_inbox_reviews==='object' && !Array.isArray(s.patch_inbox_reviews))
+    ? s.patch_inbox_reviews
+    : {};
 
   return s;
 }
@@ -1073,6 +1168,7 @@ function applySettingsToControls(){
 const VIEW_HOSTS = {
   dashboard:'viewDashboard',
   boss:'viewBoss',
+  patches:'viewPatches',
   week:'viewWeek',
   farm:'viewFarm',
   paths:'viewPaths',
@@ -1095,22 +1191,131 @@ function plannerStickyOffset(){
 }
 
 function officialUpdate470Html(){
+  const counts=patchImpactCounts();
   return `
     <div class="official-update-card">
       <div class="official-update-head">
-        <div><h4>Official Update 4.7.0 — planner impact</h4><div class="muted">Published August 12, 2026 • official game information</div></div>
-        <a href="${OFFICIAL_UPDATE_470_URL}" target="_blank" rel="noopener">Read patch notes</a>
+        <div>
+          <div class="official-update-kicker">Official patch • 4.7.0</div>
+          <h4>Six changes are waiting in the Patch Impact Inbox</h4>
+          <p>Review confirmed game changes separately from planner assumptions and scoring.</p>
+        </div>
+        <span class="official-update-mark">4.7</span>
       </div>
-      <ul>
-        <li>Weapon drop rates increased for <b>Ascended Talandre and Nix Field Bosses</b>.</li>
-        <li>Ramux gained 3 equipment rewards and 10 Skill Cores, including <b>Wand: Nightmare Melody</b> and <b>Gauntlets: Crimson Imprint</b>.</li>
-        <li>Talandre and Nix Guild Raid rewards increased; personal Guild eligibility still matters.</li>
-        <li>Trait Unlockstone and Trait Enchantment Stone crafting fees fell from <b>218,180</b> to <b>43,000 Sollant</b> each.</li>
-        <li>A Remnants of Nix bug that could block Redfrost Item acquisition after dying immediately following a drop was fixed.</li>
-        <li>Helping Hand eligibility expanded and 160 pre-Nix Gear Lithographs were added; these are not auto-scored until their exact reward contents and item mappings are verified.</li>
-      </ul>
-      <div class="caution"><b>No numeric drop rates were published.</b> The planner marks these routes as improved but does not invent percentages or automatically alter boss-priority scores.</div>
+      <div class="official-update-stats">
+        <div><b data-patch-count="needs-review">${counts['needs-review']}</b><span>Needs review</span></div>
+        <div><b data-patch-count="watching">${counts.watching}</b><span>Watching</span></div>
+        <div><b data-patch-count="reviewed">${counts.reviewed}</b><span>Reviewed</span></div>
+      </div>
+      <div class="official-update-actions">
+        <button class="primary" data-open-patch-inbox>Open Patch Inbox</button>
+        <a href="${OFFICIAL_UPDATE_470_URL}" target="_blank" rel="noopener">Official notes ↗</a>
+      </div>
     </div>`;
+}
+
+function patchImpactReviewMap(){
+  return normalizedSettings().patch_inbox_reviews;
+}
+
+function patchImpactStatus(item){
+  const saved=patchImpactReviewMap()[item.id];
+  return ['needs-review','watching','reviewed'].includes(saved) ? saved : item.defaultStatus;
+}
+
+function patchImpactCounts(){
+  const counts={'needs-review':0,watching:0,reviewed:0};
+  for(const item of PATCH_IMPACTS_470) counts[patchImpactStatus(item)]++;
+  return counts;
+}
+
+function patchStatusLabel(status){
+  return status==='needs-review' ? 'Needs review' : status==='watching' ? 'Watching' : 'Reviewed';
+}
+
+function patchImpactCardHtml(item){
+  const status=patchImpactStatus(item);
+  return `
+    <article class="patch-impact-card priority-${esc(item.priority)}" data-patch-status="${esc(status)}">
+      <div class="patch-impact-top">
+        <span class="patch-impact-icon" aria-hidden="true">${esc(item.icon)}</span>
+        <div class="patch-impact-heading">
+          <div class="patch-impact-meta"><span>${esc(item.area)}</span><span>${esc(item.priority)} impact</span></div>
+          <h3>${esc(item.title)}</h3>
+        </div>
+        <span class="patch-status ${esc(status)}">${patchStatusLabel(status)}</span>
+      </div>
+      <div class="patch-impact-zones">
+        <div class="patch-evidence"><span>Confirmed in patch notes</span><p>${esc(item.evidence)}</p></div>
+        <div class="patch-action"><span>Planner action</span><p>${esc(item.action)}</p></div>
+      </div>
+      <div class="patch-card-actions" aria-label="Review status for ${esc(item.title)}">
+        ${['needs-review','watching','reviewed'].map(option=>`
+          <button class="patch-status-button ${status===option?'active':''}" data-patch-id="${esc(item.id)}" data-patch-set-status="${option}">${patchStatusLabel(option)}</button>
+        `).join('')}
+      </div>
+    </article>`;
+}
+
+function renderPatchInbox(){
+  const host=$('viewPatches');
+  if(!host) return;
+  const counts=patchImpactCounts();
+  const visible=PATCH_IMPACTS_470.filter(item=>patchInboxFilter==='all' || patchImpactStatus(item)===patchInboxFilter);
+
+  host.innerHTML=`
+    <section class="patch-inbox-hero">
+      <div class="patch-hero-copy">
+        <div class="patch-hero-kicker">Patch intelligence • official source</div>
+        <h2>Update 4.7.0 Impact Inbox</h2>
+        <p>Turn patch-note claims into explicit planner decisions. Confirmed facts stay separate from assumptions, and nothing changes scores until it is verified.</p>
+        <div class="patch-hero-actions">
+          <a class="primary button-link" href="${OFFICIAL_UPDATE_470_URL}" target="_blank" rel="noopener">Read official notes ↗</a>
+          <span>Published August 12, 2026</span>
+        </div>
+      </div>
+      <div class="patch-hero-art" aria-hidden="true"><span>4.7</span><b>6</b><small>tracked impacts</small></div>
+    </section>
+
+    <section class="patch-summary-grid" aria-label="Patch review summary">
+      <button data-patch-filter="all" class="patch-summary-card ${patchInboxFilter==='all'?'active':''}"><span>All impacts</span><b>${PATCH_IMPACTS_470.length}</b><small>Complete patch scope</small></button>
+      <button data-patch-filter="needs-review" class="patch-summary-card review ${patchInboxFilter==='needs-review'?'active':''}"><span>Needs review</span><b>${counts['needs-review']}</b><small>Requires a planner decision</small></button>
+      <button data-patch-filter="watching" class="patch-summary-card watching ${patchInboxFilter==='watching'?'active':''}"><span>Watching</span><b>${counts.watching}</b><small>Waiting for exact data</small></button>
+      <button data-patch-filter="reviewed" class="patch-summary-card reviewed ${patchInboxFilter==='reviewed'?'active':''}"><span>Reviewed</span><b>${counts.reviewed}</b><small>Decision recorded</small></button>
+    </section>
+
+    <div class="patch-inbox-toolbar">
+      <div><b>${patchInboxFilter==='all'?'All impacts':patchStatusLabel(patchInboxFilter)}</b><span>${visible.length} card${visible.length===1?'':'s'} shown</span></div>
+      <div class="patch-filter-chips">
+        ${[['all','All'],['needs-review','Review'],['watching','Watching'],['reviewed','Reviewed']].map(([value,label])=>`<button data-patch-filter="${value}" class="${patchInboxFilter===value?'active':''}">${label}</button>`).join('')}
+      </div>
+    </div>
+    <section class="patch-impact-grid">
+      ${visible.map(patchImpactCardHtml).join('') || '<div class="panel muted">No patch impacts match this filter.</div>'}
+    </section>
+    <div class="patch-safety-note"><b>Scoring guard:</b> Review states organize the work; they never change boss weights, drop percentages, or recipe costs on their own.</div>`;
+
+  host.querySelectorAll('[data-patch-filter]').forEach(button=>{
+    button.onclick=()=>{
+      patchInboxFilter=button.dataset.patchFilter || 'all';
+      renderPatchInbox();
+    };
+  });
+  host.querySelectorAll('[data-patch-set-status]').forEach(button=>{
+    button.onclick=()=>{
+      const item=PATCH_IMPACTS_470.find(entry=>entry.id===button.dataset.patchId);
+      const status=button.dataset.patchSetStatus;
+      if(!item || !['needs-review','watching','reviewed'].includes(status)) return;
+      patchImpactReviewMap()[item.id]=status;
+      savePlannerStateSoon();
+      renderPatchInbox();
+      const updatedCounts=patchImpactCounts();
+      for(const state of ['needs-review','watching','reviewed']){
+        document.querySelectorAll(`[data-patch-count="${CSS.escape(state)}"]`).forEach(el=>el.textContent=String(updatedCounts[state]));
+      }
+      notifyPlanner(`${item.title} marked ${patchStatusLabel(status).toLowerCase()}.`,{type:status==='reviewed'?'success':'info',title:'Patch Inbox updated',dedupeKey:`patch-${item.id}-${status}`});
+    };
+  });
 }
 
 function plannerNoticeType(value){
@@ -1345,7 +1550,7 @@ function animatePlannerWheel(now){
   const distance=plannerWheelTarget-current;
   const elapsed=Math.max(0,now-(animatePlannerWheel.lastAt || now));
   animatePlannerWheel.lastAt=now;
-  const blend=1-Math.exp(-Math.max(8,elapsed)/105);
+  const blend=1-Math.exp(-Math.max(8,elapsed)/PLANNER_WHEEL_EASE_MS);
   const next=current+distance*blend;
 
   window.scrollTo({top:Math.abs(distance)<.45?plannerWheelTarget:next,behavior:'auto'});
@@ -1502,6 +1707,7 @@ function activateView(view,{ensureResults=false,scroll=false}={}){
 
   try{
     if(view==='week') renderWeeklyPlanner();
+    if(view==='patches') renderPatchInbox();
     if(view==='knowledge') renderKnowledgeRoutes();
     if(view==='freshness') loadFreshness({render:true});
     if(view==='settings'){ renderSettings(); requestAnimationFrame(()=>{ updateSettingsStickyOffset(); queueSettingsScrollSpy(); }); }
@@ -5213,6 +5419,7 @@ function frontendHealthChecks(){
     ['Build Overview','buildOverview'],
     ['Farm Dashboard','dashboardBody'],
     ['Boss Priority','viewBoss'],
+    ['Patch Inbox','viewPatches'],
     ['Week Planner','viewWeek'],
     ['Farm Plan','viewFarm'],
     ['Upgrade Paths','viewPaths'],
@@ -5292,15 +5499,15 @@ function frontendHealthChecks(){
   checks.push(healthClientCheck(
     'motion_aware_navigation',
     'Motion-aware navigation',
-    typeof scrollPlannerTo==='function' && typeof handlePlannerWheel==='function' && typeof plannerNestedScroller==='function' && typeof plannerScrollDuration==='function' && typeof plannerScrollEase==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
-    'Click navigation and discrete mouse-wheel input use separate eased controllers; nested scroll areas, precision touchpads, and reduced-motion preferences retain native behavior.'
+    typeof scrollPlannerTo==='function' && typeof handlePlannerWheel==='function' && typeof plannerNestedScroller==='function' && PLANNER_WHEEL_EASE_MS===88 && typeof plannerScrollDuration==='function' && typeof plannerScrollEase==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
+    `Click navigation and discrete mouse-wheel input use separate eased controllers; the ${PLANNER_WHEEL_EASE_MS} ms wheel curve is quicker while nested scroll areas, precision touchpads, and reduced-motion preferences retain native behavior.`
   ));
 
   checks.push(healthClientCheck(
     'official_game_update_470',
     'Official game update 4.7.0 context',
-    typeof officialUpdate470Html==='function' && OFFICIAL_UPDATE_470_URL.includes('/update-4-7-0') ? 'pass' : 'fail',
-    'Official drop-table, Field Boss, Guild Raid, Sollant, and Redfrost changes are surfaced without inventing unpublished numeric drop rates.'
+    typeof officialUpdate470Html==='function' && typeof renderPatchInbox==='function' && PATCH_IMPACTS_470.length===6 && OFFICIAL_UPDATE_470_URL.includes('/update-4-7-0') ? 'pass' : 'fail',
+    `${PATCH_IMPACTS_470.length} official drop-table, Field Boss, Guild Raid, Sollant, and route impacts are organized in a persistent review inbox without inventing unpublished numeric drop rates.`
   ));
 
   checks.push(healthClientCheck(
@@ -5478,6 +5685,7 @@ function renderAll(){
   safeRenderView('Build Overview', renderBuildOverview);
   safeRenderView('Farm Dashboard', renderDashboard);
   safeRenderView('Boss Priority', renderBossPriority);
+  safeRenderView('Patch Inbox', renderPatchInbox);
   safeRenderView('Week Planner', renderWeeklyPlanner);
   safeRenderView('Farm Plan', renderFarm);
   safeRenderView('Upgrade Paths', renderUpgradePaths);
@@ -7244,6 +7452,12 @@ updateBackTopVisibility();
 
 document.querySelectorAll('.tab').forEach(btn=>{
   btn.onclick = () => activateView(btn.dataset.view,{scroll:true});
+});
+
+document.addEventListener('click',event=>{
+  const trigger=event.target instanceof Element ? event.target.closest('[data-open-patch-inbox]') : null;
+  if(!trigger) return;
+  activateView('patches',{ensureResults:true,scroll:true});
 });
 
 $('expandAllBtn').onclick = () => {

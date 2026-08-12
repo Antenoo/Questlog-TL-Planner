@@ -1753,3 +1753,32 @@ the planner impact of the official Throne and Liberty Update 4.7.0 notes.
 The planner does not invent drop rates or automatically alter boss scores from qualitative
 patch-note wording. Planner data, cached Questlog pages, scan history, progress, priorities,
 materials, Sollant, weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.10 - Faster wheel motion and Patch Impact Inbox
+
+This release quickens the inertial wheel curve and turns official patch-note context into
+a structured review workflow with stronger visual hierarchy.
+
+### Faster fluid scrolling
+
+- The wheel easing time constant drops from 105 ms to 88 ms, making the visible glide
+  about 16% quicker without returning to rigid native wheel jumps.
+- Discrete steps still accumulate and direction changes still retarget the destination.
+- Precision touchpads, nested scroll areas, form controls, and reduced-motion preferences
+  retain their native behavior.
+
+### Patch Impact Inbox
+
+- Adds a dedicated Plan tab for six confirmed Update 4.7.0 impacts.
+- A spacious patch hero, four summary tiles, filter chips, and two-column impact cards
+  create the visual breaks and scan-friendly rhythm inspired by the supplied layout video.
+- Every impact separates confirmed patch-note evidence from the proposed planner action.
+- Review status persists as Needs review, Watching, or Reviewed in planner_state.json.
+- Compact patch banners on the Farm Dashboard and Boss Priority pages replace the earlier
+  dense patch-note list and open the inbox directly.
+- Mobile layouts collapse the impact cards and evidence/action panels to one column.
+
+Review states are organizational only. They do not automatically change boss weights,
+drop percentages, recipe costs, planner data, cached Questlog pages, scan history,
+progress, priorities, materials, Sollant, weekly/daily state, backups, or user knowledge.
