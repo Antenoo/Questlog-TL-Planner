@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.7",
-  "publish": false,
+  "version": "22.0.8",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Adds one fluid, cancellable scrolling controller for workspace tabs, Settings sections, item cards, and Back to top. New navigation requests supersede old ones, sticky-header offsets adapt to desktop and compact layouts, Settings keeps the requested section highlighted until motion settles, and the planner honors reduced-motion preferences. Planner data and scan state are unchanged."
+  "notes": "Replaces native smooth scrolling with a distance-aware eased animation for softer acceleration, longer glides, and gentler settling while preserving instant reduced-motion behavior and immediate user cancellation. Adds a compact session-local Planner Activity center with unread counts and non-blocking toasts for saves, scans, updates, exports, warnings, and failures. Browser alert messages are replaced with persistent local activity feedback; destructive confirmations remain explicit. Planner data and scan state are unchanged."
 }

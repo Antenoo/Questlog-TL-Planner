@@ -666,6 +666,38 @@
       box-shadow:0 8px 24px rgba(0,0,0,.32)
     }
     #backTopBtn.show{display:block}
+    .activity-button{display:inline-flex;align-items:center;gap:6px}
+    .activity-unread{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#255f8e;color:#fff;font-size:10px;font-weight:900}
+    .activity-unread[hidden]{display:none}
+    .toast-region{position:fixed;top:16px;right:16px;z-index:320;width:min(370px,calc(100vw - 32px));display:grid;gap:8px;pointer-events:none;transition:opacity .18s ease}
+    body.activity-center-open .toast-region{opacity:0;pointer-events:none}
+    .planner-toast{pointer-events:auto;display:grid;grid-template-columns:4px minmax(0,1fr) auto;gap:10px;align-items:start;background:rgba(16,24,33,.98);border:1px solid #34465a;border-radius:11px;padding:10px;box-shadow:0 12px 34px rgba(0,0,0,.38);opacity:0;transform:translateY(-10px) scale(.985);transition:opacity .22s ease,transform .28s cubic-bezier(.2,.8,.2,1)}
+    .planner-toast.show{opacity:1;transform:none}
+    .planner-toast-accent{width:4px;height:100%;min-height:34px;border-radius:999px;background:#6ab7ff}
+    .planner-toast.success .planner-toast-accent{background:#62d98d}
+    .planner-toast.warn .planner-toast-accent{background:#e2b85d}
+    .planner-toast.error .planner-toast-accent{background:#ef767a}
+    .planner-toast-copy b{display:block;font-size:12px;margin-bottom:3px}
+    .planner-toast-copy span{display:block;color:#bdc9d6;font-size:11px;line-height:1.4;white-space:pre-line}
+    .planner-toast-close,.activity-close,.activity-clear,.activity-item-remove{background:transparent;border:0;color:#8fa1b5;padding:2px 5px;box-shadow:none}
+    .planner-toast-close:hover,.activity-close:hover,.activity-clear:hover,.activity-item-remove:hover{background:#1d2a38;color:#edf5ff}
+    .activity-center{position:fixed;top:16px;right:16px;z-index:310;width:min(390px,calc(100vw - 32px));max-height:min(680px,calc(100vh - 32px));display:flex;flex-direction:column;background:rgba(13,20,28,.985);border:1px solid #34465a;border-radius:13px;box-shadow:0 18px 46px rgba(0,0,0,.48);opacity:0;transform:translateY(-10px) scale(.985);pointer-events:none;transition:opacity .2s ease,transform .3s cubic-bezier(.2,.8,.2,1)}
+    .activity-center.open{opacity:1;transform:none;pointer-events:auto}
+    .activity-center-head{display:flex;align-items:center;gap:8px;padding:11px 12px;border-bottom:1px solid #2a3847}
+    .activity-center-head b{font-size:13px}
+    .activity-center-head span{font-size:10px;color:var(--muted)}
+    .activity-center-actions{display:flex;gap:3px;margin-left:auto}
+    .activity-list{overflow:auto;padding:7px}
+    .activity-empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:11px;line-height:1.5}
+    .activity-item{display:grid;grid-template-columns:4px minmax(0,1fr) auto;gap:9px;padding:9px 7px;border-radius:8px}
+    .activity-item:hover{background:#151f2a}
+    .activity-item-accent{width:4px;height:100%;min-height:38px;border-radius:999px;background:#6ab7ff}
+    .activity-item.success .activity-item-accent{background:#62d98d}
+    .activity-item.warn .activity-item-accent{background:#e2b85d}
+    .activity-item.error .activity-item-accent{background:#ef767a}
+    .activity-item-copy b{display:block;font-size:11px;margin-bottom:2px}
+    .activity-item-copy p{margin:0;color:#b9c6d4;font-size:10px;line-height:1.4;white-space:pre-line}
+    .activity-item-copy time{display:block;margin-top:4px;color:#708398;font-size:9px}
     .workspace-intro{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-2px 0 8px;padding:0 2px}
     .workspace-intro b{font-size:12px}
     .workspace-intro span{font-size:10px;color:var(--muted)}
@@ -678,11 +710,14 @@
       .scan-primary,.scan-secondary,.scan-maintenance,.result-actions-primary,.result-tools-body{align-items:stretch}
       .scan-primary button,.scan-secondary button,.scan-maintenance button{flex:1 1 auto}
       #backTopBtn{right:12px;bottom:12px}
+      .toast-region,.activity-center{top:10px;right:10px;left:10px;width:auto}
+      .activity-center{max-height:calc(100vh - 20px)}
     }
 
     @media(max-width:760px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.livegrid{grid-template-columns:repeat(2,1fr)}}
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto!important}
+      .planner-toast,.activity-center,.toast-region{transition:none!important}
     }
   </style>
 </head>
@@ -691,7 +726,7 @@
   <div class="app-title-row">
     <div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Local web app v__PLANNER_VERSION__ • fluid motion-aware navigation</div>
+      <div class="sub">Local web app v__PLANNER_VERSION__ • flowing navigation and activity feedback</div>
     </div>
     <span class="app-version-chip">Local planner <b>v__PLANNER_VERSION__</b></span>
   </div>
@@ -717,6 +752,7 @@
       <button id="loadLastBtn" class="secondary">Load Last Scan</button>
       <button id="cancelBtn" class="secondary" disabled>Cancel Scan</button>
       <button id="settingsTopBtn" class="secondary">Settings</button>
+      <button id="activityTopBtn" class="secondary activity-button" aria-controls="activityCenter" aria-expanded="false">Activity <span id="activityUnread" class="activity-unread" hidden>0</span></button>
       <span class="update-top"><button id="updateTopBtn" class="secondary">Check for Updates</button><span id="updateTopBadge" class="update-badge">Not configured</span></span>
     </div>
     <details class="scan-maintenance-details">
@@ -832,6 +868,17 @@
 <div id="hoverCard" class="hovercard"></div>
 <button id="backTopBtn" class="secondary" title="Back to top" aria-label="Back to top">↑</button>
 <div id="serverStatus" class="server-status">Planner server is restarting…</div>
+<div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="false"></div>
+<aside id="activityCenter" class="activity-center" aria-label="Planner activity" aria-hidden="true">
+  <div class="activity-center-head">
+    <div><b>Planner Activity</b><br><span>Important actions, saves, and warnings</span></div>
+    <div class="activity-center-actions">
+      <button id="activityClearBtn" class="activity-clear" title="Clear activity">Clear</button>
+      <button id="activityCloseBtn" class="activity-close" title="Close activity" aria-label="Close activity">×</button>
+    </div>
+  </div>
+  <div id="activityList" class="activity-list"></div>
+</aside>
 
 <script>
 const CLIENT_APP_VERSION = '__PLANNER_VERSION__';
@@ -868,8 +915,12 @@ let settingsScrollSpyQueued = false;
 let settingsScrollTarget = null;
 let plannerScrollRequestId = 0;
 let plannerScrollFrame = 0;
+let plannerNotices = [];
+let activityCenterOpen = false;
 
 const plannerReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const PLANNER_ACTIVITY_KEY = 'questlogPlannerActivity';
+const PLANNER_ACTIVITY_LIMIT = 30;
 
 const $ = id => document.getElementById(id);
 
@@ -1033,6 +1084,172 @@ function plannerStickyOffset(){
   return Math.max(14,tabs.getBoundingClientRect().height+14);
 }
 
+function plannerNoticeType(value){
+  return ['info','success','warn','error'].includes(value)?value:'info';
+}
+
+function plannerNoticeTitle(type,title=''){
+  if(String(title || '').trim()) return String(title).trim();
+  return type==='success' ? 'Completed'
+    : type==='warn' ? 'Attention'
+      : type==='error' ? 'Something went wrong'
+        : 'Planner activity';
+}
+
+function loadPlannerNotices(){
+  try{
+    const parsed=JSON.parse(sessionStorage.getItem(PLANNER_ACTIVITY_KEY) || '[]');
+    plannerNotices=Array.isArray(parsed)
+      ? parsed.slice(0,PLANNER_ACTIVITY_LIMIT).map(item=>({
+          id:String(item.id || `${Date.now()}-${Math.random()}`),
+          type:plannerNoticeType(item.type),
+          title:String(item.title || '').slice(0,120),
+          message:String(item.message || '').slice(0,1200),
+          createdAt:Number.isFinite(Number(item.createdAt))?Number(item.createdAt):Date.now(),
+          read:Boolean(item.read),
+          dedupeKey:String(item.dedupeKey || '')
+        }))
+      : [];
+  }catch(_){
+    plannerNotices=[];
+  }
+}
+
+function savePlannerNotices(){
+  try{
+    sessionStorage.setItem(PLANNER_ACTIVITY_KEY,JSON.stringify(plannerNotices.slice(0,PLANNER_ACTIVITY_LIMIT)));
+  }catch(_){}
+}
+
+function plannerNoticeTime(value){
+  try{
+    return new Date(value).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  }catch(_){
+    return '';
+  }
+}
+
+function renderPlannerNotices(){
+  const list=$('activityList');
+  const unread=$('activityUnread');
+  const count=plannerNotices.filter(item=>!item.read).length;
+
+  if(unread){
+    unread.hidden=count===0;
+    unread.textContent=count>99?'99+':String(count);
+  }
+  if($('activityTopBtn')) $('activityTopBtn').setAttribute('aria-label',count?`Activity, ${count} unread`:'Activity');
+  if(!list) return;
+
+  list.innerHTML=plannerNotices.length
+    ? plannerNotices.map(item=>`
+        <div class="activity-item ${esc(item.type)}" data-notice-id="${esc(item.id)}">
+          <span class="activity-item-accent"></span>
+          <div class="activity-item-copy">
+            <b>${esc(item.title)}</b>
+            <p>${esc(item.message)}</p>
+            <time datetime="${esc(new Date(item.createdAt).toISOString())}">${esc(plannerNoticeTime(item.createdAt))}</time>
+          </div>
+          <button class="activity-item-remove" data-notice-remove="${esc(item.id)}" title="Remove" aria-label="Remove notification">×</button>
+        </div>`).join('')
+    : '<div class="activity-empty">No activity yet.<br>Important saves, scans, updates, and warnings will appear here.</div>';
+
+  list.querySelectorAll('[data-notice-remove]').forEach(btn=>{
+    btn.onclick=()=>{
+      plannerNotices=plannerNotices.filter(item=>item.id!==btn.dataset.noticeRemove);
+      savePlannerNotices();
+      renderPlannerNotices();
+    };
+  });
+}
+
+function dismissPlannerToast(toast){
+  if(!toast) return;
+  toast.classList.remove('show');
+  setTimeout(()=>toast.remove(),plannerReducedMotion.matches?0:240);
+}
+
+function showPlannerToast(notice,duration){
+  const region=$('toastRegion');
+  if(!region || activityCenterOpen) return;
+
+  const toast=document.createElement('div');
+  toast.className=`planner-toast ${notice.type}`;
+  toast.setAttribute('role',notice.type==='error'?'alert':'status');
+  toast.innerHTML=`
+    <span class="planner-toast-accent"></span>
+    <div class="planner-toast-copy"><b>${esc(notice.title)}</b><span>${esc(notice.message)}</span></div>
+    <button class="planner-toast-close" title="Dismiss" aria-label="Dismiss notification">×</button>`;
+  toast.querySelector('.planner-toast-close').onclick=()=>dismissPlannerToast(toast);
+  region.prepend(toast);
+  while(region.children.length>3) region.lastElementChild?.remove();
+  requestAnimationFrame(()=>toast.classList.add('show'));
+  setTimeout(()=>dismissPlannerToast(toast),duration);
+}
+
+function notifyPlanner(message,{type='info',title='',duration=null,dedupeKey='',toast=true}={}){
+  const safeType=plannerNoticeType(type);
+  const safeMessage=String(message || '').trim().slice(0,1200);
+  if(!safeMessage) return null;
+
+  const key=String(dedupeKey || '');
+  const existing=key ? plannerNotices.find(item=>item.dedupeKey===key) : null;
+  if(existing) plannerNotices=plannerNotices.filter(item=>item!==existing);
+
+  const notice={
+    id:existing?.id || `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,
+    type:safeType,
+    title:plannerNoticeTitle(safeType,title),
+    message:safeMessage,
+    createdAt:Date.now(),
+    read:activityCenterOpen,
+    dedupeKey:key
+  };
+  plannerNotices.unshift(notice);
+  plannerNotices=plannerNotices.slice(0,PLANNER_ACTIVITY_LIMIT);
+  savePlannerNotices();
+  renderPlannerNotices();
+  if(toast) showPlannerToast(notice,duration ?? (safeType==='error'?9000:safeType==='warn'?7000:5000));
+  return notice;
+}
+
+function setActivityCenter(open){
+  activityCenterOpen=Boolean(open);
+  const center=$('activityCenter');
+  center?.classList.toggle('open',activityCenterOpen);
+  center?.setAttribute('aria-hidden',activityCenterOpen?'false':'true');
+  $('activityTopBtn')?.setAttribute('aria-expanded',activityCenterOpen?'true':'false');
+  document.body.classList.toggle('activity-center-open',activityCenterOpen);
+
+  if(activityCenterOpen){
+    plannerNotices.forEach(item=>item.read=true);
+    savePlannerNotices();
+  }
+  renderPlannerNotices();
+}
+
+function initializePlannerActivity(){
+  loadPlannerNotices();
+  renderPlannerNotices();
+  if($('activityTopBtn')) $('activityTopBtn').onclick=()=>setActivityCenter(!activityCenterOpen);
+  if($('activityCloseBtn')) $('activityCloseBtn').onclick=()=>setActivityCenter(false);
+  if($('activityClearBtn')) $('activityClearBtn').onclick=()=>{
+    plannerNotices=[];
+    savePlannerNotices();
+    renderPlannerNotices();
+  };
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape' && activityCenterOpen) setActivityCenter(false);
+  });
+  document.addEventListener('pointerdown',event=>{
+    if(!activityCenterOpen) return;
+    if($('activityCenter')?.contains(event.target) || $('activityTopBtn')?.contains(event.target)) return;
+    setActivityCenter(false);
+  });
+}
+
+initializePlannerActivity();
+
 function finishPlannerScroll(requestId){
   if(requestId!==plannerScrollRequestId) return;
   if(plannerScrollFrame){
@@ -1055,6 +1272,15 @@ function cancelPlannerScroll({holdPosition=false}={}){
     window.scrollTo({top:window.scrollY,behavior:'auto'});
   }
   if(hadSettingsTarget) queueSettingsScrollSpy();
+}
+
+function plannerScrollDuration(distance){
+  return Math.max(360,Math.min(980,260+Math.sqrt(Math.max(0,distance))*12));
+}
+
+function plannerScrollEase(progress){
+  const t=Math.max(0,Math.min(1,progress));
+  return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
 }
 
 function scrollPlannerTo(targetOrTop,{smooth=true,offset=null,settingsSection=null,defer=false}={}){
@@ -1086,28 +1312,31 @@ function scrollPlannerTo(targetOrTop,{smooth=true,offset=null,settingsSection=nu
     }
 
     top=Math.max(0,Math.min(maxTop,top));
-    const behavior=smooth && !plannerReducedMotion.matches ? 'smooth' : 'auto';
-    window.scrollTo({top,behavior});
+    const startTop=window.scrollY;
+    const distance=top-startTop;
 
-    if(behavior==='auto'){
+    if(!smooth || plannerReducedMotion.matches || Math.abs(distance)<=1){
+      window.scrollTo({top,behavior:'auto'});
       plannerScrollFrame=requestAnimationFrame(()=>finishPlannerScroll(requestId));
       return;
     }
 
-    const started=performance.now();
-    let settledFrames=0;
-    const watch=now=>{
+    const duration=plannerScrollDuration(Math.abs(distance));
+    let startedAt=null;
+    const animate=now=>{
       if(requestId!==plannerScrollRequestId) return;
-      if(Math.abs(window.scrollY-top)<=2) settledFrames+=1;
-      else settledFrames=0;
+      if(startedAt===null) startedAt=now;
+      const progress=Math.min(1,(now-startedAt)/duration);
+      window.scrollTo({top:startTop+distance*plannerScrollEase(progress),behavior:'auto'});
 
-      if(settledFrames>=2 || now-started>=1600){
+      if(progress>=1){
+        window.scrollTo({top,behavior:'auto'});
         finishPlannerScroll(requestId);
         return;
       }
-      plannerScrollFrame=requestAnimationFrame(watch);
+      plannerScrollFrame=requestAnimationFrame(animate);
     };
-    plannerScrollFrame=requestAnimationFrame(watch);
+    plannerScrollFrame=requestAnimationFrame(animate);
   };
 
   if(defer){
@@ -1327,7 +1556,7 @@ function showSettingsView(){
     activateView('settings',{ensureResults:true,scroll:true});
   }catch(error){
     reportFrontendIssue('settings-open-error',error,{source:'showSettingsView'});
-    alert(`Settings could not open: ${error?.message || error}`);
+    notifyPlanner(`Settings could not open: ${error?.message || error}`,{type:'error',title:'Settings unavailable',dedupeKey:'settings-open'});
   }
 }
 
@@ -1384,7 +1613,7 @@ async function checkForUpdates({silent=false,openSettings=false}={}){
     liveUpdateState={status:'idle',release:null,error:''};
     renderUpdateTopStatus();
     if(openSettings) showSettingsView();
-    if(!silent) alert('Set a GitHub update repository in Settings → Updates first.');
+    if(!silent) notifyPlanner('Set a GitHub update repository in Settings → Updates first.',{type:'warn',title:'Update source required',dedupeKey:'update-source'});
     return null;
   }
 
@@ -1406,12 +1635,27 @@ async function checkForUpdates({silent=false,openSettings=false}={}){
       release:payload,
       error:''
     };
+    if(!silent){
+      notifyPlanner(
+        payload.update_available
+          ? `Questlog TL Farm Planner v${payload.version} is ready to download from the configured GitHub Release.`
+          : `Questlog TL Farm Planner v${CLIENT_APP_VERSION} is up to date.`,
+        {
+          type:payload.update_available?'info':'success',
+          title:payload.update_available?'Update available':'No update needed',
+          dedupeKey:'update-check-result'
+        }
+      );
+    }
   }catch(error){
     const rateLimited=Number(error?.httpStatus)===429;
     liveUpdateState={status:rateLimited?'paused':'error',release:null,error:String(error?.message || error)};
     if(!rateLimited) reportFrontendIssue('update-check',error,{source:'checkForUpdates'});
     if(!silent){
-      alert(`${rateLimited?'Update check paused':'Update check failed'}: ${error?.message || error}`);
+      notifyPlanner(
+        `${rateLimited?'Update check paused':'Update check failed'}: ${error?.message || error}`,
+        {type:rateLimited?'warn':'error',title:rateLimited?'Retry later':'Update check failed',dedupeKey:'update-check-error'}
+      );
     }
   }finally{
     liveUpdateChecking=false;
@@ -1429,13 +1673,13 @@ async function installLiveUpdate(){
   if(!release || !release.update_available) return;
 
   if(!release.asset){
-    alert('The latest release has no recognized planner update ZIP asset.');
+    notifyPlanner('The latest release has no recognized planner update ZIP asset.',{type:'error',title:'Update asset missing',dedupeKey:'update-asset'});
     return;
   }
   if(!release.asset.verified){
-    alert(
-      'The release asset does not expose a SHA-256 digest, so the planner will not live-install it.\n\n' +
-      'You can still use the manual ZIP fallback.'
+    notifyPlanner(
+      'The release asset does not expose a SHA-256 digest, so the planner will not live-install it. You can still use the manual ZIP fallback.',
+      {type:'error',title:'Update verification unavailable',dedupeKey:'update-digest'}
     );
     return;
   }
@@ -1449,6 +1693,7 @@ async function installLiveUpdate(){
 
   liveUpdateState.status='installing';
   renderUpdateTopStatus();
+  notifyPlanner(`Downloading and verifying Questlog TL Farm Planner v${release.version}.`,{type:'info',title:'Installing update',dedupeKey:'update-install'});
   if($('settingsStatus')){
     $('settingsStatus').className='settings-status';
     $('settingsStatus').textContent=`Downloading and verifying v${release.version}…`;
@@ -1466,6 +1711,7 @@ async function installLiveUpdate(){
     if($('settingsStatus')){
       $('settingsStatus').textContent='SHA-256 verified. Handing update to the local updater…';
     }
+    notifyPlanner(`SHA-256 verified for v${release.version}. The local updater is preparing the restart.`,{type:'success',title:'Update verified',dedupeKey:'update-install'});
 
     const a=await fetch('/api/update/apply',{
       method:'POST',
@@ -1489,7 +1735,7 @@ async function installLiveUpdate(){
       $('settingsStatus').className='settings-status bad';
       $('settingsStatus').textContent=`Update failed: ${error?.message || error}`;
     }
-    alert(`Live update failed: ${error?.message || error}\n\nThe manual ZIP updater remains available.`);
+    notifyPlanner(`Live update failed: ${error?.message || error}. The manual ZIP updater remains available.`,{type:'error',title:'Update failed',dedupeKey:'update-install'});
   }
 }
 
@@ -1542,12 +1788,14 @@ async function saveSettingsFromUi(){
       status.className='settings-status good';
       status.textContent='Saved to planner_state.json and config.json';
     }
+    notifyPlanner('Planner preferences were saved to planner_state.json and config.json.',{type:'success',title:'Settings saved',dedupeKey:'settings-save'});
   }catch(e){
     console.error('Could not save settings',e);
     if(status){
       status.className='settings-status bad';
       status.textContent=`Could not save: ${e}`;
     }
+    notifyPlanner(`Could not save planner settings: ${e?.message || e}`,{type:'error',title:'Settings save failed',dedupeKey:'settings-save'});
   }
 }
 
@@ -1564,6 +1812,7 @@ function resetSettingsToDefaults(){
     stale_after_hours:Number(appConfig.default_stale_after_hours || 72)
   });
   renderSettings();
+  notifyPlanner('Default settings are loaded in the form. Press Save Settings to apply them.',{type:'info',title:'Defaults loaded',dedupeKey:'settings-defaults'});
 }
 
 function renderSettings(){
@@ -1917,6 +2166,7 @@ async function savePlannerStateNow(){
   }catch(e){
     console.error('Could not save planner state',e);
     $('plannerStateText').textContent = '• Planner-state save failed — browser session still has the current values';
+    notifyPlanner('Planner state could not be saved to disk. The current browser session still has your values.',{type:'error',title:'Planner state save failed',dedupeKey:'planner-state-save'});
   }
 }
 
@@ -2107,6 +2357,7 @@ async function saveKnowledgeRoutesNow(){
   }catch(e){
     console.error('Could not save knowledge routes',e);
     $('statusText').textContent = 'Could not save in-game knowledge routes to data/user_knowledge/routes.json.';
+    notifyPlanner('In-game knowledge routes could not be saved to data/user_knowledge/routes.json.',{type:'error',title:'Knowledge save failed',dedupeKey:'knowledge-save'});
     return false;
   }
 }
@@ -2374,7 +2625,7 @@ function renderKnowledgeRoutes(){
   if(addBtn) addBtn.onclick=()=>{
     const target=String($('knowledgeAddTarget')?.value || '').trim();
     if(!target){
-      alert('Enter a target item name.');
+      notifyPlanner('Enter a target item name before adding the knowledge route.',{type:'warn',title:'Target required'});
       return;
     }
     addKnowledgeRoute({
@@ -2416,7 +2667,7 @@ function renderKnowledgeRoutes(){
 
       const targetName=String(target?.value || '').trim();
       if(!targetName){
-        alert('Target item cannot be empty.');
+        notifyPlanner('The target item name cannot be empty.',{type:'warn',title:'Target required'});
         return;
       }
 
@@ -3968,7 +4219,7 @@ function renderBossPriority(){
     const info = weeklyTemplateInfo(q.templateDate);
 
     if(info.kind === 'ramux-mixed' && !q.mixedPoolSlot && !KNOWN_MIXED_POOL_SLOTS[q.templateDate]){
-      alert('Choose whether the Ascended pool is at 19:00 or 22:00 for this Wednesday/Saturday first.');
+      notifyPlanner('Choose whether the Ascended pool is at 19:00 or 22:00 for this Wednesday/Saturday first.',{type:'warn',title:'Event time required'});
       return;
     }
 
@@ -4020,7 +4271,7 @@ function renderBossPriority(){
         const normalized = normalize24hTime(e.currentTarget.value);
         if(!normalized){
           e.currentTarget.classList.add('invalid-time');
-          alert('Please enter the time in 24-hour format, for example 19:00 or 22:00.');
+          notifyPlanner('Please enter the time in 24-hour format, for example 19:00 or 22:00.',{type:'warn',title:'Invalid event time',dedupeKey:'invalid-event-time'});
           e.currentTarget.value = q.events[idx].time || '19:00';
           return;
         }
@@ -4178,6 +4429,8 @@ async function loadLatestScan({silent=false} = {}){
 
       if(silent){
         $('statusText').textContent = 'Previous scan loaded from disk — no Questlog scan needed.';
+      }else{
+        notifyPlanner('The latest successful scan was loaded from disk without contacting Questlog.',{type:'success',title:'Saved scan loaded',dedupeKey:'scan-load'});
       }
       return true;
     }
@@ -4192,11 +4445,13 @@ async function loadLatestScan({silent=false} = {}){
 
       if(silent){
         $('statusText').textContent = 'Restored planner backup scan loaded locally — no Questlog scan needed.';
+      }else{
+        notifyPlanner('A scan snapshot from the restored planner backup was loaded locally.',{type:'success',title:'Backup scan loaded',dedupeKey:'scan-load'});
       }
       return true;
     }
 
-    if(!silent) alert('No previous scan export or restored planner backup was found yet.');
+    if(!silent) notifyPlanner('No previous scan export or restored planner backup was found yet.',{type:'warn',title:'No saved scan'});
     return false;
   }catch(e){
     const preferredBuild = plannerState.settings?.last_build_url || $('buildUrl').value || '';
@@ -4209,7 +4464,7 @@ async function loadLatestScan({silent=false} = {}){
       return true;
     }
 
-    if(!silent) alert(`Could not load the previous scan: ${e}`);
+    if(!silent) notifyPlanner(`Could not load the previous scan: ${e?.message || e}`,{type:'error',title:'Scan load failed',dedupeKey:'scan-load'});
     return false;
   }
 }
@@ -4453,10 +4708,16 @@ $('clearCacheBtn').onclick = async () => {
     );
     if(!ok) return;
   }
-  const r = await fetch('/api/cache/clear', {method:'POST'}).then(r=>r.json());
-  freshnessState=null;
-  await loadFreshness({render:true});
-  alert(`Cleared ${r.deleted} cached Questlog pages.`);
+  try{
+    const response=await fetch('/api/cache/clear', {method:'POST'});
+    const r=await response.json().catch(()=>({}));
+    if(!response.ok) throw new Error(r.detail || `HTTP ${response.status}`);
+    freshnessState=null;
+    await loadFreshness({render:true});
+    notifyPlanner(`Cleared ${r.deleted} cached Questlog pages. Planner data and scan history were preserved.`,{type:'success',title:'Cache cleared'});
+  }catch(error){
+    notifyPlanner(`Could not clear the Questlog cache: ${error?.message || error}`,{type:'error',title:'Cache clear failed',dedupeKey:'cache-clear'});
+  }
 };
 
 $('diagBtn').onclick = async () => {
@@ -4465,8 +4726,9 @@ $('diagBtn').onclick = async () => {
     const qs = currentJob ? `?job_id=${encodeURIComponent(currentJob)}` : '';
     const r = await fetch(`/api/diagnostics/bundle${qs}`, {method:'POST'}).then(r=>r.json());
     window.location = `/api/exports/${encodeURIComponent(r.filename)}`;
+    notifyPlanner(`Diagnostic bundle ${r.filename} was created and the download started.`,{type:'success',title:'Diagnostics ready'});
   }catch(e){
-    alert(`Could not create diagnostic bundle: ${e}`);
+    notifyPlanner(`Could not create diagnostic bundle: ${e?.message || e}`,{type:'error',title:'Diagnostic export failed',dedupeKey:'diagnostic-bundle'});
   }finally{
     $('diagBtn').disabled = false;
   }
@@ -4480,8 +4742,9 @@ $('cancelBtn').onclick = async () => {
   $('liveState').textContent = 'Cancelling';
   try{
     await fetch(`/api/jobs/${currentJob}/cancel`, {method:'POST'});
+    notifyPlanner('The scanner received the cancellation request and will stop at the next safe point.',{type:'info',title:'Cancellation requested',dedupeKey:'scan-cancel'});
   }catch(e){
-    alert(`Could not request cancellation: ${e}`);
+    notifyPlanner(`Could not request scan cancellation: ${e?.message || e}`,{type:'error',title:'Cancellation failed',dedupeKey:'scan-cancel'});
   }
 };
 
@@ -4503,6 +4766,7 @@ $('backupBtn').onclick = () => {
     `questlog_planner_backup_${stamp}.json`,
     JSON.stringify(payload,null,2)
   );
+  notifyPlanner('A local planner backup was created and the download started.',{type:'success',title:'Backup exported'});
 };
 
 $('restoreBtn').onclick = () => {
@@ -4554,15 +4818,19 @@ $('restoreFileInput').onchange = async e => {
     }else{
       await loadLatestScan({silent:true});
     }
-    alert('Planner backup restored successfully.');
+    notifyPlanner('Planner backup restored successfully.',{type:'success',title:'Backup restored'});
   }catch(err){
-    alert(`Could not restore planner backup: ${err.message || err}`);
+    notifyPlanner(`Could not restore planner backup: ${err.message || err}`,{type:'error',title:'Backup restore failed',dedupeKey:'backup-restore'});
   }
 };
 
 async function startPlannerScan(mode='normal'){
   const build_url=$('buildUrl').value.trim();
-  if(!build_url) return;
+  if(!build_url){
+    notifyPlanner('Enter a Questlog character-builder URL before starting a scan.',{type:'warn',title:'Build URL required'});
+    $('buildUrl').focus();
+    return;
+  }
 
   const staleMode=mode==='stale';
   const forceMode=mode==='force' || (!staleMode && $('forceRefresh').checked);
@@ -4613,6 +4881,14 @@ async function startPlannerScan(mode='normal'){
     });
 
     currentJob=start.job_id;
+    notifyPlanner(
+      staleMode
+        ? `Refreshing Questlog evidence older than ${staleAfterHours()} hours.`
+        : forceMode
+          ? 'A full force-refresh scan has started.'
+          : 'The Questlog build scan has started.',
+      {type:'info',title:staleMode?'Stale refresh started':'Scan started',dedupeKey:'active-scan'}
+    );
     poll();
   }catch(e){
     $('scanBtn').disabled=false;
@@ -4620,6 +4896,7 @@ async function startPlannerScan(mode='normal'){
     $('cancelBtn').disabled=true;
     $('liveState').textContent='Error';
     $('statusText').innerHTML=`<span class="error">${esc(e)}</span>`;
+    notifyPlanner(`The scan could not start: ${e?.message || e}`,{type:'error',title:'Scan start failed',dedupeKey:'active-scan'});
   }
 }
 
@@ -4668,6 +4945,10 @@ async function poll(){
     saveRestoredScan(currentData);
     renderAll();
     await loadFreshness({render:true});
+    notifyPlanner(
+      `Scan completed with ${s.pages_requested || 0} page requests, ${s.pages_cache_hit || 0} cache hits, and ${s.pages_downloaded || 0} downloads.`,
+      {type:'success',title:'Scan complete',dedupeKey:'active-scan'}
+    );
     return;
   }
 
@@ -4677,6 +4958,7 @@ async function poll(){
     $('cancelBtn').disabled = true;
     $('liveState').textContent = 'Cancelled';
     $('statusText').textContent = 'Scan cancelled safely.';
+    notifyPlanner('The scan stopped safely. Existing planner data was preserved.',{type:'warn',title:'Scan cancelled',dedupeKey:'active-scan'});
     return;
   }
 
@@ -4686,6 +4968,7 @@ async function poll(){
     $('cancelBtn').disabled = true;
     $('liveState').textContent = 'Error';
     $('statusText').innerHTML = `<span class="error">${esc(j.error || 'Unknown error')}</span>`;
+    notifyPlanner(`The scan stopped with an error: ${j.error || 'Unknown error'}`,{type:'error',title:'Scan failed',dedupeKey:'active-scan'});
     return;
   }
 
@@ -4900,8 +5183,15 @@ function frontendHealthChecks(){
   checks.push(healthClientCheck(
     'motion_aware_navigation',
     'Motion-aware navigation',
-    typeof scrollPlannerTo==='function' && typeof cancelPlannerScrollForUser==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
-    'Workspace, Settings, item-card, and back-to-top navigation share one cancellable controller that honors reduced-motion preferences.'
+    typeof scrollPlannerTo==='function' && typeof cancelPlannerScrollForUser==='function' && typeof plannerScrollDuration==='function' && typeof plannerScrollEase==='function' && typeof plannerReducedMotion?.matches==='boolean' ? 'pass' : 'fail',
+    'Workspace, Settings, item-card, and back-to-top navigation share one distance-aware eased controller that remains cancellable and honors reduced-motion preferences.'
+  ));
+
+  checks.push(healthClientCheck(
+    'activity_center',
+    'Planner activity center',
+    Boolean($('activityTopBtn')) && Boolean($('activityCenter')) && Boolean($('toastRegion')) && typeof notifyPlanner==='function' && typeof setActivityCenter==='function' ? 'pass' : 'fail',
+    'Non-blocking toast feedback and the session-local activity history are available for saves, scans, updates, and warnings.'
   ));
 
   checks.push(healthClientCheck(
@@ -5466,7 +5756,7 @@ function renderUpgradePaths(){
       let url=String(urlInput?.value || '').trim();
 
       if(!name && !url){
-        alert('Enter at least a target item name or Questlog DB URL.');
+        notifyPlanner('Enter at least a target item name or Questlog DB URL.',{type:'warn',title:'Target required'});
         return;
       }
 

@@ -1695,3 +1695,25 @@ This release gives the planner one consistent scrolling system.
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials,
 Sollant, weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.8 - Flowing navigation and activity feedback
+
+This release makes movement feel more natural and adds one place to follow important
+planner actions.
+
+- Native browser smooth scrolling is replaced with a distance-aware eased animation:
+  short jumps remain quick while long jumps glide longer and settle gently.
+- A newer click, mouse wheel, touch gesture, or keyboard scroll cancels the active
+  animation immediately.
+- Reduced-motion preferences still switch every navigation jump to instant movement.
+- A compact **Activity** button shows unread feedback without changing the current view.
+- The activity panel keeps up to 30 notices for the current browser-tab session and
+  survives same-tab refreshes, including updater reconnects.
+- Saves, scans, updates, backups, diagnostics, cache actions, warnings, and failures now
+  produce non-blocking toasts and activity entries.
+- Disruptive browser alert messages are removed; destructive actions continue to require
+  explicit confirmation.
+
+Planner data, cached Questlog pages, scan history, progress, priorities, materials,
+Sollant, weekly/daily state, backups, and user knowledge are unchanged.
