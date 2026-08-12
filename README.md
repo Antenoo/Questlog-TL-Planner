@@ -1664,3 +1664,16 @@ This release hardens the planner's same-tab reconnect and public GitHub update c
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials,
 Sollant, weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.6 - Reliable update navigation
+
+This release fixes the top **Check for Updates** navigation shortcut.
+
+- Clicking **Check for Updates** reliably opens **Settings** at the **Updates** section.
+- The requested Settings destination is captured before smooth scrolling begins.
+- Settings scrollspy updates and update-check re-renders can no longer retarget the jump
+  to an earlier section such as **Scanning & Cache**.
+
+Planner data, cached Questlog pages, scan history, progress, priorities, materials,
+Sollant, weekly/daily state, backups, and user knowledge are unchanged.

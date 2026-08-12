@@ -688,7 +688,7 @@
   <div class="app-title-row">
     <div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Local web app v__PLANNER_VERSION__ • summary/action spacing polish</div>
+      <div class="sub">Local web app v__PLANNER_VERSION__ • reliable update navigation</div>
     </div>
     <span class="app-version-chip">Local planner <b>v__PLANNER_VERSION__</b></span>
   </div>
@@ -1135,14 +1135,16 @@ function scrollToSettingsSection(section,{smooth=true}={}){
 function openSettingsSection(section,{smooth=true}={}){
   if(!$('results')) return false;
   $('results').style.display='';
-  activeSettingsSection=SETTINGS_SECTIONS.includes(section)?section:'startup';
+  const targetSection=SETTINGS_SECTIONS.includes(section)?section:'startup';
+  activeSettingsSection=targetSection;
   activateView('settings',{ensureResults:true,scroll:false});
 
   // renderSettings() replaces the Settings DOM, so wait for layout twice before
-  // calculating the destination. This avoids landing at the top of Settings.
+  // calculating the destination. Capture the requested section because the
+  // scroll spy can update activeSettingsSection while a smooth jump is running.
   requestAnimationFrame(()=>{
     requestAnimationFrame(()=>{
-      scrollToSettingsSection(activeSettingsSection,{smooth});
+      scrollToSettingsSection(targetSection,{smooth});
     });
   });
   return true;
