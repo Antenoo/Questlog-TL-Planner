@@ -786,17 +786,37 @@
     .today-card{position:relative;overflow:hidden;padding:22px;border-color:rgba(91,126,164,.31);border-radius:18px;background:radial-gradient(circle at 91% 0%,rgba(119,79,203,.17),transparent 27%),linear-gradient(145deg,#151f2d,#101720);box-shadow:0 18px 40px rgba(0,0,0,.17)}.today-card:before{content:'';position:absolute;right:-70px;top:-90px;width:330px;height:330px;background:url('/static/assets/planner-route-logo.png') center/contain no-repeat;opacity:.035;filter:saturate(.7);pointer-events:none}.today-card>*{position:relative}.today-head{align-items:center;margin-bottom:17px}.today-head h2{margin:2px 0 2px;font-size:24px;letter-spacing:-.025em}.today-head .muted{font-size:11px}.today-progress-orb{--progress:0%;display:flex;flex-direction:column;align-items:center;justify-content:center;width:78px;height:78px;flex:0 0 78px;border-radius:50%;background:radial-gradient(circle closest-side,#121a25 74%,transparent 76% 99%),conic-gradient(#8e78ef var(--progress),#243244 0);box-shadow:0 8px 26px rgba(0,0,0,.25)}.today-progress-orb b{font-size:18px}.today-progress-orb span{color:#8999ab;font-size:8px;text-transform:uppercase;letter-spacing:.08em}.today-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.today-section{position:relative;overflow:hidden;min-height:148px;padding:14px;border:1px solid rgba(81,105,136,.25);border-radius:13px;background:linear-gradient(145deg,rgba(15,24,36,.96),rgba(11,17,26,.96))}.today-section:after{content:'';position:absolute;right:-22px;top:-24px;width:90px;height:90px;border-radius:50%;background:rgba(104,170,226,.045)}.today-section h4{display:flex;align-items:center;gap:7px;color:#dce8f4;font-size:11px}.today-section h4 span{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:#192c40;color:#88c5f7}.today-main{font-size:14px;line-height:1.3}.today-sub{font-size:10px;line-height:1.55}.ready-row{border-color:rgba(72,91,114,.2)}
     .dash-card{border-color:rgba(74,99,130,.26);border-radius:15px;background:linear-gradient(145deg,#141d2a,#101720);box-shadow:0 12px 28px rgba(0,0,0,.12)}.status-box{border-color:rgba(76,101,131,.23);border-radius:12px;background:linear-gradient(145deg,#172334,#111925)}
     .gear-card,.queue-panel,.readiness-item,.fresh-card,.history-card,.settings-card{border-color:rgba(73,98,128,.27);background:linear-gradient(145deg,#141e2b,#101721);box-shadow:0 8px 20px rgba(0,0,0,.09)}
+    .planner-rotating-promise{display:flex;align-items:center;gap:9px;margin:7px 0 3px;color:#f5f7fb;font-size:20px;font-weight:900;line-height:1.15;letter-spacing:-.025em}
+    .planner-rotating-window{position:relative;display:inline-flex;align-items:center;height:25px;overflow:hidden;min-width:215px;color:#a889ff}
+    .planner-rotating-window b{display:block;white-space:nowrap;transform:translateY(0);opacity:1;transition:transform .34s cubic-bezier(.4,0,.2,1),opacity .28s ease}
+    .planner-rotating-window b.leaving{transform:translateY(-115%);opacity:0}
+    .planner-rotating-window b.entering{transform:translateY(115%);opacity:0;transition:none}
+    .workspace-header{display:block;padding:0;overflow:visible;border-radius:15px;background:rgba(9,14,22,.96)}
+    .workspace-context-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));min-height:39px;border-bottom:1px solid rgba(75,98,127,.26);background:linear-gradient(90deg,rgba(29,42,60,.72),rgba(18,26,39,.52))}
+    .workspace-context-item{display:grid;grid-template-columns:22px minmax(0,1fr);grid-template-rows:auto auto;column-gap:7px;align-content:center;padding:7px 12px;border-right:1px solid rgba(76,98,126,.2);min-width:0}
+    .workspace-context-item:last-child{border-right:0}.context-icon{grid-row:1/3;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:7px;background:rgba(91,132,174,.13);color:#85c7ff;font-size:11px}
+    .workspace-context-item b{overflow:hidden;color:#d9e4ee;font-size:9px;line-height:1.2;white-space:nowrap;text-overflow:ellipsis}.workspace-context-item small{color:#657a90;font-size:7px;text-transform:uppercase;letter-spacing:.08em}
+    .workspace-primary-bar{display:flex;align-items:center;gap:3px;min-height:58px;padding:8px 11px}
+    .workspace-mini-brand{display:flex;align-items:center;gap:7px;margin-right:8px;padding-right:14px;border-right:1px solid rgba(75,98,127,.25);color:#eef4fa;font-size:11px;font-weight:900}.workspace-mini-brand img{width:31px;height:31px;border-radius:9px;box-shadow:0 4px 12px rgba(0,0,0,.26)}
+    .workspace-primary-bar button{padding:8px 11px;border:1px solid transparent;background:transparent;color:#9eacbc;font-size:10px;box-shadow:none}.workspace-primary-bar button:hover,.workspace-primary-bar button.active,.workspace-menu-trigger.open{border-color:rgba(94,124,158,.25);background:#182333;color:#edf5fc;transform:none;box-shadow:none}
+    .workspace-primary-bar .workspace-home.active{background:linear-gradient(135deg,#315978,#514681);border-color:rgba(145,184,225,.37);color:#fff}
+    .workspace-menu-trigger span{display:inline-block;margin-left:4px;color:#697f96;transition:transform .18s ease}.workspace-menu-trigger.open span{transform:rotate(180deg)}
+    .workspace-current-view{display:flex;flex-direction:column;align-items:flex-end;margin-left:auto;padding:0 6px;line-height:1.15}.workspace-current-view small{color:#60748a;font-size:7px;text-transform:uppercase;letter-spacing:.08em}.workspace-current-view b{color:#b7c7d7;font-size:9px}
+    .workspace-mega-menu{display:none;border-top:1px solid rgba(77,100,129,.25);background:linear-gradient(145deg,#101821,#0c121a);box-shadow:0 22px 38px rgba(0,0,0,.36)}
+    .workspace-mega-menu.open{display:block}.workspace-menu-panel{display:none;margin:0;padding:17px 18px 19px;border:0;border-radius:0;background:transparent}.workspace-menu-panel.open{display:grid;grid-template-columns:210px minmax(0,1fr);gap:18px}
+    .workspace-menu-heading{display:flex;gap:10px;align-items:flex-start;padding:3px 14px 3px 2px;border-right:1px solid rgba(77,99,126,.24)}.workspace-menu-symbol{display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex:0 0 36px;border:1px solid rgba(99,143,187,.25);border-radius:11px;background:#17283a;color:#88c9ff;font-size:15px}.workspace-menu-heading b{display:block;color:#eef4fa;font-size:13px}.workspace-menu-heading small{display:block;margin-top:3px;color:#74879a;font-size:9px;line-height:1.45}
+    .workspace-menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.workspace-destination{display:grid!important;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:center;text-align:left;padding:10px!important;border:1px solid transparent!important;border-radius:10px!important;background:transparent!important;color:#cbd7e2!important}.workspace-destination:hover,.workspace-destination.active{border-color:rgba(91,124,160,.3)!important;background:#172230!important;transform:none!important;box-shadow:none!important}.workspace-destination>span{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#1a2634;color:#9bcdf4;font-size:13px}.workspace-destination b{display:block;font-size:10px}.workspace-destination small{display:block;margin-top:2px;color:#718497;font-size:8px;line-height:1.35;font-weight:500}
     .workspace-intro{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-2px 0 8px;padding:0 2px}
     .workspace-intro b{font-size:12px}
     .workspace-intro span{font-size:10px;color:var(--muted)}
     @media(max-width:920px){
       .tabs{position:static}
-      .tab-group{width:100%}
       .active-view-hint{display:none}
       .patch-impact-grid{grid-template-columns:1fr}
       .planner-hero{padding:20px}.planner-brand-logo{width:88px;height:88px;flex-basis:88px}.planner-hero h1{font-size:27px}
       .today-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tab-group{padding:2px 0;border-right:0;border-bottom:1px solid rgba(75,96,121,.2)}.tab-group:last-of-type{border-bottom:0}
+      .workspace-context-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-context-item:nth-child(2){border-right:0}.workspace-context-item:nth-child(-n+2){border-bottom:1px solid rgba(76,98,126,.2)}
+      .workspace-primary-bar{flex-wrap:wrap}.workspace-current-view{display:none}.workspace-menu-panel.open{grid-template-columns:1fr}.workspace-menu-heading{border-right:0;border-bottom:1px solid rgba(77,99,126,.24);padding-bottom:12px}.workspace-menu-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
     @media(max-width:760px){
       .scan-primary,.scan-secondary,.scan-maintenance,.result-actions-primary,.result-tools-body{align-items:stretch}
@@ -811,17 +831,17 @@
       .patch-impact-zones{grid-template-columns:1fr}.patch-impact-zones>div{min-height:0}
       .patch-card-actions{flex-wrap:wrap}
       .official-update-mark{display:none}.official-update-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
-      .shell{padding:14px 14px 55px}.planner-hero{align-items:flex-start;min-height:0;padding:17px;border-radius:17px}.planner-brand-logo{width:70px;height:70px;flex-basis:70px;border-radius:18px}.planner-hero-copy{min-width:calc(100% - 90px)}.planner-hero h1{font-size:22px}.planner-hero .sub{font-size:11px}.planner-hero-pills,.planner-hero-meta small{display:none}.planner-hero-meta{width:100%;align-items:flex-start;margin-left:82px;margin-top:-9px}
+      .shell{padding:14px 14px 55px}.planner-hero{align-items:flex-start;min-height:0;padding:17px;border-radius:17px}.planner-brand-logo{width:70px;height:70px;flex-basis:70px;border-radius:18px}.planner-hero-copy{min-width:calc(100% - 90px)}.planner-hero h1{font-size:22px}.planner-hero .sub{font-size:11px}.planner-hero-pills,.planner-hero-meta small{display:none}.planner-hero-meta{width:100%;align-items:flex-start;margin-left:82px;margin-top:-9px}.planner-rotating-promise{font-size:16px;gap:6px}.planner-rotating-window{height:20px;min-width:152px}
       .scanner-panel,.planner-glance-panel{padding:16px}.scanner-panel .grid{grid-template-columns:1fr}.scan-options{align-items:flex-start;flex-direction:column}.scan-options button{width:100%;margin-left:0}.section-heading{align-items:flex-start}
       .today-card{padding:17px}.today-head{align-items:flex-start}.today-head h2{font-size:21px}.today-progress-orb{width:64px;height:64px;flex-basis:64px}.today-grid{grid-template-columns:1fr}.today-section{min-height:0}
-      .workspace-intro{align-items:flex-start;flex-direction:column;margin-top:22px}.tabs{padding:8px}.tab-group{align-items:flex-start}.tab-group-label{width:100%;padding:5px 5px 2px}.tab-group .tab{flex:1 1 auto;text-align:center}
+      .workspace-intro{align-items:flex-start;flex-direction:column;margin-top:22px}.workspace-header{padding:0}.workspace-context-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-context-item{border-bottom:1px solid rgba(76,98,126,.18)!important}.workspace-context-item:nth-child(odd){border-right:1px solid rgba(76,98,126,.18)!important}.workspace-context-item:nth-child(even){border-right:0!important}.workspace-context-item:nth-child(n+3){border-bottom:0!important}.workspace-primary-bar{gap:2px;padding:7px}.workspace-mini-brand{width:100%;margin:0 0 4px;padding:0 0 7px;border-right:0;border-bottom:1px solid rgba(75,98,127,.22)}.workspace-primary-bar button{flex:1 1 auto;padding:8px 7px}.workspace-menu-panel.open{padding:14px;gap:12px}.workspace-menu-grid{grid-template-columns:1fr}.workspace-destination{text-align:left!important}.workspace-menu-heading{padding-right:0}
       .overview-head{align-items:flex-start}.drawer-action{margin-left:auto}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{min-height:72px}
     }
 
     @media(max-width:760px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.livegrid{grid-template-columns:repeat(2,1fr)}}
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto!important}
-      .planner-toast,.activity-center,.toast-region{transition:none!important}
+      .planner-toast,.activity-center,.toast-region,.planner-rotating-window b{transition:none!important}
     }
   </style>
 </head>
@@ -832,7 +852,11 @@
     <div class="planner-hero-copy">
       <div class="planner-eyebrow">Personal progression workspace</div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Turn your build into a clear route from today’s priorities to finished gear.</div>
+      <div class="planner-rotating-promise" aria-label="Plan your next upgrade, boss priority, crafting route, and weekly goals">
+        <span>Plan your</span>
+        <span class="planner-rotating-window"><b id="plannerRotatingPhrase">next upgrade</b></span>
+      </div>
+      <div class="sub">A clear route from today’s priorities to finished gear.</div>
       <div class="planner-hero-pills"><span>Local-first</span><span>Build-aware</span><span>Safe updates</span></div>
     </div>
     <div class="planner-hero-meta">
@@ -940,37 +964,60 @@
     </details>
 
     <div class="workspace-intro">
-      <div><span class="section-kicker">Your workspace</span><h2>Plan the next move</h2><p>Choose a focused view instead of digging through one endless report.</p></div>
+      <div><span class="section-kicker">Your workspace</span><h2>Plan the next move</h2><p>Live context above; detailed tools only when you open a group.</p></div>
       <span id="activeViewText">Farm Dashboard</span>
     </div>
-    <div class="tabs">
-      <div class="tab-group">
-        <span class="tab-group-label">Plan</span>
-        <button class="tab active" data-view="dashboard">Farm Dashboard</button>
-        <button class="tab" data-view="boss">Boss Priority</button>
-        <button class="tab" data-view="patches">Patch Inbox</button>
-        <button class="tab" data-view="week">Week Planner</button>
+    <nav class="tabs workspace-header" aria-label="Planner workspace">
+      <div class="workspace-context-rail" aria-label="Live planner context">
+        <div class="workspace-context-item"><span class="context-icon">◔</span><b id="workspaceCompletionContext">Build loading</b><small>Progress</small></div>
+        <div class="workspace-context-item"><span class="context-icon">➜</span><b id="workspaceTargetContext">Finding next target</b><small>Next action</small></div>
+        <div class="workspace-context-item"><span class="context-icon">◇</span><b id="workspacePatchContext">Patch inbox loading</b><small>Review</small></div>
+        <div class="workspace-context-item"><span class="context-icon">✓</span><b id="workspaceHealthContext">Health checking</b><small>System</small></div>
       </div>
-      <div class="tab-group">
-        <span class="tab-group-label">Progress</span>
-        <button class="tab" data-view="farm">Farm Plan</button>
-        <button class="tab" data-view="paths">Upgrade Paths</button>
-        <button class="tab" data-view="knowledge">Knowledge Routes</button>
+      <div class="workspace-primary-bar">
+        <div class="workspace-mini-brand"><img src="/static/assets/planner-route-logo.png" alt=""><span>Planner</span></div>
+        <button class="tab workspace-home active" data-view="dashboard">Overview</button>
+        <button class="workspace-menu-trigger" data-workspace-menu="plan" aria-expanded="false" aria-controls="workspace-menu-plan">Plan <span>⌄</span></button>
+        <button class="workspace-menu-trigger" data-workspace-menu="progress" aria-expanded="false" aria-controls="workspace-menu-progress">Progress <span>⌄</span></button>
+        <button class="workspace-menu-trigger" data-workspace-menu="library" aria-expanded="false" aria-controls="workspace-menu-library">Library <span>⌄</span></button>
+        <button class="workspace-menu-trigger" data-workspace-menu="system" aria-expanded="false" aria-controls="workspace-menu-system">System <span>⌄</span></button>
+        <div class="workspace-current-view"><small>Current view</small><b id="workspaceCurrentView">Farm Dashboard</b></div>
       </div>
-      <div class="tab-group">
-        <span class="tab-group-label">Data</span>
-        <button class="tab" data-view="containers">Container Contents</button>
-        <button class="tab" data-view="history">Scan History</button>
-        <button class="tab" data-view="freshness">Data Freshness</button>
+      <div id="workspaceMegaMenu" class="workspace-mega-menu" aria-hidden="true">
+        <section id="workspace-menu-plan" class="tab-group workspace-menu-panel" data-workspace-panel="plan" aria-label="Plan tools">
+          <div class="workspace-menu-heading"><span class="workspace-menu-symbol">◎</span><div><b>Plan</b><small>Decide what deserves your time next.</small></div></div>
+          <div class="workspace-menu-grid">
+            <button class="tab workspace-destination" data-view="boss"><span>♛</span><div><b>Boss Priority</b><small>Schedule eligibility and boss value.</small></div></button>
+            <button class="tab workspace-destination" data-view="patches"><span>◇</span><div><b>Patch Inbox</b><small>Review confirmed game changes safely.</small></div></button>
+            <button class="tab workspace-destination" data-view="week"><span>▦</span><div><b>Week Planner</b><small>Balance weekly goals and resets.</small></div></button>
+          </div>
+        </section>
+        <section id="workspace-menu-progress" class="tab-group workspace-menu-panel" data-workspace-panel="progress" aria-label="Progress tools">
+          <div class="workspace-menu-heading"><span class="workspace-menu-symbol">↗</span><div><b>Progress</b><small>Move materials and gear toward completion.</small></div></div>
+          <div class="workspace-menu-grid">
+            <button class="tab workspace-destination" data-view="farm"><span>✦</span><div><b>Farm Plan</b><small>See activities and remaining materials.</small></div></button>
+            <button class="tab workspace-destination" data-view="paths"><span>➜</span><div><b>Upgrade Paths</b><small>Trace recipes and target gear routes.</small></div></button>
+            <button class="tab workspace-destination" data-view="knowledge"><span>⌁</span><div><b>Knowledge Routes</b><small>Use verified supplemental acquisition routes.</small></div></button>
+          </div>
+        </section>
+        <section id="workspace-menu-library" class="tab-group workspace-menu-panel" data-workspace-panel="library" aria-label="Library tools">
+          <div class="workspace-menu-heading"><span class="workspace-menu-symbol">▤</span><div><b>Library</b><small>Inspect the information behind your plan.</small></div></div>
+          <div class="workspace-menu-grid">
+            <button class="tab workspace-destination" data-view="containers"><span>□</span><div><b>Container Contents</b><small>Browse reward tables and probabilities.</small></div></button>
+            <button class="tab workspace-destination" data-view="history"><span>◷</span><div><b>Scan History</b><small>Compare previous build snapshots.</small></div></button>
+            <button class="tab workspace-destination" data-view="freshness"><span>◌</span><div><b>Data Freshness</b><small>See what source data may need refreshing.</small></div></button>
+          </div>
+        </section>
+        <section id="workspace-menu-system" class="tab-group workspace-menu-panel" data-workspace-panel="system" aria-label="System tools">
+          <div class="workspace-menu-heading"><span class="workspace-menu-symbol">⚙</span><div><b>System</b><small>Settings, safety, and diagnostics.</small></div></div>
+          <div class="workspace-menu-grid">
+            <button class="tab workspace-destination" data-view="health"><span>✓</span><div><b>System Health</b><small>Verify the planner after updates.</small></div></button>
+            <button class="tab workspace-destination" data-view="settings"><span>⚙</span><div><b>Settings</b><small>Choose startup and planner behavior.</small></div></button>
+            <button class="tab workspace-destination" data-view="raw"><span>{ }</span><div><b>Raw JSON</b><small>Inspect the loaded scan directly.</small></div></button>
+          </div>
+        </section>
       </div>
-      <div class="tab-group">
-        <span class="tab-group-label">System</span>
-        <button class="tab" data-view="health">System Health</button>
-        <button class="tab" data-view="settings">Settings</button>
-        <button class="tab" data-view="raw">Raw JSON</button>
-      </div>
-      <span class="active-view-hint">Sticky navigation</span>
-    </div>
+    </nav>
 
     <div id="viewDashboard">
       <div id="todayDashboard"></div>
@@ -1047,12 +1094,23 @@ let plannerWheelLastInputAt = 0;
 let plannerNotices = [];
 let activityCenterOpen = false;
 let patchInboxFilter = 'all';
+let workspaceMenuOpen = '';
+let workspaceMenuCloseTimer = 0;
+let plannerRotatingIndex = 0;
+let plannerRotatingTimer = 0;
 
 const plannerReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const PLANNER_ACTIVITY_KEY = 'questlogPlannerActivity';
 const PLANNER_ACTIVITY_LIMIT = 30;
 const OFFICIAL_UPDATE_470_URL = 'https://www.playthroneandliberty.com/en-us/news/articles/update-4-7-0';
 const PLANNER_WHEEL_EASE_MS = 88;
+const PLANNER_ROTATING_PHRASES = ['next upgrade','boss priorities','crafting route','weekly goals'];
+const WORKSPACE_VIEW_GROUP = {
+  boss:'plan',patches:'plan',week:'plan',
+  farm:'progress',paths:'progress',knowledge:'progress',
+  containers:'library',history:'library',freshness:'library',
+  health:'system',settings:'system',raw:'system'
+};
 const PATCH_IMPACTS_470 = [
   {
     id:'field-boss-drops',icon:'↑',area:'Field Bosses',priority:'high',defaultStatus:'watching',
@@ -1259,6 +1317,114 @@ function plannerStickyOffset(){
   return Math.max(14,tabs.getBoundingClientRect().height+14);
 }
 
+function advancePlannerRotatingPhrase(){
+  const phrase=$('plannerRotatingPhrase');
+  if(!phrase || document.hidden || plannerReducedMotion.matches) return;
+  phrase.classList.remove('entering');
+  phrase.classList.add('leaving');
+  window.setTimeout(()=>{
+    plannerRotatingIndex=(plannerRotatingIndex+1)%PLANNER_ROTATING_PHRASES.length;
+    phrase.textContent=PLANNER_ROTATING_PHRASES[plannerRotatingIndex];
+    phrase.classList.remove('leaving');
+    phrase.classList.add('entering');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>phrase.classList.remove('entering')));
+  },340);
+}
+
+function initializePlannerRotatingPhrase(){
+  if(plannerRotatingTimer || plannerReducedMotion.matches) return;
+  plannerRotatingTimer=window.setInterval(advancePlannerRotatingPhrase,3200);
+}
+
+function setWorkspaceMenu(name,{focus=false}={}){
+  const valid=Object.values(WORKSPACE_VIEW_GROUP).includes(name);
+  workspaceMenuOpen=valid ? name : '';
+  const mega=$('workspaceMegaMenu');
+  mega?.classList.toggle('open',Boolean(workspaceMenuOpen));
+  mega?.setAttribute('aria-hidden',workspaceMenuOpen?'false':'true');
+  document.querySelectorAll('[data-workspace-menu]').forEach(button=>{
+    const open=button.dataset.workspaceMenu===workspaceMenuOpen;
+    button.classList.toggle('open',open);
+    button.setAttribute('aria-expanded',open?'true':'false');
+  });
+  document.querySelectorAll('[data-workspace-panel]').forEach(panel=>{
+    panel.classList.toggle('open',panel.dataset.workspacePanel===workspaceMenuOpen);
+  });
+  if(focus && workspaceMenuOpen){
+    document.querySelector(`[data-workspace-panel="${CSS.escape(workspaceMenuOpen)}"] .workspace-destination`)?.focus();
+  }
+}
+
+function closeWorkspaceMenu(){
+  window.clearTimeout(workspaceMenuCloseTimer);
+  setWorkspaceMenu('');
+}
+
+function initializeWorkspaceHeader(){
+  const header=document.querySelector('.workspace-header');
+  if(!header || header.dataset.bound==='true') return;
+  header.dataset.bound='true';
+  const hoverQuery=window.matchMedia('(hover:hover) and (pointer:fine)');
+
+  document.querySelectorAll('[data-workspace-menu]').forEach(button=>{
+    button.onclick=event=>{
+      event.stopPropagation();
+      setWorkspaceMenu(hoverQuery.matches
+        ? button.dataset.workspaceMenu
+        : (workspaceMenuOpen===button.dataset.workspaceMenu?'':button.dataset.workspaceMenu));
+    };
+    button.onmouseenter=()=>{
+      if(hoverQuery.matches) setWorkspaceMenu(button.dataset.workspaceMenu);
+    };
+  });
+  header.onmouseenter=()=>window.clearTimeout(workspaceMenuCloseTimer);
+  header.onmouseleave=()=>{
+    if(hoverQuery.matches) workspaceMenuCloseTimer=window.setTimeout(closeWorkspaceMenu,180);
+  };
+  document.addEventListener('click',event=>{
+    if(workspaceMenuOpen && event.target instanceof Node && !header.contains(event.target)) closeWorkspaceMenu();
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape' && workspaceMenuOpen){
+      const trigger=document.querySelector(`[data-workspace-menu="${CSS.escape(workspaceMenuOpen)}"]`);
+      closeWorkspaceMenu();
+      trigger?.focus();
+    }
+  });
+}
+
+function updateWorkspaceActiveState(view,label=''){
+  const group=WORKSPACE_VIEW_GROUP[view] || '';
+  document.querySelectorAll('[data-workspace-menu]').forEach(button=>{
+    button.classList.toggle('active',button.dataset.workspaceMenu===group);
+  });
+  if($('workspaceCurrentView')) $('workspaceCurrentView').textContent=label || view;
+}
+
+function updatePlannerChrome(){
+  if($('workspacePatchContext')){
+    const patchCounts=patchImpactCounts();
+    $('workspacePatchContext').textContent=patchCounts['needs-review']
+      ? `${patchCounts['needs-review']} patch impact${patchCounts['needs-review']===1?'':'s'} to review`
+      : 'Patch inbox reviewed';
+  }
+  if($('workspaceHealthContext')){
+    const summary=lastSystemHealth?.summary;
+    $('workspaceHealthContext').textContent=summary
+      ? (summary.failed ? `${summary.failed} health failure${summary.failed===1?'':'s'}` : `${summary.passed}/${summary.total} checks passed`)
+      : 'Health checking';
+  }
+  if(!currentData) return;
+  const progress=loadProgress();
+  const completed=currentData.items.filter(item=>(progress[itemKey(item)] || 'not-started')==='complete').length;
+  const percent=currentData.items.length ? Math.round(completed/currentData.items.length*100) : 0;
+  if($('workspaceCompletionContext')) $('workspaceCompletionContext').textContent=`${percent}% build complete`;
+  if($('workspaceTargetContext')){
+    const target=dashboardPlannerTargets()[0];
+    $('workspaceTargetContext').textContent=target ? target.displayName : 'No unfinished targets';
+  }
+}
+
 function officialUpdate470Html(){
   const counts=patchImpactCounts();
   return `
@@ -1382,6 +1548,7 @@ function renderPatchInbox(){
       for(const state of ['needs-review','watching','reviewed']){
         document.querySelectorAll(`[data-patch-count="${CSS.escape(state)}"]`).forEach(el=>el.textContent=String(updatedCounts[state]));
       }
+      updatePlannerChrome();
       notifyPlanner(`${item.title} marked ${patchStatusLabel(status).toLowerCase()}.`,{type:status==='reviewed'?'success':'info',title:'Patch Inbox updated',dedupeKey:`patch-${item.id}-${status}`});
     };
   });
@@ -1753,6 +1920,7 @@ function scrollPlannerTabsIntoView(){
 
 function activateView(view,{ensureResults=false,scroll=false}={}){
   if(!VIEW_HOSTS[view]) return false;
+  closeWorkspaceMenu();
 
   if(ensureResults && $('results')){
     $('results').style.display='';
@@ -1763,8 +1931,9 @@ function activateView(view,{ensureResults=false,scroll=false}={}){
   });
 
   const activeBtn=document.querySelector(`.tab[data-view="${CSS.escape(view)}"]`);
-  const activeLabel=activeBtn?.textContent?.trim() || view;
+  const activeLabel=activeBtn?.querySelector('b')?.textContent?.trim() || activeBtn?.textContent?.trim() || view;
   if($('activeViewText')) $('activeViewText').textContent=activeLabel;
+  updateWorkspaceActiveState(view,activeLabel);
   document.title=`Questlog TL Planner — ${activeLabel}`;
 
   document.body.classList.toggle('settings-view-active',view==='settings');
@@ -3360,21 +3529,7 @@ function dashboardPlannerTargets(){
 }
 
 function openUpgradePathSlot(slotIndex){
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  document.querySelector('.tab[data-view="paths"]')?.classList.add('active');
-
-  $('viewDashboard').style.display='none';
-  $('viewBoss').style.display='none';
-  $('viewWeek').style.display='none';
-  $('viewFarm').style.display='none';
-  $('viewPaths').style.display='';
-  $('viewKnowledge').style.display='none';
-  $('viewContainers').style.display='none';
-  $('viewHistory').style.display='none';
-  $('viewFreshness').style.display='none';
-  $('viewHealth').style.display='none';
-  $('viewSettings').style.display='none';
-  $('viewRaw').style.display='none';
+  activateView('paths',{ensureResults:true,scroll:false});
 
   const card=document.querySelector(`[data-path-slot="${Number(slotIndex)}"]`);
   if(card) scrollPlannerTo(card,{smooth:true,offset:plannerStickyOffset});
@@ -3817,21 +3972,7 @@ function openBossPreviewForDate(dateKey){
   saveBossPlanner(p);
   renderBossPriority();
 
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  document.querySelector('.tab[data-view="boss"]')?.classList.add('active');
-
-  $('viewDashboard').style.display='none';
-  $('viewBoss').style.display='';
-  $('viewWeek').style.display='none';
-  $('viewFarm').style.display='none';
-  $('viewPaths').style.display='none';
-  $('viewKnowledge').style.display='none';
-  $('viewContainers').style.display='none';
-  $('viewHistory').style.display='none';
-  $('viewFreshness').style.display='none';
-  $('viewHealth').style.display='none';
-  $('viewSettings').style.display='none';
-  $('viewRaw').style.display='none';
+  activateView('boss',{ensureResults:true,scroll:false});
 }
 
 function checklistDateState(dateKey=plannerDateKey()){
@@ -5596,9 +5737,16 @@ function frontendHealthChecks(){
 
   checks.push(healthClientCheck(
     'workspace_navigation',
-    'Grouped workspace navigation',
-    document.querySelectorAll('.tab-group').length===4 && Boolean($('backTopBtn')) && typeof plannerStickyOffset==='function' ? 'pass' : 'fail',
-    `${document.querySelectorAll('.tab-group').length} navigation group(s) rendered; back-to-top control ${$('backTopBtn')?'available':'missing'}.`
+    'Context-aware workspace header',
+    document.querySelectorAll('.workspace-menu-trigger').length===4 && document.querySelectorAll('.workspace-menu-panel').length===4 && document.querySelectorAll('.workspace-context-item').length===4 && Boolean($('workspaceMegaMenu')) && Boolean($('backTopBtn')) && typeof setWorkspaceMenu==='function' && typeof updatePlannerChrome==='function' && typeof plannerStickyOffset==='function' ? 'pass' : 'fail',
+    `${document.querySelectorAll('.workspace-menu-panel').length} grouped menu panel(s) and ${document.querySelectorAll('.workspace-context-item').length} live context item(s) rendered with click, hover, Escape, and outside-click behavior.`
+  ));
+
+  checks.push(healthClientCheck(
+    'rotating_planner_promise',
+    'Reduced-motion-aware rotating planner promise',
+    PLANNER_ROTATING_PHRASES.length===4 && Boolean($('plannerRotatingPhrase')) && typeof advancePlannerRotatingPhrase==='function' && typeof initializePlannerRotatingPhrase==='function' ? 'pass' : 'fail',
+    `${PLANNER_ROTATING_PHRASES.length} planner goals rotate through a vertical transition; reduced-motion preferences keep the first phrase static.`
   ));
 
   checks.push(healthClientCheck(
@@ -5732,6 +5880,7 @@ async function runSystemHealth({showTab=false}={}){
           : `Health: ${summary.failed} failure${summary.failed===1?'':'s'}`;
     }
     renderSystemHealth(lastSystemHealth);
+    updatePlannerChrome();
     if(showTab){
       activateView('health',{ensureResults:true,scroll:true});
     }
@@ -5781,6 +5930,7 @@ function renderAll(){
     $('viewRaw').innerHTML = `<pre>${esc(JSON.stringify(currentData,null,2))}</pre>`;
   });
   safeRenderView('item previews', attachHoverCards);
+  updatePlannerChrome();
 }
 
 function canonicalPath(url){
@@ -5964,19 +6114,7 @@ function renderBuildOverview(){
 }
 
 function openFarmItem(idx){
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  const farmTab = document.querySelector('.tab[data-view="farm"]');
-  if(farmTab) farmTab.classList.add('active');
-
-  $('viewDashboard').style.display = 'none';
-  $('viewBoss').style.display = 'none';
-  $('viewWeek').style.display = 'none';
-  $('viewFarm').style.display = '';
-  $('viewPaths').style.display = 'none';
-  $('viewKnowledge').style.display = 'none';
-  $('viewContainers').style.display = 'none';
-  $('viewHistory').style.display = 'none';
-  $('viewRaw').style.display = 'none';
+  activateView('farm',{ensureResults:true,scroll:false});
 
   const card = document.querySelector(`details.farm-slot[data-item-index="${idx}"]`);
   if(card){
@@ -7535,6 +7673,20 @@ if(backTopBtn){
   backTopBtn.onclick=()=>scrollPlannerTo(0,{smooth:true});
 }
 updateBackTopVisibility();
+
+initializeWorkspaceHeader();
+initializePlannerRotatingPhrase();
+updatePlannerChrome();
+plannerReducedMotion.addEventListener?.('change',event=>{
+  if(event.matches){
+    window.clearInterval(plannerRotatingTimer);
+    plannerRotatingTimer=0;
+    const phrase=$('plannerRotatingPhrase');
+    if(phrase){ phrase.classList.remove('leaving','entering'); phrase.textContent=PLANNER_ROTATING_PHRASES[0]; }
+  }else{
+    initializePlannerRotatingPhrase();
+  }
+});
 
 document.querySelectorAll('.tab').forEach(btn=>{
   btn.onclick = () => activateView(btn.dataset.view,{scroll:true});

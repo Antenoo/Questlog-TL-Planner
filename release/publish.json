@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.11",
-  "publish": false,
+  "version": "22.0.12",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Introduces an original route-and-waypoint planner emblem and a friendlier product identity across the header, favicon, and dashboard. Rebalances the interface away from diagnostic-tool styling with softer layered surfaces, clearer typography, stronger section hierarchy, purpose-led cards, a visual build-completion ring, and simplified navigation. Build synchronization and the full equipment overview now collapse into focused drawers after a build loads, keeping the daily plan prominent while preserving every control. The generated logo is packaged as a required updater asset and verified by system health. Planner data and scan state are unchanged."
+  "notes": "Adds a reduced-motion-aware revolving planner promise inspired by the supplied reference: the fixed phrase stays in place while upgrade, boss, crafting, and weekly goals transition vertically. Replaces the always-visible workspace button grid with an original two-level application header: a live context rail for completion, next target, patch review, and health; a compact logo/navigation bar; and accessible grouped mega menus for Plan, Progress, Library, and System destinations. Menus support pointer hover, click/tap, Escape, outside-click closing, current-group highlighting, and responsive two-column mobile context. Planner data and scan state are unchanged."
 }

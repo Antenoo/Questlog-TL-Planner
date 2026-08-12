@@ -1813,3 +1813,34 @@ purpose-led progression workspace without removing any existing controls.
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials, Sollant,
 weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.12 - Revolving planner promise and context-aware workspace header
+
+This release adapts the supplied Questlog header references into an original planner-specific
+navigation system and adds a reduced-motion-aware revolving goal beneath the product name.
+
+### Revolving planner promise
+
+- Keeps the fixed phrase “Plan your” in place while next upgrade, boss priorities, crafting
+  route, and weekly goals transition vertically.
+- Uses a brief slide-out, clear, and slide-in sequence matching the supplied interaction idea
+  without copying Questlog text, branding, or assets.
+- Stops the animation for reduced-motion users and leaves the first phrase readable.
+- Avoids live-region announcements so repeated decorative changes do not interrupt screen readers.
+
+### Context-aware workspace header
+
+- Replaces the permanently visible workspace button grid with a compact two-level app header.
+- Adds live completion, next-target, patch-review, and health context sourced from the actual
+  loaded planner state.
+- Keeps Overview directly available and groups the remaining views into Plan, Progress,
+  Library, and System menus with icons, descriptions, and clear current-view state.
+- Supports pointer hover, mouse click, touch tap, Escape, outside-click closing, focus return,
+  and automatic closing after a destination is selected.
+- Uses a two-column live-context rail and one-column menu destinations on compact screens.
+- Routes card shortcuts through the same view controller so menu highlighting and current-view
+  labels remain correct when navigation starts elsewhere in the planner.
+
+Planner data, cached Questlog pages, scan history, progress, priorities, materials, Sollant,
+weekly/daily state, backups, and user knowledge are unchanged.
