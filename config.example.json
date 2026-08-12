@@ -1,0 +1,13 @@
+{
+  "default_build_url": "",
+  "page_timeout_ms": 45000,
+  "after_load_wait_ms": 2200,
+  "slot_change_wait_ms": 900,
+  "max_scroll_steps": 30,
+  "scroll_wait_ms": 250,
+  "after_scroll_wait_ms": 1200,
+  "between_pages_seconds": 1.2,
+  "cache_ttl_hours": 168,
+  "default_recursive_depth": 2,
+  "show_browser_default": true
+}

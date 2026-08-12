@@ -1,0 +1,184 @@
+name: Publish planner release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - release/publish.json
+  workflow_dispatch:
+
+concurrency:
+  group: questlog-planner-release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  metadata:
+    name: Read and validate release metadata
+    runs-on: windows-latest
+    outputs:
+      publish: ${{ steps.release.outputs.publish }}
+      prerelease: ${{ steps.release.outputs.prerelease }}
+      version: ${{ steps.release.outputs.version }}
+      tag: ${{ steps.release.outputs.tag }}
+      asset_name: ${{ steps.release.outputs.asset_name }}
+      display_name: ${{ steps.release.outputs.display_name }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Validate publish.json
+        id: release
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $metadata = Get-Content -Raw -LiteralPath 'release/publish.json' | ConvertFrom-Json
+
+          $expected = @('schema_version', 'version', 'publish', 'prerelease', 'display_name', 'notes')
+          $actual = @($metadata.PSObject.Properties.Name)
+          if (@(Compare-Object -ReferenceObject $expected -DifferenceObject $actual).Count -ne 0) {
+            throw 'release/publish.json does not match the required schema.'
+          }
+          if ($metadata.schema_version -ne 1) {
+            throw 'Unsupported release metadata schema_version.'
+          }
+          if ([string]$metadata.version -notmatch '^[0-9]+\.[0-9]+\.[0-9]+$') {
+            throw 'Release version must use X.Y.Z numeric format.'
+          }
+          if ($metadata.publish -isnot [bool] -or $metadata.prerelease -isnot [bool]) {
+            throw 'publish and prerelease must be JSON booleans.'
+          }
+          if ([string]$metadata.display_name -notmatch '^[A-Za-z0-9][A-Za-z0-9 ._-]{0,79}$') {
+            throw 'display_name contains unsafe characters or is too long.'
+          }
+          $notes = [string]$metadata.notes
+          if ([string]::IsNullOrWhiteSpace($notes) -or $notes.Length -gt 20000 -or $notes.Contains([char]0)) {
+            throw 'notes are empty, unsafe, or too long.'
+          }
+
+          $version = [string]$metadata.version
+          $tag = "v$version"
+          $assetName = "Questlog_TL_Farm_Planner_UPDATE_v$($version.Replace('.', '_')).zip"
+          "publish=$(([bool]$metadata.publish).ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          "prerelease=$(([bool]$metadata.prerelease).ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          "version=$version" >> $env:GITHUB_OUTPUT
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          "asset_name=$assetName" >> $env:GITHUB_OUTPUT
+          "display_name=$([string]$metadata.display_name)" >> $env:GITHUB_OUTPUT
+
+          if (-not [bool]$metadata.publish) {
+            'Publishing is disabled in release/publish.json; no release job will run.' >> $env:GITHUB_STEP_SUMMARY
+          }
+
+  publish:
+    name: Build, validate, and publish
+    needs: metadata
+    if: needs.metadata.outputs.publish == 'true' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_VERSION: ${{ needs.metadata.outputs.version }}
+      RELEASE_TAG: ${{ needs.metadata.outputs.tag }}
+      RELEASE_ASSET_NAME: ${{ needs.metadata.outputs.asset_name }}
+      RELEASE_DISPLAY_NAME: ${{ needs.metadata.outputs.display_name }}
+      RELEASE_PRERELEASE: ${{ needs.metadata.outputs.prerelease }}
+    steps:
+      - name: Check out source and tags
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Refuse an existing tag or release
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $headers = @{
+            Accept = 'application/vnd.github+json'
+            Authorization = "Bearer $env:GH_TOKEN"
+          }
+          $encodedTag = [System.Uri]::EscapeDataString($env:RELEASE_TAG)
+          $tagResponse = Invoke-WebRequest `
+            -Uri "$env:GITHUB_API_URL/repos/$env:GITHUB_REPOSITORY/git/ref/tags/$encodedTag" `
+            -Headers $headers `
+            -SkipHttpErrorCheck
+          if ($tagResponse.StatusCode -eq 200) {
+            throw "Refusing to overwrite existing tag $env:RELEASE_TAG."
+          }
+          if ($tagResponse.StatusCode -ne 404) {
+            throw "Could not safely verify tag absence (HTTP $($tagResponse.StatusCode))."
+          }
+
+          $releaseResponse = Invoke-WebRequest `
+            -Uri "$env:GITHUB_API_URL/repos/$env:GITHUB_REPOSITORY/releases/tags/$encodedTag" `
+            -Headers $headers `
+            -SkipHttpErrorCheck
+          if ($releaseResponse.StatusCode -eq 200) {
+            throw "Refusing to overwrite existing release $env:RELEASE_TAG."
+          }
+          if ($releaseResponse.StatusCode -ne 404) {
+            throw "Could not safely verify release absence (HTTP $($releaseResponse.StatusCode))."
+          }
+
+      - name: Build allowlisted update ZIP
+        shell: pwsh
+        run: ./scripts/build_update.ps1 -OutputDirectory dist
+
+      - name: Validate update ZIP independently
+        shell: pwsh
+        run: |
+          $package = Join-Path 'dist' $env:RELEASE_ASSET_NAME
+          ./scripts/build_update.ps1 -ValidateOnly -PackagePath $package
+
+      - name: Prepare release notes
+        shell: pwsh
+        run: |
+          $metadata = Get-Content -Raw -LiteralPath 'release/publish.json' | ConvertFrom-Json
+          [System.IO.File]::WriteAllText(
+            (Join-Path $PWD 'release-notes.md'),
+            [string]$metadata.notes,
+            [System.Text.UTF8Encoding]::new($false)
+          )
+
+      - name: Create tag, release, and upload ZIP
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $package = Join-Path 'dist' $env:RELEASE_ASSET_NAME
+          if (-not (Test-Path -LiteralPath $package -PathType Leaf)) {
+            throw "Validated release asset is missing: $package"
+          }
+
+          $arguments = @(
+            'release', 'create', $env:RELEASE_TAG, $package,
+            '--repo', $env:GITHUB_REPOSITORY,
+            '--target', $env:GITHUB_SHA,
+            '--title', "$env:RELEASE_DISPLAY_NAME v$env:RELEASE_VERSION",
+            '--notes-file', 'release-notes.md',
+            '--fail-on-no-commits'
+          )
+          if ($env:RELEASE_PRERELEASE -eq 'true') {
+            $arguments += @('--prerelease', '--latest=false')
+          }
+
+          & gh @arguments
+          if ($LASTEXITCODE -ne 0) {
+            throw "GitHub CLI failed to create release $env:RELEASE_TAG."
+          }
+
+      - name: Verify uploaded asset digest
+        shell: pwsh
+        run: |
+          $package = Join-Path 'dist' $env:RELEASE_ASSET_NAME
+          & gh release verify-asset $env:RELEASE_TAG $package --repo $env:GITHUB_REPOSITORY
+          if ($LASTEXITCODE -ne 0) {
+            throw "Uploaded asset verification failed for $env:RELEASE_ASSET_NAME."
+          }

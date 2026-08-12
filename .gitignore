@@ -1,0 +1,72 @@
+# Questlog TL Farm Planner: personal and runtime state
+/data/
+/config.json
+planner_state.json
+scan_history.json
+health_report*.json
+live_update_*.json
+user_knowledge/
+knowledge_routes*.json
+
+# Runtime caches, exports, logs, and diagnostic bundles
+cache/
+caches/
+exports/
+logs/
+diagnostics/
+diagnostic_bundles/
+*.log
+*.tmp
+*.temp
+diagnostic*.zip
+
+# Update downloads, staging, and recovery backups
+updates/
+update_backups/
+_update_payload/
+_update_staging/
+backups/
+*.bak
+*.backup
+*.old
+Questlog_TL_Farm_Planner_UPDATE*.zip
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+config.local.json
+local_config.json
+secrets.json
+*.secret
+
+# Python environments, bytecode, and tool caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated build and packaging outputs
+build/
+dist/
+out/
+*.exe
+*.msi
+*.zip
+*.lnk
+
+# Editors and operating-system metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
