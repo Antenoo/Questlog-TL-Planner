@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.5",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Fixes a browser refresh loop caused by unresolved or stale frontend version values. Automatic version-mismatch refreshes are now validated and limited to one attempt. GitHub release checks now use a five-minute success cache and header-aware rate-limit backoff, with a clear Retry later state and local retry time. Planner data and scan state are unchanged."

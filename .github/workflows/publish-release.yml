@@ -174,11 +174,42 @@ jobs:
             throw "GitHub CLI failed to create release $env:RELEASE_TAG."
           }
 
-      - name: Verify uploaded asset digest
+      - name: Verify uploaded asset SHA-256
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
           $package = Join-Path 'dist' $env:RELEASE_ASSET_NAME
-          & gh release verify-asset $env:RELEASE_TAG $package --repo $env:GITHUB_REPOSITORY
-          if ($LASTEXITCODE -ne 0) {
-            throw "Uploaded asset verification failed for $env:RELEASE_ASSET_NAME."
+          $localDigest = "sha256:$((Get-FileHash -LiteralPath $package -Algorithm SHA256).Hash.ToLowerInvariant())"
+          $localSize = (Get-Item -LiteralPath $package).Length
+          $encodedTag = [System.Uri]::EscapeDataString($env:RELEASE_TAG)
+          $remoteAsset = $null
+
+          for ($attempt = 1; $attempt -le 5; $attempt++) {
+            $releaseJson = & gh api "repos/$env:GITHUB_REPOSITORY/releases/tags/$encodedTag"
+            if ($LASTEXITCODE -ne 0) {
+              throw "Could not read published release $env:RELEASE_TAG."
+            }
+            $release = ($releaseJson -join [Environment]::NewLine) | ConvertFrom-Json
+            $matches = @($release.assets | Where-Object {
+              [string]$_.name -ceq $env:RELEASE_ASSET_NAME
+            })
+            if ($matches.Count -ne 1) {
+              throw "Expected exactly one uploaded asset named $env:RELEASE_ASSET_NAME; found $($matches.Count)."
+            }
+            $remoteAsset = $matches[0]
+            if (-not [string]::IsNullOrWhiteSpace([string]$remoteAsset.digest)) {
+              break
+            }
+            if ($attempt -lt 5) {
+              Start-Sleep -Seconds 2
+            }
           }
+
+          $remoteDigest = ([string]$remoteAsset.digest).ToLowerInvariant()
+          if ($remoteDigest -ne $localDigest) {
+            throw "Uploaded asset SHA-256 mismatch. Local=$localDigest Remote=$remoteDigest"
+          }
+          if ([int64]$remoteAsset.size -ne [int64]$localSize) {
+            throw "Uploaded asset size mismatch. Local=$localSize Remote=$($remoteAsset.size)"
+          }
+          Write-Output "Verified uploaded asset: $remoteDigest ($localSize bytes)"
