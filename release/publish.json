@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.6",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Fixes the top Check for Updates button so it reliably opens Settings at the Updates section. The Settings scroll target is now captured before smooth scrolling begins, preventing scrollspy updates or a concurrent update-check render from retargeting the jump to an earlier section. Planner data and scan state are unchanged."
