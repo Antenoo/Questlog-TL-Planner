@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Questlog TL Farm Planner</title>
+  <link rel="icon" type="image/png" href="/static/assets/planner-route-logo.png">
   <style>
     :root{
       --bg:#0c1017; --panel:#151b24; --panel2:#1c2430; --text:#eef3fa;
@@ -745,6 +746,46 @@
     .patch-impact-zones span{color:#7590a8;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.patch-impact-zones p{margin:5px 0 0;color:#b4c2cf;font-size:10px;line-height:1.5}
     .patch-card-actions{display:flex;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid #22303e}.patch-status-button{padding:5px 8px;background:transparent;color:#73889c;border-color:#2b3c4e;border-radius:7px;font-size:8px;box-shadow:none}.patch-status-button.active{background:#21364a;color:#d8ecff;border-color:#48759b}
     .patch-safety-note{margin-top:14px;padding:11px 13px;border:1px solid #5d4c2d;border-radius:10px;background:#211d15;color:#d8c38f;font-size:10px;line-height:1.5}
+
+    /* v22.0.11 friendly planner identity */
+    :root{
+      --bg:#090d15;--panel:#121925;--panel2:#182232;--text:#f4f6fb;
+      --muted:#929fb2;--line:#263346;--accent:#79bfff;--violet:#9b7cff;
+      --gold:#f2bf67;--good:#7fd7a3;--warn:#efc56f;--bad:#f1838c
+    }
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 14% -8%,rgba(75,118,190,.18),transparent 30%),
+        radial-gradient(circle at 86% 2%,rgba(121,80,210,.13),transparent 27%),
+        linear-gradient(180deg,#090d15,#0b1018 45%,#090d14);
+      line-height:1.45
+    }
+    body:before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,black,transparent 72%)}
+    .shell{position:relative;max-width:1360px;padding:28px 30px 70px}
+    .panel{background:linear-gradient(145deg,rgba(19,27,40,.96),rgba(15,22,32,.96));border:1px solid rgba(83,106,137,.32);border-radius:18px;padding:18px;margin-bottom:18px;box-shadow:0 16px 42px rgba(0,0,0,.17)}
+    button{border-radius:10px;transition:transform .16s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease}
+    button:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.17)}
+    button.secondary{background:#202c3e;color:#edf4fb;border:1px solid rgba(116,139,169,.14)}
+    input[type=text],input[type=number]{background:#0c121d;border-color:#2d3d52;border-radius:11px;box-shadow:inset 0 1px 0 rgba(255,255,255,.02)}
+    .planner-hero{position:relative;align-items:center;overflow:hidden;min-height:154px;margin:0 0 20px;padding:24px 26px;border:1px solid rgba(102,130,167,.32);border-radius:22px;background:radial-gradient(circle at 79% 16%,rgba(137,92,230,.25),transparent 30%),linear-gradient(135deg,rgba(20,38,59,.98),rgba(14,21,33,.98) 60%);box-shadow:0 22px 58px rgba(0,0,0,.25)}
+    .planner-hero:after{content:'';position:absolute;inset:auto -80px -130px auto;width:380px;height:260px;border-radius:50%;background:rgba(102,183,255,.07);filter:blur(12px);pointer-events:none}
+    .planner-brand-logo{position:relative;z-index:1;width:106px;height:106px;flex:0 0 106px;object-fit:cover;object-position:center;border-radius:25px;box-shadow:0 15px 36px rgba(0,0,0,.36),0 0 0 1px rgba(143,190,255,.24)}
+    .planner-hero-copy{position:relative;z-index:1;flex:1;min-width:280px}
+    .planner-eyebrow,.section-kicker{display:block;color:#82bff4;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .planner-hero h1{margin:3px 0 5px;font-size:31px;letter-spacing:-.025em}
+    .planner-hero .sub{max-width:660px;margin:0;color:#b8c5d4;font-size:13px}
+    .planner-hero-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}.planner-hero-pills span{padding:4px 8px;border:1px solid rgba(133,169,211,.23);border-radius:999px;background:rgba(15,26,40,.52);color:#9eb4ca;font-size:9px;font-weight:750}
+    .planner-hero-meta{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:6px}.planner-hero-meta small{color:#788ba0;font-size:9px}.app-version-chip{background:rgba(12,20,31,.64);border-color:rgba(142,181,226,.28);padding:7px 10px}
+    .section-heading{display:flex;gap:12px;align-items:center;margin-bottom:14px}.section-heading h2,.workspace-intro h2{margin:2px 0 1px;color:#f0f5fb;font-size:17px}.section-heading p,.workspace-intro p{margin:0;color:#8291a4;font-size:10px}.section-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;border:1px solid rgba(109,158,205,.28);border-radius:12px;background:linear-gradient(145deg,#1b3248,#172436);color:#8dcbff;font-size:18px;box-shadow:inset 0 0 18px rgba(102,183,255,.06)}
+    .scanner-panel{padding:0;background:linear-gradient(145deg,rgba(20,30,45,.96),rgba(14,21,31,.96))}.scanner-panel>summary{list-style:none;cursor:pointer}.scanner-panel>summary::-webkit-details-marker{display:none}.scanner-heading{margin:0;padding:17px 20px}.scanner-heading>div{flex:1}.scanner-panel-body{padding:0 22px 14px;border-top:1px solid rgba(76,98,125,.2)}.scanner-panel[open] .scanner-panel-body{padding-top:16px}.scanner-panel[open] .scanner-drawer-action b{transform:rotate(180deg)}.scanner-panel .grid{grid-template-columns:minmax(0,1fr) 130px}.scan-options{padding:11px 12px;border-radius:12px;background:rgba(8,14,22,.48)}.scan-options .check{font-size:11px}.scan-options button{margin-left:auto}.scanner-utilities{border-top-color:rgba(88,107,133,.18)}.scan-maintenance-details{border-color:rgba(74,94,120,.25);background:rgba(8,13,20,.4)}
+    .planner-glance-panel{padding:20px 22px}.glance-heading{margin-bottom:13px}.summary{gap:10px}.metric{position:relative;overflow:hidden;min-height:82px;padding:14px 15px 12px 17px;border:1px solid rgba(74,99,130,.23);border-radius:13px;background:linear-gradient(145deg,#192638,#141d2a)}.metric:after{content:'';position:absolute;right:-18px;bottom:-30px;width:88px;height:88px;border-radius:50%;background:rgba(112,177,235,.06)}.metric b{font-size:24px;letter-spacing:-.03em}.metric span{color:#8192a6;font-size:10px}.result-actions-primary{margin-top:14px}.result-actions-primary button{padding:7px 10px;font-size:10px}.result-tools,.scan-meta-line{opacity:.82}
+    .build-overview-drawer{padding:0;overflow:hidden}.build-overview-drawer>summary{list-style:none;cursor:pointer}.build-overview-drawer>summary::-webkit-details-marker{display:none}.overview-head{min-height:78px;margin:0;padding:16px 18px}.overview-head>div{flex:1}.overview-head h3{font-size:17px;margin:2px 0}.drawer-action{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(99,124,155,.27);border-radius:9px;color:#aebed0;font-size:10px}.drawer-action b{font-size:14px;transition:transform .18s ease}.build-overview-drawer[open] .drawer-action b{transform:rotate(180deg)}.overview-drawer-body{padding:0 16px 16px;border-top:1px solid rgba(71,92,116,.22)}.overview-drawer-body #buildOverview{padding-top:15px}
+    .workspace-intro{align-items:end;margin:30px 2px 10px}.workspace-intro>div{max-width:620px}.workspace-intro>span{padding:5px 9px;border:1px solid rgba(96,126,160,.25);border-radius:999px;background:#111b28;color:#9db3ca!important;font-weight:800}
+    .tabs{gap:8px;padding:9px 10px;margin-bottom:18px;border-color:rgba(74,98,128,.28);border-radius:15px;background:rgba(10,16,25,.9);box-shadow:0 14px 32px rgba(0,0,0,.2)}.tab-group{gap:3px;padding:0 7px 0 0;border:0;border-right:1px solid rgba(75,96,121,.26);border-radius:0;background:transparent}.tab-group:last-of-type{border-right:0}.tab-group:has(.tab.active){border-color:rgba(75,96,121,.26);background:transparent}.tab-group-label{padding:0 6px;color:#566b82}.tab-group .tab{padding:8px 10px;border:1px solid transparent;border-radius:9px;background:transparent;color:#9dabbc;font-size:10px}.tab-group .tab:hover{background:#172335;color:#e7f2fc}.tab-group .tab.active{border-color:rgba(135,174,218,.38);background:linear-gradient(135deg,#294f72,#4a3f7a);color:white;box-shadow:0 7px 17px rgba(34,65,101,.28)}
+    .today-card{position:relative;overflow:hidden;padding:22px;border-color:rgba(91,126,164,.31);border-radius:18px;background:radial-gradient(circle at 91% 0%,rgba(119,79,203,.17),transparent 27%),linear-gradient(145deg,#151f2d,#101720);box-shadow:0 18px 40px rgba(0,0,0,.17)}.today-card:before{content:'';position:absolute;right:-70px;top:-90px;width:330px;height:330px;background:url('/static/assets/planner-route-logo.png') center/contain no-repeat;opacity:.035;filter:saturate(.7);pointer-events:none}.today-card>*{position:relative}.today-head{align-items:center;margin-bottom:17px}.today-head h2{margin:2px 0 2px;font-size:24px;letter-spacing:-.025em}.today-head .muted{font-size:11px}.today-progress-orb{--progress:0%;display:flex;flex-direction:column;align-items:center;justify-content:center;width:78px;height:78px;flex:0 0 78px;border-radius:50%;background:radial-gradient(circle closest-side,#121a25 74%,transparent 76% 99%),conic-gradient(#8e78ef var(--progress),#243244 0);box-shadow:0 8px 26px rgba(0,0,0,.25)}.today-progress-orb b{font-size:18px}.today-progress-orb span{color:#8999ab;font-size:8px;text-transform:uppercase;letter-spacing:.08em}.today-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.today-section{position:relative;overflow:hidden;min-height:148px;padding:14px;border:1px solid rgba(81,105,136,.25);border-radius:13px;background:linear-gradient(145deg,rgba(15,24,36,.96),rgba(11,17,26,.96))}.today-section:after{content:'';position:absolute;right:-22px;top:-24px;width:90px;height:90px;border-radius:50%;background:rgba(104,170,226,.045)}.today-section h4{display:flex;align-items:center;gap:7px;color:#dce8f4;font-size:11px}.today-section h4 span{display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:#192c40;color:#88c5f7}.today-main{font-size:14px;line-height:1.3}.today-sub{font-size:10px;line-height:1.55}.ready-row{border-color:rgba(72,91,114,.2)}
+    .dash-card{border-color:rgba(74,99,130,.26);border-radius:15px;background:linear-gradient(145deg,#141d2a,#101720);box-shadow:0 12px 28px rgba(0,0,0,.12)}.status-box{border-color:rgba(76,101,131,.23);border-radius:12px;background:linear-gradient(145deg,#172334,#111925)}
+    .gear-card,.queue-panel,.readiness-item,.fresh-card,.history-card,.settings-card{border-color:rgba(73,98,128,.27);background:linear-gradient(145deg,#141e2b,#101721);box-shadow:0 8px 20px rgba(0,0,0,.09)}
     .workspace-intro{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-2px 0 8px;padding:0 2px}
     .workspace-intro b{font-size:12px}
     .workspace-intro span{font-size:10px;color:var(--muted)}
@@ -753,6 +794,9 @@
       .tab-group{width:100%}
       .active-view-hint{display:none}
       .patch-impact-grid{grid-template-columns:1fr}
+      .planner-hero{padding:20px}.planner-brand-logo{width:88px;height:88px;flex-basis:88px}.planner-hero h1{font-size:27px}
+      .today-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .tab-group{padding:2px 0;border-right:0;border-bottom:1px solid rgba(75,96,121,.2)}.tab-group:last-of-type{border-bottom:0}
     }
     @media(max-width:760px){
       .scan-primary,.scan-secondary,.scan-maintenance,.result-actions-primary,.result-tools-body{align-items:stretch}
@@ -767,6 +811,11 @@
       .patch-impact-zones{grid-template-columns:1fr}.patch-impact-zones>div{min-height:0}
       .patch-card-actions{flex-wrap:wrap}
       .official-update-mark{display:none}.official-update-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .shell{padding:14px 14px 55px}.planner-hero{align-items:flex-start;min-height:0;padding:17px;border-radius:17px}.planner-brand-logo{width:70px;height:70px;flex-basis:70px;border-radius:18px}.planner-hero-copy{min-width:calc(100% - 90px)}.planner-hero h1{font-size:22px}.planner-hero .sub{font-size:11px}.planner-hero-pills,.planner-hero-meta small{display:none}.planner-hero-meta{width:100%;align-items:flex-start;margin-left:82px;margin-top:-9px}
+      .scanner-panel,.planner-glance-panel{padding:16px}.scanner-panel .grid{grid-template-columns:1fr}.scan-options{align-items:flex-start;flex-direction:column}.scan-options button{width:100%;margin-left:0}.section-heading{align-items:flex-start}
+      .today-card{padding:17px}.today-head{align-items:flex-start}.today-head h2{font-size:21px}.today-progress-orb{width:64px;height:64px;flex-basis:64px}.today-grid{grid-template-columns:1fr}.today-section{min-height:0}
+      .workspace-intro{align-items:flex-start;flex-direction:column;margin-top:22px}.tabs{padding:8px}.tab-group{align-items:flex-start}.tab-group-label{width:100%;padding:5px 5px 2px}.tab-group .tab{flex:1 1 auto;text-align:center}
+      .overview-head{align-items:flex-start}.drawer-action{margin-left:auto}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{min-height:72px}
     }
 
     @media(max-width:760px){.grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.livegrid{grid-template-columns:repeat(2,1fr)}}
@@ -778,15 +827,27 @@
 </head>
 <body>
 <div class="shell">
-  <div class="app-title-row">
-    <div>
+  <header class="app-title-row planner-hero">
+    <img class="planner-brand-logo" src="/static/assets/planner-route-logo.png" alt="Questlog TL Farm Planner route emblem">
+    <div class="planner-hero-copy">
+      <div class="planner-eyebrow">Personal progression workspace</div>
       <h1>Questlog TL Farm Planner</h1>
-      <div class="sub">Local web app v__PLANNER_VERSION__ • faster wheel motion and Patch Impact Inbox</div>
+      <div class="sub">Turn your build into a clear route from today’s priorities to finished gear.</div>
+      <div class="planner-hero-pills"><span>Local-first</span><span>Build-aware</span><span>Safe updates</span></div>
     </div>
-    <span class="app-version-chip">Local planner <b>v__PLANNER_VERSION__</b></span>
-  </div>
+    <div class="planner-hero-meta">
+      <span class="app-version-chip">Planner <b>v__PLANNER_VERSION__</b></span>
+      <small>Your data stays on this PC</small>
+    </div>
+  </header>
 
-  <div class="panel scanner-panel">
+  <details class="panel scanner-panel" open>
+    <summary class="section-heading scanner-heading">
+      <span class="section-icon">↗</span>
+      <div><span class="section-kicker">Build source</span><h2>Sync your Questlog build</h2><p>Paste a character-builder link, then refresh only when your build changes.</p></div>
+      <span class="drawer-action scanner-drawer-action">Sync options <b>⌄</b></span>
+    </summary>
+    <div class="scanner-panel-body">
     <div class="grid">
       <div>
         <label>Questlog character-builder URL</label>
@@ -797,13 +858,13 @@
         <input id="depth" type="number" min="0" max="4" value="2">
       </div>
     </div>
-    <div class="scan-primary">
+    <div class="scan-primary scan-options">
       <label class="check"><input id="showBrowser" type="checkbox" checked> Show Chromium while scanning <span class="muted">(recommended — Questlog blocks headless)</span></label>
       <label class="check"><input id="forceRefresh" type="checkbox"> Force refresh cached pages</label>
       <button id="scanBtn">Scan / Update Build</button>
       <button id="staleScanBtn" class="secondary">Refresh Stale Data Only</button>
     </div>
-    <div class="scan-secondary">
+    <div class="scan-secondary scanner-utilities">
       <button id="loadLastBtn" class="secondary">Load Last Scan</button>
       <button id="cancelBtn" class="secondary" disabled>Cancel Scan</button>
       <button id="settingsTopBtn" class="secondary">Settings</button>
@@ -817,7 +878,8 @@
         <button id="diagBtn" class="secondary">Download Diagnostic Bundle</button>
       </div>
     </details>
-  </div>
+    </div>
+  </details>
 
   <div class="panel" id="progressPanel" style="display:none">
     <div class="progressbar"><div id="bar"></div></div>
@@ -834,7 +896,11 @@
   </div>
 
   <div id="results" style="display:none">
-    <div class="panel">
+    <div class="panel planner-glance-panel">
+      <div class="section-heading glance-heading">
+        <span class="section-icon">◇</span>
+        <div><span class="section-kicker">Current build</span><h2>Your planner at a glance</h2><p>The essentials stay visible; maintenance tools remain tucked away.</p></div>
+      </div>
       <div class="summary" id="summary"></div>
       <div class="result-actions-primary">
         <button id="expandAllBtn" class="secondary">Expand All Slots</button>
@@ -860,18 +926,21 @@
       </div>
     </div>
 
-    <div class="panel overview-panel">
-      <div class="overview-head">
+    <details class="panel overview-panel build-overview-drawer">
+      <summary class="overview-head">
+        <span class="section-icon">✦</span>
         <div>
+          <span class="section-kicker">Gear & upgrade order</span>
           <h3>Build Overview</h3>
-          <div class="muted">Hover an icon for the quick preview. Marking an item Complete removes its recipe costs from the material dashboard.</div>
+          <div class="muted">Open when you want to adjust equipment status, priorities, or the upgrade queue.</div>
         </div>
-      </div>
-      <div id="buildOverview"></div>
-    </div>
+        <span class="drawer-action">View build <b>⌄</b></span>
+      </summary>
+      <div class="overview-drawer-body"><div id="buildOverview"></div></div>
+    </details>
 
     <div class="workspace-intro">
-      <div><b>Planner workspace</b> <span>Grouped by what you are trying to do.</span></div>
+      <div><span class="section-kicker">Your workspace</span><h2>Plan the next move</h2><p>Choose a focused view instead of digging through one endless report.</p></div>
       <span id="activeViewText">Farm Dashboard</span>
     </div>
     <div class="tabs">
@@ -5495,6 +5564,14 @@ function frontendHealthChecks(){
     SETTINGS_SECTIONS.length===6 && typeof scrollToSettingsSection==='function' && typeof updateSettingsScrollSpy==='function' && typeof scrollPlannerTo==='function' ? 'pass' : 'fail',
     `${SETTINGS_SECTIONS.length} Settings section(s) registered with motion-aware scrolling, locked destinations, and midpoint-based section tracking.`
   ));
+  const plannerLogo=document.querySelector('.planner-brand-logo');
+  checks.push(healthClientCheck(
+    'planner_brand_identity','Planner visual identity',
+    plannerLogo instanceof HTMLImageElement && plannerLogo.complete && plannerLogo.naturalWidth>0 ? 'pass' : 'fail',
+    plannerLogo instanceof HTMLImageElement && plannerLogo.naturalWidth>0
+      ? `Original route-planner emblem loaded at ${plannerLogo.naturalWidth}×${plannerLogo.naturalHeight}.`
+      : 'The planner emblem could not be loaded.'
+  ));
 
   checks.push(healthClientCheck(
     'motion_aware_navigation',
@@ -5667,6 +5744,11 @@ async function runSystemHealth({showTab=false}={}){
 
 function renderAll(){
   $('results').style.display = '';
+  const scannerPanel=document.querySelector('.scanner-panel');
+  if(scannerPanel && !scannerPanel.dataset.autoCollapsed){
+    scannerPanel.open=false;
+    scannerPanel.dataset.autoCollapsed='true';
+  }
   const progress = loadProgress();
   const completed = currentData.items.filter(i => (progress[itemKey(i)] || 'not-started') === 'complete').length;
 
@@ -6558,6 +6640,9 @@ function renderTodayDashboard(){
   if(!currentData) return;
 
   const p = loadBossPlanner();
+  const todayProgress = loadProgress();
+  const todayCompleted = currentData.items.filter(item=>(todayProgress[itemKey(item)] || 'not-started')==='complete').length;
+  const todayPercent = currentData.items.length ? Math.round(todayCompleted/currentData.items.length*100) : 0;
   const previewMode = plannerIsPreview(p);
   const bossPlan = previewMode ? null : bossDayPlan(p);
   const allocation = priorityAllocation();
@@ -6620,33 +6705,34 @@ function renderTodayDashboard(){
     <div class="today-card">
       <div class="today-head">
         <div>
-          <h2>Today</h2>
-          <div class="muted">A quick answer to “what should I actually work on now?”</div>
+          <span class="section-kicker">Today's route</span>
+          <h2>Focus on what moves your build forward</h2>
+          <div class="muted">Your best next actions, without making you read the whole planner first.</div>
         </div>
-        <div class="backup-note">Planner state is locally saved and can now be exported/restored.</div>
+        <div class="today-progress-orb" style="--progress:${todayPercent}%"><b>${todayPercent}%</b><span>complete</span></div>
       </div>
 
       <div class="today-grid">
         <div class="today-section">
-          <h4>Archboss priority</h4>
+          <h4><span>♛</span> Archboss priority</h4>
           <div class="today-main">${esc(bossMain)}</div>
           <div class="today-sub">${esc(bossSub)}</div>
         </div>
 
         <div class="today-section">
-          <h4>Priority-reserved crafts</h4>
+          <h4><span>✦</span> Ready to craft</h4>
           <div class="today-main">${ready.length ? `${ready.length} ready after reservations` : (close.length ? `${close.length} close after reservations` : 'Nothing ready yet')}</div>
           <div class="ready-list">${craftRows || '<div class="today-sub">No unfinished craftable gear was recognized.</div>'}</div>
         </div>
 
         <div class="today-section">
-          <h4>Next planner targets</h4>
+          <h4><span>➜</span> Next planner targets</h4>
           <div class="today-main">${nextTargets.length ? `${nextTargets.length} top target${nextTargets.length===1?'':'s'}` : 'No unfinished targets'}</div>
           <div class="ready-list">${targetRows || '<div class="today-sub">Everything is marked complete.</div>'}</div>
         </div>
 
         <div class="today-section">
-          <h4>Crafting budget</h4>
+          <h4><span>◈</span> Crafting budget</h4>
           <div class="today-main">${formatNumber(sollantRemaining)} Sollant still needed</div>
           <div class="today-sub">
             Known unfinished craft costs: ${formatNumber(budget.knownTotal)} Sollant.<br>

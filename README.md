@@ -1782,3 +1782,34 @@ a structured review workflow with stronger visual hierarchy.
 Review states are organizational only. They do not automatically change boss weights,
 drop percentages, recipe costs, planner data, cached Questlog pages, scan history,
 progress, priorities, materials, Sollant, weekly/daily state, backups, or user knowledge.
+
+
+## v22.0.11 - Friendly planner identity and visual workspace
+
+This release reshapes the planner from a diagnostic-looking utility into a more welcoming,
+purpose-led progression workspace without removing any existing controls.
+
+### Original visual identity
+
+- Adds an original route-and-waypoint emblem that forms a subtle Q and represents planning,
+  progression, and reaching a destination.
+- Uses the emblem in the product header, browser favicon, and a restrained dashboard watermark.
+- Introduces a midnight-navy, violet, sky-blue, and warm-gold visual language inspired by
+  the supplied Questlog layout video without copying its brand or page composition.
+- Packages the logo as a required live-update asset and verifies that it loads in System Health.
+
+### Friendlier planner experience
+
+- Rebuilds the top of the app as a branded product hero with a clearer purpose statement.
+- Turns the scanner into a focused Build Source drawer. It remains open before a build is
+  available and automatically compacts after the loaded scan renders.
+- Turns the detailed Build Overview and Upgrade Queue into an optional gear-management drawer,
+  so returning users reach the daily plan sooner.
+- Adds a visual build-completion ring and stronger purpose-led cards to Today's Route.
+- Softens borders, increases spacing, clarifies typography, and removes equal visual weight
+  from maintenance controls, summary information, navigation, and daily priorities.
+- Simplifies sticky workspace navigation while preserving every Plan, Progress, Data, and
+  System view on desktop and compact layouts.
+
+Planner data, cached Questlog pages, scan history, progress, priorities, materials, Sollant,
+weekly/daily state, backups, and user knowledge are unchanged.

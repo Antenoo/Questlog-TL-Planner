@@ -1324,7 +1324,8 @@ def run_backend_self_test():
         "ROLLBACK_LAST_UPDATE.bat", "update_manager.py",
         "LAUNCH_PLANNER.ps1", "INSTALL_APP_SHORTCUT.bat",
         "REMOVE_APP_SHORTCUT.bat", "BUILD_LAUNCHER_EXE.bat",
-        "assets/Questlog_TL_Farm_Planner.ico", "LIVE_UPDATE_HELPER.py"
+        "assets/Questlog_TL_Farm_Planner.ico", "static/assets/planner-route-logo.png",
+        "LIVE_UPDATE_HELPER.py"
     ]
     missing = [name for name in required_update_files if not (ROOT / name).exists()]
     checks.append(_health_check(

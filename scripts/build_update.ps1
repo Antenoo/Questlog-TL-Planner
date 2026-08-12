@@ -39,12 +39,14 @@ $PackageAllowlist = @(
     [pscustomobject]@{ Source = 'INSTALL_APP_SHORTCUT.bat';       Archive = '_update_payload/INSTALL_APP_SHORTCUT.bat' },
     [pscustomobject]@{ Source = 'REMOVE_APP_SHORTCUT.bat';        Archive = '_update_payload/REMOVE_APP_SHORTCUT.bat' },
     [pscustomobject]@{ Source = 'assets/Questlog_TL_Farm_Planner.ico'; Archive = '_update_payload/assets/Questlog_TL_Farm_Planner.ico' },
+    [pscustomobject]@{ Source = 'static/assets/planner-route-logo.png'; Archive = '_update_payload/static/assets/planner-route-logo.png' },
     [pscustomobject]@{ Source = 'static/index.html';              Archive = '_update_payload/static/index.html' }
 )
 
 $RequiredEntries = @(
     '_update_payload/backend.py',
     '_update_payload/static/index.html',
+    '_update_payload/static/assets/planner-route-logo.png',
     'update_manager.py',
     'LIVE_UPDATE_HELPER.py',
     'START_APP.bat'
