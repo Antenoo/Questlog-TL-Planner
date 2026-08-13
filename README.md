@@ -1844,3 +1844,35 @@ navigation system and adds a reduced-motion-aware revolving goal beneath the pro
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials, Sollant,
 weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.13 - Visual dashboard mission control
+
+This release turns the Farm Dashboard from a set of similarly weighted text panels into a
+clear visual route from the current objective to the deeper planner evidence behind it.
+
+### Primary objective command deck
+
+- Promotes the top saved planner target into a dominant objective card with its real item
+  artwork, intent or priority badge, current gap, and direct route action.
+- Visualizes Target locked → Current action → Finish upgrade as a three-step path instead
+  of requiring the user to infer that flow from several panels.
+- Adds a direct Open objective shortcut that routes to the exact Farm Plan item or Upgrade
+  Path through the shared view controller.
+- Adds three readiness pulses for crafting, Boss Priority, and Sollant coverage.
+- Adds a four-stage Not started / Farming / Ready / Complete rail sourced from live build state.
+
+### Clearer supporting hierarchy
+
+- Replaces the former four equal Today's Route text cards with three compact support cards
+  for the boss window, craft readiness, and the next queued route.
+- Introduces a quieter “Details when you need them” transition below the daily checklist.
+- Gives budget, target, activity, and material panels distinct icons, subtle color identities,
+  and shorter descriptions while retaining their full data and controls.
+- Collapses the command deck, readiness pulses, status rail, and support cards cleanly for
+  compact windows without horizontal overflow.
+- Adds a dedicated System Health check for the responsive command deck, route stages, pulses,
+  and objective shortcut.
+
+Planner data, cached Questlog pages, scan history, progress, priorities, materials, Sollant,
+weekly/daily state, backups, and user knowledge are unchanged.
