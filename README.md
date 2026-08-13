@@ -1876,3 +1876,37 @@ clear visual route from the current objective to the deeper planner evidence beh
 
 Planner data, cached Questlog pages, scan history, progress, priorities, materials, Sollant,
 weekly/daily state, backups, and user knowledge are unchanged.
+
+
+## v22.0.14 - Cinematic backdrop and larger workspace controls
+
+This release gives the planner's empty space environmental depth and enlarges the workspace
+header so it reads as a primary application control surface.
+
+### Original atmospheric backdrop
+
+- Adds an original cinematic fantasy basin with misty cliffs, distant bridges, and a celestial
+  observatory; it does not reproduce Questlog or Throne and Liberty artwork, locations, logos,
+  characters, or interface assets.
+- Places the environment beneath a fixed midnight-navy transparency gradient so it remains
+  atmospheric behind long pages without competing with planner text.
+- Uses restrained translucent panels, blur, stronger edge definition, and a slightly clearer
+  product hero to create the requested image-under-dark-glass effect.
+- Keeps the composition quiet through the center and detailed around the edges so content-heavy
+  panels remain readable while page gaps feel occupied.
+
+### Larger workspace header
+
+- Enlarges the live context rail to 54 px and the primary navigation row to 72 px on desktop.
+- Increases context icons, value labels, category labels, the mini planner brand, navigation
+  targets, and the current-view indicator.
+- Retains the compact two-column context rail, wrapped navigation, and readable dashboard flow
+  without horizontal overflow.
+- Packages the new image through the strict live-update allowlist and requires it during ZIP
+  validation so the installed UI cannot silently lose its background.
+- Adds a System Health check for the cinematic asset and enlarged desktop proportions.
+
+The background was generated with the built-in image generation tool and saved as
+`static/assets/planner-astral-basin-v1.png`. Planner data, cached Questlog pages, scan history,
+progress, priorities, materials, Sollant, weekly/daily state, backups, and user knowledge are
+unchanged.

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.13",
-  "publish": false,
+  "version": "22.0.14",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Transforms the Farm Dashboard into a visual mission-control workspace. The current primary objective now leads with its real item artwork, intent badge, three-step route, and a direct shortcut to the exact Farm Plan or Upgrade Path. Three readiness pulses summarize crafting, boss timing, and Sollant coverage; a four-stage rail visualizes build status; and compact support cards keep boss, craft, and queue context scannable. The deeper budget, targets, activity, patch, and material panels now use quieter hierarchy, distinct visual identities, and shorter explanations. Desktop and compact layouts are responsive, the objective shortcut uses the shared view controller, and System Health adds a dedicated dashboard command-deck check. Planner data and scan state are unchanged."
+  "notes": "Adds an original cinematic dark-fantasy environment beneath the planner as a fixed atmospheric page layer, with a carefully tuned navy transparency gradient so empty space has depth without reducing interface contrast. Panels, the product hero, and the workspace header now use restrained translucent surfaces and blur to create the requested image-under-dark-glass effect. Enlarges the workspace control surface: the live context rail grows to 54 px, navigation to 72 px, and icons, labels, active states, brand mark, and current-view treatment are all easier to scan. Compact layouts retain the two-column context rail and clean navigation wrapping. The generated background is included in the strict updater allowlist and required-package checks, and System Health verifies both the asset and enlarged desktop proportions. Planner data and scan state are unchanged."
 }
