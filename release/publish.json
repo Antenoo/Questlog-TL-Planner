@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.15",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Replaces the former Week Planner with a time-budgeted Action Plan Engine. Weekly playtime, preferred session length, focus mode, and available-day controls now produce a deterministic route from the saved build's real unfinished targets, crafting readiness, daily checklist, useful acquisition sources, and observed Archboss windows. Three quick recommendations cover a 30-minute window, tonight's best move, and the primary progression route. Weekly sessions can be checked off without changing gear progress, added to today's checklist, or opened in the exact supporting planner tool. The recurring EU/Nix boss schedule remains available as collapsible evidence and still requires live Peace/Guild confirmation. Workspace mega-menu titles, destination names, descriptions, icons, contrast, and spacing are substantially enlarged to reduce eye strain. System Health now verifies the Action Plan and minimum menu-label size. Planner build data and scan history are unchanged."
