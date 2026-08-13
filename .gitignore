@@ -70,3 +70,6 @@ out/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Local view-only screen relay (single overwritten frame)
+/.view-only-relay/
