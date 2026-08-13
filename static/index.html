@@ -3366,14 +3366,24 @@ const BUILT_IN_GAUNTLET_TARGETS = [
     title:"Snow Field's Fury Gauntlets",
     url:`${QUESTLOG_DB_BASE}/item/gauntlet_aa_S1_001`,
     icon_url:'https://cdn.questlog.gg/throne-and-liberty/assets/Game/Image/Icon/Item_128/Equip/Weapon/IT_P_Gauntlet_00019.webp',
-    confidence:'Questlog live page',
-    summary:'Farm Dimensional Trials Golden Chest or use the Auction House.',
-    caution:"Questlog's listed recipe is disabled. Do not plan Adventure Coins, Shemir's Weapon Cinders, powder, or crystal as a currently active deterministic craft.",
+    confidence:'Player-confirmed in game',
+    summary:'Craft with Adventure Coins and Shemir cinders, farm the Dimensional Trials Golden Chest, or use the Auction House.',
+    caution:'An in-game crafting screen supplied on 2026-08-13 confirms this recipe is active. The disabled marker on the Questlog recipe page is stale for current planning.',
     probabilities:[],
+    craft:{
+      confirmed:true,confirmed_on:'2026-08-13',base_sollant:3254378,
+      confirmation_tax_rate:21,confirmation_sollant:3937798,
+      materials:[
+        {name:'Adventure Coin: Fortitude',required:110,confirmed_owned:268},
+        {name:"Shemir's Weapon Cinder",required:400,confirmed_owned:121},
+        {name:'Precious Magic Powder',required:80,confirmed_owned:14028},
+        {name:'Noble Polished Crystal',required:48,confirmed_owned:1284}
+      ]
+    },
     methods:[
+      {name:'Confirmed crafting route',detail:"110 Adventure Coin: Fortitude, 400 Shemir's Weapon Cinder, 80 Precious Magic Powder, 48 Noble Polished Crystal, and 3,254,378 base Sollant. The supplied 21% tax example displays 3,937,798 Sollant."},
       {name:'Dimensional Trials Golden Chest',detail:'Questlog lists one obtained-from-boxes route; the exact item probability is not published on the item page.'},
-      {name:'Auction House',detail:'Market route; availability and price are live external values.'},
-      {name:'Disabled recipe',detail:"110 Adventure Coin: Fortitude, 400 Shemir's Weapon Cinder, 80 Precious Magic Powder, and 48 Noble Polished Crystal. Questlog marks the recipe disabled."}
+      {name:'Auction House',detail:'Market route; availability and price are live external values.'}
     ]
   },
   {
@@ -3485,7 +3495,7 @@ function targetRouteSummary(target){
   if(node?.builtInCatalog){
     return {
       rank:node.probabilities?.length?1:2,
-      action:node.probabilities?.length?'Farm verified hard drop':'Farm verified reward route',
+      action:node.craft?.confirmed?'Finish confirmed craft':node.probabilities?.length?'Farm verified hard drop':'Farm verified reward route',
       detail:node.summary,
       source:'confirmed',
       sourceLabel:node.confidence,
@@ -3642,12 +3652,18 @@ function ensureGauntletAlternativeTargets(){
   const rows=targetPathForSlot(slotIndex);
   let changed=false;
   for(const [index,catalog] of BUILT_IN_GAUNTLET_TARGETS.entries()){
-    const exists=rows.some(x=>canonicalPath(x.url)===canonicalPath(catalog.url) || String(x.name || '').trim().toLowerCase()===catalog.title.toLowerCase());
-    if(exists) continue;
+    const existing=rows.find(x=>canonicalPath(x.url)===canonicalPath(catalog.url) || String(x.name || '').trim().toLowerCase()===catalog.title.toLowerCase());
+    if(existing){
+      if(catalog.craft?.confirmed && existing.seeded_by==='gauntlet-route-simulator-v1' && /disabled recipe/i.test(existing.note || '')){
+        existing.note='Confirmed active craft, Dimensional Trials Golden Chest, or Auction House route.';
+        changed=true;
+      }
+      continue;
+    }
     rows.push({
       id:newTargetId(),name:catalog.title,url:catalog.url,
       role:index===0?'secondary':'backup',status:'planned',
-      note:index===0?'Alternative reward/Auction House route; disabled recipe is excluded.':'Alternative Thuban hard-drop/Auction House route.',
+      note:index===0?'Confirmed active craft, Dimensional Trials Golden Chest, or Auction House route.':'Alternative Thuban hard-drop/Auction House route.',
       created_at:new Date().toISOString(),seeded_by:'gauntlet-route-simulator-v1'
     });
     changed=true;
@@ -6223,12 +6239,13 @@ function frontendHealthChecks(){
   const gauntletCatalogReady=BUILT_IN_GAUNTLET_TARGETS.length===2
     && BUILT_IN_GAUNTLET_TARGETS.some(x=>canonicalPath(x.url).endsWith('/gauntlet_aa_s1_001'))
     && BUILT_IN_GAUNTLET_TARGETS.some(x=>canonicalPath(x.url).endsWith('/gauntlet_aa_s1_002'));
+  const confirmedFuryCraft=BUILT_IN_GAUNTLET_TARGETS.find(x=>canonicalPath(x.url).endsWith('/gauntlet_aa_s1_001'))?.craft;
   const deluzhnoaOption=document.querySelector('#bossNameOptions option[value="Ascended Deluzhnoa"]');
   checks.push(healthClientCheck(
     'target_route_simulator',
     'Gauntlet route simulator and boss selector',
-    typeof gauntletRouteSimulatorHtml==='function' && typeof adoptGauntletSimulatorRoute==='function' && gauntletCatalogReady && Boolean(deluzhnoaOption) ? 'pass' : 'fail',
-    'Upgrade Paths compares the scanned Snowfield route with both verified gauntlet alternatives, preserves probability ranges, and exposes Ascended Deluzhnoa in the boss selector.'
+    typeof gauntletRouteSimulatorHtml==='function' && typeof adoptGauntletSimulatorRoute==='function' && gauntletCatalogReady && confirmedFuryCraft?.confirmed===true && confirmedFuryCraft.materials?.length===4 && confirmedFuryCraft.base_sollant===3254378 && Boolean(deluzhnoaOption) ? 'pass' : 'fail',
+    "Upgrade Paths compares all three gauntlets, preserves probability ranges, records Snow Field's Fury's player-confirmed four-material craft, and exposes Ascended Deluzhnoa in the boss selector."
   ));
 
   checks.push(healthClientCheck(
@@ -6639,6 +6656,17 @@ function simulatorChanceText(probabilities,attempts){
   return {value,detail:`Chance of at least one drop after ${attempts} eligible attempt${attempts===1?'':'s'}, using ${rateLabel}.`};
 }
 
+function confirmedCraftStatus(craft){
+  if(!craft?.confirmed) return null;
+  const materials=craft.materials || [];
+  const ready=materials.filter(x=>Number(x.confirmed_owned)>=Number(x.required));
+  const missing=materials.map(x=>({...x,missing:Math.max(0,Number(x.required)-Number(x.confirmed_owned))})).filter(x=>x.missing>0);
+  return {
+    value:'Active recipe',
+    detail:`Confirmation snapshot: ${ready.length}/${materials.length} material lines ready${missing.length?`; missing ${missing.map(x=>`${formatNumber(x.missing)} ${x.name}`).join(', ')}`:''}. Crafting is deterministic once requirements and the current taxed Sollant cost are covered.`
+  };
+}
+
 function gauntletSimulatorItems(){
   const slotIndex=gauntletComparisonSlot();
   if(slotIndex===null || !currentData) return [];
@@ -6680,10 +6708,10 @@ function gauntletRouteSimulatorHtml(){
     <div class="route-simulator-head"><div><div class="route-simulator-kicker">Acquisition feasibility - three gauntlet paths</div><h2>Target Route Simulator</h2><p>Compare verified ways to obtain each target. Probabilities describe eligible attempts, not guaranteed progress; gear performance is deliberately not ranked without a build-stat comparison.</p></div><div class="route-simulator-control"><label for="routeSimulatorAttempts">Eligible attempts</label><select id="routeSimulatorAttempts">${[1,5,10,20,30].map(n=>`<option value="${n}" ${routeSimulatorAttempts===n?'selected':''}>${n} attempt${n===1?'':'s'}</option>`).join('')}</select></div></div>
     <div class="route-simulator-context"><div class="route-context-stat"><b>${weekly.minutesPerWeek/60}h</b><span>Action Plan weekly budget</span></div><div class="route-context-stat"><b>${sessionCapacity}</b><span>Preferred sessions available per week</span></div><div class="route-context-stat"><b>${routeSimulatorAttempts}</b><span>Eligible kills modeled; live schedule still limits access</span></div></div>
     <div class="route-compare-grid">${items.map((item,index)=>{
-      const chance=simulatorChanceText(item.probabilities,routeSimulatorAttempts);
+      const chance=confirmedCraftStatus(item.craft) || simulatorChanceText(item.probabilities,routeSimulatorAttempts);
       return `<article class="route-compare-card ${item.role==='primary'?'active':''}"><div class="route-compare-head"><img class="route-compare-icon" src="${esc(item.icon_url)}" alt="${esc(item.title)}"><div><div class="route-compare-name">${esc(item.title)}</div><span class="route-confidence ${esc(item.confidenceClass)}">${esc(item.confidence)}</span></div></div><div class="route-methods">${item.methods.map(method=>`<div class="route-method"><b>${esc(method.name)}</b><span>${esc(method.detail)}</span></div>`).join('')}</div><div class="route-chance"><b>${esc(chance.value)}</b><span>${esc(chance.detail)}</span></div><div class="route-caution">${esc(item.caution)}</div><div class="route-compare-actions"><button class="${item.role==='primary'?'secondary':'primary'}" data-simulator-adopt="${esc(item.url)}">${item.role==='primary'?'Current primary route':'Make primary route'}</button><a class="secondary button-link" href="${esc(item.url)}" target="_blank" rel="noopener">Questlog ↗</a></div></article>`;
     }).join('')}</div>
-    <div class="route-simulator-foot"><b>Interpretation guard:</b> separate drop rows are never added together, unknown box probabilities stay unknown, disabled recipes stay excluded, and boss materials are not treated as guaranteed per-kill rewards.</div>
+    <div class="route-simulator-foot"><b>Interpretation guard:</b> separate drop rows are never added together, unknown box probabilities stay unknown, current in-game crafting evidence overrides a stale external recipe marker, and boss materials are not treated as guaranteed per-kill rewards.</div>
   </section>`;
 }
 

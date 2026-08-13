@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.17",
-  "publish": false,
+  "version": "22.0.18",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Adds a Target Route Simulator for Snowfield Destroyer Lightning Gauntlets, Snow Field's Fury Gauntlets, and Arctic Roar Charging Gauntlets. The simulator compares hard-drop, reward-container, Auction House, and conditional crafting routes across 1, 5, 10, 20, or 30 eligible attempts. It preserves unknown probabilities, represents Arctic Roar's separate Thuban rows as a 1-3% range instead of summing them, and excludes Snow Field's Fury's disabled Questlog recipe from active crafting routes. Target URLs now resolve against root build items as well as expanded scan nodes, fixing false missing-route messages. Target card controls no longer crush route text into a narrow column. Ascended Deluzhnoa is now available in the Boss Priority name selector. Localhost heartbeat recovery now requires three consecutive failures and never reloads for same-version recovery, preventing transient slow responses from causing a refresh loop. System Health verifies the simulator, route-adoption controls, boss option, and heartbeat guard."
+  "notes": "Corrects Snow Field's Fury Gauntlets to an active, player-confirmed crafting route based on an in-game crafting screen. The planner records 110 Adventure Coin: Fortitude, 400 Shemir's Weapon Cinder, 80 Precious Magic Powder, 48 Noble Polished Crystal, and the 3,254,378 base Sollant cost. It separately records the supplied 21% tax example of 3,937,798 Sollant. The confirmation snapshot shows three of four material lines ready and 279 Shemir's Weapon Cinders remaining. Existing planner-seeded target notes migrate away from the stale disabled-recipe warning. Dimensional Trials Golden Chest and Auction House remain alternative routes. System Health verifies the confirmed four-material recipe and untaxed base cost."
 }

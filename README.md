@@ -1996,3 +1996,24 @@ System Health verifies the simulator catalog, route-adoption controls, Deluzhnoa
 same-version heartbeat recovery guard.
 The comparison ranks acquisition feasibility only; it does not claim one item has better combat
 stats without a build-specific stat comparison.
+
+
+## v22.0.18 - Player-confirmed Snow Field's Fury craft
+
+An in-game crafting screen confirms that Snow Field's Fury Gauntlets are currently craftable,
+overriding the stale disabled marker on Questlog's recipe page for planner purposes.
+
+- Records the active recipe: 110 Adventure Coin: Fortitude, 400 Shemir's Weapon Cinder,
+  80 Precious Magic Powder, and 48 Noble Polished Crystal.
+- Separates the 3,254,378 base Sollant recipe cost from the supplied 21% tax example, which
+  correctly displays 3,937,798 Sollant in game.
+- Shows the confirmation snapshot as three of four material lines ready, with 279 Shemir's
+  Weapon Cinders remaining from the pictured inventory.
+- Keeps the Dimensional Trials Golden Chest and Auction House as alternative routes.
+- Migrates the planner-created target note so existing users no longer see the old disabled-
+  recipe warning.
+- Extends System Health to verify the confirmed recipe, its four material requirements, and
+  the untaxed base cost.
+
+The screenshot is treated as dated player-confirmed evidence, not a permanently live inventory
+sync. Players should update their material counts after acquiring or spending resources.
