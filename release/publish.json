@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.18",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Corrects Snow Field's Fury Gauntlets to an active, player-confirmed crafting route based on an in-game crafting screen. The planner records 110 Adventure Coin: Fortitude, 400 Shemir's Weapon Cinder, 80 Precious Magic Powder, 48 Noble Polished Crystal, and the 3,254,378 base Sollant cost. It separately records the supplied 21% tax example of 3,937,798 Sollant. The confirmation snapshot shows three of four material lines ready and 279 Shemir's Weapon Cinders remaining. Existing planner-seeded target notes migrate away from the stale disabled-recipe warning. Dimensional Trials Golden Chest and Auction House remain alternative routes. System Health verifies the confirmed four-material recipe and untaxed base cost."
