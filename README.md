@@ -1969,3 +1969,30 @@ The planner therefore provides a switchable **2x community working scenario**:
 
 System Health verifies both the detailed scan briefing and the scenario guard. Existing scan
 files, planner state, progress, inventory, backups, and user knowledge remain intact.
+
+
+## v22.0.17 - Target Route Simulator and gauntlet alternatives
+
+Upgrade Paths now compares three practical gauntlet routes instead of treating the equipped
+Snowfield Destroyer Lightning Gauntlets as a deterministic crafting project.
+
+- Resolves target URLs against both expanded scan nodes and root build items, fixing the false
+  `Route not in current scan graph` state for equipped gear.
+- Treats Snowfield Destroyer as a Ramux hard-drop or Auction House route; its shard recipe is
+  shown as conditional because Ramux does not guarantee the required materials.
+- Adds Snow Field's Fury Gauntlets as a Dimensional Trials Golden Chest or Auction House route.
+  Questlog's listed recipe is visibly excluded because the live recipe page marks it disabled.
+- Adds Arctic Roar Charging Gauntlets as a Thuban hard-drop or Auction House route. Its separate
+  1%, 1%, and 3% rows are represented as a 1-3% range and are never summed.
+- Adds an eligible-attempt simulator for 1, 5, 10, 20, or 30 attempts and lets any compared item
+  become the primary planner route without discarding the alternatives.
+- Repairs the target-row grid so controls no longer crush route text into a narrow column.
+- Adds Ascended Deluzhnoa to the Boss Priority name suggestions.
+- Requires three consecutive failed localhost heartbeats before showing a restart state and no
+  longer refreshes the page when the same planner version recovers, preventing transient slow
+  responses from creating a reload loop.
+
+System Health verifies the simulator catalog, route-adoption controls, Deluzhnoa selector, and
+same-version heartbeat recovery guard.
+The comparison ranks acquisition feasibility only; it does not claim one item has better combat
+stats without a build-specific stat comparison.

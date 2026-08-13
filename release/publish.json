@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.16",
-  "publish": false,
+  "version": "22.0.17",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Adds a visual Scan Change Briefing that explains equipment, exact probability, crafting, acquisition-route, and Action Plan impacts after every refresh. New scans compare probability rows directly and retain canonical before/after values in Scan History; older entries are clearly identified as predating detailed comparisons. Adds a guarded 2x community working scenario for the Update 4.7.0 Nix and Ascended Talandre Field Boss increase. The official notes confirm an increase but publish no multiplier, so the scenario is visibly labeled non-official, switchable, and used only as a modest route-ranking signal. It never overwrites scraped Questlog percentages. Matching loaded-build rows show canonical and modeled values side by side, and future scans can confirm or contradict the estimate. Scan completion notifications now point to the briefing. System Health verifies the detailed briefing and scenario guard."
+  "notes": "Adds a Target Route Simulator for Snowfield Destroyer Lightning Gauntlets, Snow Field's Fury Gauntlets, and Arctic Roar Charging Gauntlets. The simulator compares hard-drop, reward-container, Auction House, and conditional crafting routes across 1, 5, 10, 20, or 30 eligible attempts. It preserves unknown probabilities, represents Arctic Roar's separate Thuban rows as a 1-3% range instead of summing them, and excludes Snow Field's Fury's disabled Questlog recipe from active crafting routes. Target URLs now resolve against root build items as well as expanded scan nodes, fixing false missing-route messages. Target card controls no longer crush route text into a narrow column. Ascended Deluzhnoa is now available in the Boss Priority name selector. Localhost heartbeat recovery now requires three consecutive failures and never reloads for same-version recovery, preventing transient slow responses from causing a refresh loop. System Health verifies the simulator, route-adoption controls, boss option, and heartbeat guard."
 }

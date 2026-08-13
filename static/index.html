@@ -306,14 +306,14 @@
     .path-current-name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .path-current-slot{font-size:11px;color:var(--muted);margin-top:2px}
     .path-body{padding:10px 12px}
-    .target-path-row{display:grid;grid-template-columns:30px 40px minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid #222d3a}
+    .target-path-row{display:grid;grid-template-columns:30px 40px minmax(0,1fr);gap:8px;align-items:start;padding:11px 0;border-bottom:1px solid #222d3a}
     .target-path-row:last-child{border-bottom:0}
     .target-path-num{width:26px;height:26px;border-radius:999px;background:#263243;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
     .target-path-icon{width:38px;height:38px;object-fit:contain;border-radius:7px;background:#0b1118;border:1px solid #314154;padding:2px}
     .target-path-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .target-path-meta{font-size:11px;color:var(--muted);margin-top:3px}
     .target-path-note{font-size:11px;color:#c8d3df;margin-top:4px;line-height:1.35}
-    .target-path-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+    .target-path-actions{grid-column:3;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-start;margin-top:2px}
     .target-path-actions button{padding:5px 7px}
     .target-role{display:inline-flex;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:850;border:1px solid var(--line)}
     .target-role.primary{background:#2d1f35;color:#e8c1ff;border-color:#5d3c70}
@@ -334,6 +334,12 @@
     .path-add-form .full{grid-column:1/-1}
     .path-add-form label{font-size:11px;margin-bottom:4px}
     .path-add-form input,.path-add-form select{width:100%;background:#0b1219;color:var(--text);border:1px solid #334257;border-radius:7px;padding:7px}
+    .route-simulator{margin:0 0 14px;border:1px solid #405675;border-radius:16px;overflow:hidden;background:linear-gradient(145deg,rgba(18,35,53,.97),rgba(22,21,43,.96));box-shadow:0 16px 38px rgba(0,0,0,.18)}
+    .route-simulator-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:17px 18px;border-bottom:1px solid rgba(68,91,119,.45)}.route-simulator-kicker{color:#8bcaff;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}.route-simulator h2{margin:5px 0 4px;font-size:21px}.route-simulator-head p{max-width:760px;margin:0;color:#9dafc1;font-size:11px;line-height:1.5}.route-simulator-control{display:grid;gap:5px;min-width:170px}.route-simulator-control label{font-size:9px;color:#8ca0b3;font-weight:850;text-transform:uppercase;letter-spacing:.08em}.route-simulator-control select{background:#0b1622;color:#e7eff7;border:1px solid #38516c}
+    .route-simulator-context{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:12px 18px;border-bottom:1px solid rgba(68,91,119,.35)}.route-context-stat{padding:9px 10px;border:1px solid rgba(66,91,120,.38);border-radius:9px;background:rgba(7,14,23,.45)}.route-context-stat b{display:block;font-size:15px}.route-context-stat span{display:block;margin-top:2px;color:#8397aa;font-size:9px}
+    .route-compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px}.route-compare-card{position:relative;display:flex;flex-direction:column;min-width:0;padding:13px;border:1px solid #30445a;border-radius:12px;background:#0e1824}.route-compare-card.recommended{border-color:#6b62a5;box-shadow:0 0 0 1px rgba(130,111,213,.15)}.route-compare-card.active{border-color:#4f86b7}.route-compare-head{display:grid;grid-template-columns:44px minmax(0,1fr);gap:9px;align-items:center}.route-compare-icon{width:44px;height:44px;object-fit:contain;border:1px solid #33485e;border-radius:9px;background:#09121b}.route-compare-name{font-size:13px;font-weight:900;line-height:1.3}.route-confidence{display:inline-flex;margin-top:4px;padding:3px 6px;border:1px solid #3f5368;border-radius:999px;color:#9db1c4;font-size:8px;font-weight:850;text-transform:uppercase}.route-confidence.live{border-color:#39704f;color:#9ce0b6}.route-confidence.scan{border-color:#3d6384;color:#9bcdf4}
+    .route-methods{display:grid;gap:6px;margin-top:11px}.route-method{padding:8px 9px;border:1px solid #27394b;border-radius:8px;background:#0a141e}.route-method b{display:block;font-size:10.5px}.route-method span{display:block;margin-top:3px;color:#879bad;font-size:9.5px;line-height:1.4}.route-chance{margin-top:9px;padding:9px;border:1px solid #3c4563;border-radius:8px;background:#141629}.route-chance b{display:block;color:#cfc6ff;font-size:15px}.route-chance span{display:block;margin-top:2px;color:#8f8aa7;font-size:9px}.route-caution{margin-top:8px;color:#d7bd7d;font-size:9.5px;line-height:1.45}.route-compare-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:11px}.route-compare-actions button{padding:6px 8px;font-size:9px}.route-simulator-foot{padding:0 18px 14px;color:#8295a8;font-size:9.5px;line-height:1.45}
+    @media(max-width:1000px){.route-compare-grid{grid-template-columns:1fr}.route-simulator-context{grid-template-columns:1fr}.route-simulator-head{flex-direction:column}.route-simulator-control{width:100%}}
     .path-empty{font-size:11px;color:var(--muted);padding:8px 0}
     .gear-target-line{font-size:11px;color:#c7d6e8;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .gear-target-line b{color:#e7c7ff}
@@ -3354,6 +3360,50 @@ const TARGET_STATUS_OPTIONS = [
   ['obtained','Obtained']
 ];
 
+const QUESTLOG_DB_BASE=['https://questlog.gg','throne-and-liberty','en','db'].join('/');
+const BUILT_IN_GAUNTLET_TARGETS = [
+  {
+    title:"Snow Field's Fury Gauntlets",
+    url:`${QUESTLOG_DB_BASE}/item/gauntlet_aa_S1_001`,
+    icon_url:'https://cdn.questlog.gg/throne-and-liberty/assets/Game/Image/Icon/Item_128/Equip/Weapon/IT_P_Gauntlet_00019.webp',
+    confidence:'Questlog live page',
+    summary:'Farm Dimensional Trials Golden Chest or use the Auction House.',
+    caution:"Questlog's listed recipe is disabled. Do not plan Adventure Coins, Shemir's Weapon Cinders, powder, or crystal as a currently active deterministic craft.",
+    probabilities:[],
+    methods:[
+      {name:'Dimensional Trials Golden Chest',detail:'Questlog lists one obtained-from-boxes route; the exact item probability is not published on the item page.'},
+      {name:'Auction House',detail:'Market route; availability and price are live external values.'},
+      {name:'Disabled recipe',detail:"110 Adventure Coin: Fortitude, 400 Shemir's Weapon Cinder, 80 Precious Magic Powder, and 48 Noble Polished Crystal. Questlog marks the recipe disabled."}
+    ]
+  },
+  {
+    title:'Arctic Roar Charging Gauntlets',
+    url:`${QUESTLOG_DB_BASE}/item/gauntlet_aa_S1_002`,
+    icon_url:'https://cdn.questlog.gg/throne-and-liberty/assets/Game/Image/Icon/Item_128/Equip/Weapon/IT_P_Gauntlet_00021.webp',
+    confidence:'Questlog live page',
+    summary:'Hard drop from Thuban or use the Auction House.',
+    caution:'Questlog exposes separate 1%, 1%, and 3% Thuban rows without enough condition detail to combine them. The simulator shows the verified 1–3% range and never sums the rows.',
+    probabilities:[1,3],
+    methods:[
+      {name:'Thuban hard drop',detail:'Separate Questlog rows show 1%, 1%, and 3% random-drop entries.'},
+      {name:'Auction House',detail:'Market route; availability and price are live external values.'}
+    ]
+  }
+];
+
+function builtInTargetByIdentity(value){
+  const wanted=String(value || '').trim();
+  if(!wanted) return null;
+  const path=canonicalPath(wanted);
+  const lower=wanted.toLowerCase();
+  return BUILT_IN_GAUNTLET_TARGETS.find(x=>canonicalPath(x.url)===path || x.title.toLowerCase()===lower) || null;
+}
+
+function builtInTargetNode(target){
+  const catalog=builtInTargetByIdentity(target?.url) || builtInTargetByIdentity(target?.name);
+  return catalog ? {...catalog,builtInCatalog:true,acquisition:[],crafting_recipes:[]} : null;
+}
+
 function getTargetGearMap(){
   return currentBuildState().target_gear || {};
 }
@@ -3418,7 +3468,7 @@ function resolveTargetNode(target){
     const byUrl = findNodeForUrl(target.url);
     if(byUrl) return byUrl;
   }
-  return findNodeByName(target?.name);
+  return findNodeByName(target?.name) || builtInTargetNode(target);
 }
 
 function targetDisplayName(target){
@@ -3432,6 +3482,16 @@ function targetIcon(target){
 
 function targetRouteSummary(target){
   const node = resolveTargetNode(target);
+  if(node?.builtInCatalog){
+    return {
+      rank:node.probabilities?.length?1:2,
+      action:node.probabilities?.length?'Farm verified hard drop':'Farm verified reward route',
+      detail:node.summary,
+      source:'confirmed',
+      sourceLabel:node.confidence,
+      node
+    };
+  }
   if(node){
     const route = plannerRouteSummary(node);
     if(route.knowledgeRoute){
@@ -3513,6 +3573,8 @@ function targetCandidateNodes(){
     }
   }
 
+  for(const target of BUILT_IN_GAUNTLET_TARGETS) add(target.title,target.url,target.icon_url);
+
   return out.sort((a,b)=>a.name.localeCompare(b.name));
 }
 
@@ -3562,6 +3624,36 @@ function moveTargetInSlot(slotIndex,targetId,direction){
   setTargetPathForSlot(slotIndex,rows);
   renderUpgradePaths();
   renderDashboard();
+}
+
+function gauntletComparisonSlot(){
+  if(!currentData) return null;
+  for(const item of currentData.items || []){
+    const rows=targetPathForSlot(item.slot_index);
+    const identities=[item.item_url,item.item_name,...rows.flatMap(x=>[x.url,x.name])].map(x=>String(x || '').toLowerCase());
+    if(identities.some(x=>x.includes('gauntlet_aa_s1_arch_001') || x.includes('snowfield destroyer lightning gauntlets'))) return item.slot_index;
+  }
+  return null;
+}
+
+function ensureGauntletAlternativeTargets(){
+  const slotIndex=gauntletComparisonSlot();
+  if(slotIndex===null) return null;
+  const rows=targetPathForSlot(slotIndex);
+  let changed=false;
+  for(const [index,catalog] of BUILT_IN_GAUNTLET_TARGETS.entries()){
+    const exists=rows.some(x=>canonicalPath(x.url)===canonicalPath(catalog.url) || String(x.name || '').trim().toLowerCase()===catalog.title.toLowerCase());
+    if(exists) continue;
+    rows.push({
+      id:newTargetId(),name:catalog.title,url:catalog.url,
+      role:index===0?'secondary':'backup',status:'planned',
+      note:index===0?'Alternative reward/Auction House route; disabled recipe is excluded.':'Alternative Thuban hard-drop/Auction House route.',
+      created_at:new Date().toISOString(),seeded_by:'gauntlet-route-simulator-v1'
+    });
+    changed=true;
+  }
+  if(changed) setTargetPathForSlot(slotIndex,rows);
+  return slotIndex;
 }
 
 function explicitUpgradePlannerTargets(){
@@ -4803,7 +4895,7 @@ function renderBossPriority(){
         data-boss-index="${idx}"
         class="boss-time-24h"
       >
-      <input type="text" value="${esc(e.boss || '')}" placeholder="Boss name" data-boss-field="boss" data-boss-index="${idx}" style="width:100%;background:#0b1219;color:var(--text);border:1px solid #334257;border-radius:7px;padding:7px">
+      <input type="text" list="bossNameOptions" value="${esc(e.boss || '')}" placeholder="Boss name" data-boss-field="boss" data-boss-index="${idx}" style="width:100%;background:#0b1219;color:var(--text);border:1px solid #334257;border-radius:7px;padding:7px">
       <select data-boss-field="type" data-boss-index="${idx}">
         <option value="Unknown" ${e.type==='Unknown'?'selected':''}>Set Peace/Guild…</option>
         <option value="Peace" ${e.type==='Peace'?'selected':''}>Peace</option>
@@ -4905,6 +4997,7 @@ function renderBossPriority(){
 
   $('viewBoss').innerHTML = `
     ${officialUpdate470Html()}
+    <datalist id="bossNameOptions">${profileNames.map(name=>`<option value="${esc(name)}"></option>`).join('')}</datalist>
     <div class="boss-layout">
       <div class="boss-card">
         <h3>${previewMode ? 'Archboss Schedule Preview' : "Today's Archboss Decision"} ${previewMode ? '<span class="preview-badge">Preview mode</span>' : ''}</h3>
@@ -5344,6 +5437,8 @@ function clearVersionMismatchReload(){
 
 let liveUpdateReconnectTimer=null;
 let liveUpdateReconnectStartedAt=0;
+let plannerServerHeartbeatFailures=0;
+const PLANNER_HEARTBEAT_FAILURE_THRESHOLD=3;
 
 function startLiveUpdateReconnectWatcher(expectedVersion=''){
   if(liveUpdateReconnectTimer) clearInterval(liveUpdateReconnectTimer);
@@ -5411,6 +5506,7 @@ async function plannerServerHeartbeat(){
 
     const health = await r.json();
     const serverVersion = String(health.app_version || '');
+    plannerServerHeartbeatFailures = 0;
     const clientVersionValid = validPlannerVersion(CLIENT_APP_VERSION);
     const serverVersionValid = validPlannerVersion(serverVersion);
     const versionMismatch = clientVersionValid && serverVersionValid && serverVersion !== CLIENT_APP_VERSION;
@@ -5421,7 +5517,7 @@ async function plannerServerHeartbeat(){
     // quickly enough that this tab did not observe the downtime. A mismatch may
     // trigger only one automatic reload so a stale or malformed page can never
     // trap the user in a refresh loop.
-    if(plannerServerWasDown || versionReloadAllowed){
+    if(versionReloadAllowed){
       plannerReloadInProgress = true;
       const status = $('serverStatus');
       if(status){
@@ -5454,6 +5550,8 @@ async function plannerServerHeartbeat(){
     clearVersionMismatchReload();
     status?.classList.remove('show');
   }catch(e){
+    plannerServerHeartbeatFailures += 1;
+    if(plannerServerHeartbeatFailures < PLANNER_HEARTBEAT_FAILURE_THRESHOLD) return;
     plannerServerWasDown = true;
     const status = $('serverStatus');
     if(status){
@@ -6122,6 +6220,24 @@ function frontendHealthChecks(){
     'Scan history can expose exact probability, crafting, route, and Action Plan impacts; the 2x Nix/Talandre value remains explicitly community-estimated and never overwrites canonical Questlog data.'
   ));
 
+  const gauntletCatalogReady=BUILT_IN_GAUNTLET_TARGETS.length===2
+    && BUILT_IN_GAUNTLET_TARGETS.some(x=>canonicalPath(x.url).endsWith('/gauntlet_aa_s1_001'))
+    && BUILT_IN_GAUNTLET_TARGETS.some(x=>canonicalPath(x.url).endsWith('/gauntlet_aa_s1_002'));
+  const deluzhnoaOption=document.querySelector('#bossNameOptions option[value="Ascended Deluzhnoa"]');
+  checks.push(healthClientCheck(
+    'target_route_simulator',
+    'Gauntlet route simulator and boss selector',
+    typeof gauntletRouteSimulatorHtml==='function' && typeof adoptGauntletSimulatorRoute==='function' && gauntletCatalogReady && Boolean(deluzhnoaOption) ? 'pass' : 'fail',
+    'Upgrade Paths compares the scanned Snowfield route with both verified gauntlet alternatives, preserves probability ranges, and exposes Ascended Deluzhnoa in the boss selector.'
+  ));
+
+  checks.push(healthClientCheck(
+    'heartbeat_reload_guard',
+    'Same-version heartbeat recovery guard',
+    PLANNER_HEARTBEAT_FAILURE_THRESHOLD===3 && typeof plannerServerHeartbeat==='function' ? 'pass' : 'fail',
+    'One slow localhost response cannot trigger a refresh, and recovery on the already-loaded version resumes without reloading the tab.'
+  ));
+
   checks.push(healthClientCheck(
     'live_update_settings',
     'Live update settings',
@@ -6324,6 +6440,14 @@ function findNodeForUrl(url){
   if(!currentData || !url) return null;
   const target = canonicalPath(url);
   for(const item of currentData.items || []){
+    if(canonicalPath(item.item_url) === target){
+      return {
+        title:item.item_name,url:item.item_url,identity_url:item.item_url,
+        icon_url:item.item_icon_url,acquisition:item.acquisition || [],
+        container_contents:item.container_contents || [],crafting_recipes:item.crafting_recipes || [],
+        expanded_nodes:item.expanded_nodes || {},rootItem:true
+      };
+    }
     for(const node of Object.values(item.expanded_nodes || {})){
       if(canonicalPath(node.url || node.identity_url) === target) return node;
     }
@@ -6498,9 +6622,98 @@ function openFarmItem(idx){
   }
 }
 
+let routeSimulatorAttempts=10;
+
+function probabilityAfterAttempts(ratePercent,attempts){
+  const p=Math.max(0,Math.min(100,Number(ratePercent || 0)))/100;
+  return (1-Math.pow(1-p,Math.max(1,Number(attempts || 1))))*100;
+}
+
+function simulatorChanceText(probabilities,attempts){
+  const rates=[...new Set((probabilities || []).map(Number).filter(x=>Number.isFinite(x) && x>0))].sort((a,b)=>a-b);
+  if(!rates.length) return {value:'Unknown',detail:'No numeric eligible-drop probability is published for this route.'};
+  const low=probabilityAfterAttempts(rates[0],attempts);
+  const high=probabilityAfterAttempts(rates[rates.length-1],attempts);
+  const value=Math.abs(low-high)<.01 ? `${Number(low.toFixed(1))}%` : `${Number(low.toFixed(1))}–${Number(high.toFixed(1))}%`;
+  const rateLabel=rates.length===1?`${rates[0]}% per listed row`:`${rates[0]}–${rates[rates.length-1]}% listed rows`;
+  return {value,detail:`Chance of at least one drop after ${attempts} eligible attempt${attempts===1?'':'s'}, using ${rateLabel}.`};
+}
+
+function gauntletSimulatorItems(){
+  const slotIndex=gauntletComparisonSlot();
+  if(slotIndex===null || !currentData) return [];
+  const current=currentData.items.find(x=>Number(x.slot_index)===Number(slotIndex));
+  const rows=targetPathForSlot(slotIndex);
+  const out=[];
+  if(current){
+    const direct=(current.acquisition || []).find(x=>x.kind==='Direct Drops')?.rows || [];
+    const probabilities=direct.map(x=>probabilityNumber(x.Probability)).filter(x=>x!==null);
+    const sources=[...new Set(direct.map(x=>x.Name).filter(Boolean))];
+    const requirements=itemCraftRequirements(current);
+    out.push({
+      title:current.item_name,url:current.item_url,icon_url:current.item_icon_url,
+      confidence:'Current Questlog scan',confidenceClass:'scan',probabilities,
+      summary:'Hard drop or Auction House for practical planning.',
+      caution:'The alternate craft requires Lightning/Thundercloud materials that Ramux does not guarantee. Missing shards are a stochastic sub-route, not deterministic progress per kill.',
+      methods:[
+        {name:`${sources.join(' / ') || 'Ramux'} hard drop`,detail:probabilities.length?`Questlog currently lists ${[...new Set(probabilities)].join(' / ')}% direct-drop rows.`:'The loaded scan contains a direct-drop route without a usable numeric rate.'},
+        {name:'Auction House',detail:'Market route; price and stock are live external values.'},
+        {name:'Conditional shard craft',detail:requirements.length?requirements.map(x=>`${formatNumber(x.required)} ${x.name}`).join(', '):'Recipe materials are shown in the loaded scan. Shard acquisition is not guaranteed.'}
+      ]
+    });
+  }
+  for(const catalog of BUILT_IN_GAUNTLET_TARGETS){
+    out.push({...catalog,confidenceClass:'live'});
+  }
+  return out.map(item=>{
+    const target=rows.find(x=>canonicalPath(x.url)===canonicalPath(item.url) || String(x.name || '').trim().toLowerCase()===item.title.toLowerCase());
+    return {...item,role:target?.role || '',status:target?.status || 'planned'};
+  });
+}
+
+function gauntletRouteSimulatorHtml(){
+  const items=gauntletSimulatorItems();
+  if(items.length<3) return '';
+  const weekly=ensureActionPlanSettings(weeklyPlannerState());
+  const sessionCapacity=Math.max(1,Math.floor(weekly.minutesPerWeek/weekly.sessionMinutes));
+  return `<section class="route-simulator">
+    <div class="route-simulator-head"><div><div class="route-simulator-kicker">Acquisition feasibility - three gauntlet paths</div><h2>Target Route Simulator</h2><p>Compare verified ways to obtain each target. Probabilities describe eligible attempts, not guaranteed progress; gear performance is deliberately not ranked without a build-stat comparison.</p></div><div class="route-simulator-control"><label for="routeSimulatorAttempts">Eligible attempts</label><select id="routeSimulatorAttempts">${[1,5,10,20,30].map(n=>`<option value="${n}" ${routeSimulatorAttempts===n?'selected':''}>${n} attempt${n===1?'':'s'}</option>`).join('')}</select></div></div>
+    <div class="route-simulator-context"><div class="route-context-stat"><b>${weekly.minutesPerWeek/60}h</b><span>Action Plan weekly budget</span></div><div class="route-context-stat"><b>${sessionCapacity}</b><span>Preferred sessions available per week</span></div><div class="route-context-stat"><b>${routeSimulatorAttempts}</b><span>Eligible kills modeled; live schedule still limits access</span></div></div>
+    <div class="route-compare-grid">${items.map((item,index)=>{
+      const chance=simulatorChanceText(item.probabilities,routeSimulatorAttempts);
+      return `<article class="route-compare-card ${item.role==='primary'?'active':''}"><div class="route-compare-head"><img class="route-compare-icon" src="${esc(item.icon_url)}" alt="${esc(item.title)}"><div><div class="route-compare-name">${esc(item.title)}</div><span class="route-confidence ${esc(item.confidenceClass)}">${esc(item.confidence)}</span></div></div><div class="route-methods">${item.methods.map(method=>`<div class="route-method"><b>${esc(method.name)}</b><span>${esc(method.detail)}</span></div>`).join('')}</div><div class="route-chance"><b>${esc(chance.value)}</b><span>${esc(chance.detail)}</span></div><div class="route-caution">${esc(item.caution)}</div><div class="route-compare-actions"><button class="${item.role==='primary'?'secondary':'primary'}" data-simulator-adopt="${esc(item.url)}">${item.role==='primary'?'Current primary route':'Make primary route'}</button><a class="secondary button-link" href="${esc(item.url)}" target="_blank" rel="noopener">Questlog ↗</a></div></article>`;
+    }).join('')}</div>
+    <div class="route-simulator-foot"><b>Interpretation guard:</b> separate drop rows are never added together, unknown box probabilities stay unknown, disabled recipes stay excluded, and boss materials are not treated as guaranteed per-kill rewards.</div>
+  </section>`;
+}
+
+function adoptGauntletSimulatorRoute(url){
+  const slotIndex=gauntletComparisonSlot();
+  if(slotIndex===null) return;
+  const model=gauntletSimulatorItems().find(x=>canonicalPath(x.url)===canonicalPath(url));
+  if(!model) return;
+  const rows=targetPathForSlot(slotIndex);
+  let target=rows.find(x=>canonicalPath(x.url)===canonicalPath(url) || String(x.name || '').trim().toLowerCase()===model.title.toLowerCase());
+  if(!target){
+    target={id:newTargetId(),name:model.title,url:model.url,role:'primary',status:'farming',note:'Selected in Target Route Simulator.',created_at:new Date().toISOString()};
+    rows.push(target);
+  }
+  for(const row of rows){
+    if(row===target){row.role='primary';row.status='farming';}
+    else if((row.role || 'primary')==='primary') row.role='secondary';
+  }
+  const index=rows.indexOf(target);
+  if(index>0) rows.unshift(rows.splice(index,1)[0]);
+  setTargetPathForSlot(slotIndex,rows);
+  renderUpgradePaths();renderDashboard();renderWeeklyPlanner();
+  notifyPlanner(`${model.title} is now the primary gauntlet route.`,{type:'success',title:'Route adopted',dedupeKey:'gauntlet-route-adopt'});
+}
+
 
 function renderUpgradePaths(){
   if(!currentData) return;
+
+  ensureGauntletAlternativeTargets();
 
   const candidates = targetCandidateNodes();
   const datalist = candidates.map(x=>`<option value="${esc(x.name)}"></option>`).join('');
@@ -6611,6 +6824,7 @@ function renderUpgradePaths(){
   }).join('');
 
   $('viewPaths').innerHTML = `
+    ${gauntletRouteSimulatorHtml()}
     <div class="path-summary-card">
       <h3 style="margin:0">Target Gear / Upgrade Paths</h3>
       <div class="muted">
@@ -6631,6 +6845,10 @@ function renderUpgradePaths(){
     <datalist id="targetCandidateList">${datalist}</datalist>
     <div class="path-grid">${cards}</div>
   `;
+
+  const attemptSelect=$('routeSimulatorAttempts');
+  if(attemptSelect) attemptSelect.onchange=e=>{routeSimulatorAttempts=Number(e.currentTarget.value || 10);renderUpgradePaths();};
+  document.querySelectorAll('[data-simulator-adopt]').forEach(button=>button.onclick=e=>adoptGauntletSimulatorRoute(e.currentTarget.dataset.simulatorAdopt));
 
   document.querySelectorAll('[data-target-up]').forEach(btn=>{
     btn.onclick=e=>moveTargetInSlot(Number(e.currentTarget.dataset.targetSlot),e.currentTarget.dataset.targetUp,-1);
