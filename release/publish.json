@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.16",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Adds a visual Scan Change Briefing that explains equipment, exact probability, crafting, acquisition-route, and Action Plan impacts after every refresh. New scans compare probability rows directly and retain canonical before/after values in Scan History; older entries are clearly identified as predating detailed comparisons. Adds a guarded 2x community working scenario for the Update 4.7.0 Nix and Ascended Talandre Field Boss increase. The official notes confirm an increase but publish no multiplier, so the scenario is visibly labeled non-official, switchable, and used only as a modest route-ranking signal. It never overwrites scraped Questlog percentages. Matching loaded-build rows show canonical and modeled values side by side, and future scans can confirm or contradict the estimate. Scan completion notifications now point to the briefing. System Health verifies the detailed briefing and scenario guard."
