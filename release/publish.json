@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "version": "22.0.15",
-  "publish": false,
+  "version": "22.0.16",
+  "publish": true,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
-  "notes": "Replaces the former Week Planner with a time-budgeted Action Plan Engine. Weekly playtime, preferred session length, focus mode, and available-day controls now produce a deterministic route from the saved build's real unfinished targets, crafting readiness, daily checklist, useful acquisition sources, and observed Archboss windows. Three quick recommendations cover a 30-minute window, tonight's best move, and the primary progression route. Weekly sessions can be checked off without changing gear progress, added to today's checklist, or opened in the exact supporting planner tool. The recurring EU/Nix boss schedule remains available as collapsible evidence and still requires live Peace/Guild confirmation. Workspace mega-menu titles, destination names, descriptions, icons, contrast, and spacing are substantially enlarged to reduce eye strain. System Health now verifies the Action Plan and minimum menu-label size. Planner build data and scan history are unchanged."
+  "notes": "Adds a visual Scan Change Briefing that explains equipment, exact probability, crafting, acquisition-route, and Action Plan impacts after every refresh. New scans compare probability rows directly and retain canonical before/after values in Scan History; older entries are clearly identified as predating detailed comparisons. Adds a guarded 2x community working scenario for the Update 4.7.0 Nix and Ascended Talandre Field Boss increase. The official notes confirm an increase but publish no multiplier, so the scenario is visibly labeled non-official, switchable, and used only as a modest route-ranking signal. It never overwrites scraped Questlog percentages. Matching loaded-build rows show canonical and modeled values side by side, and future scans can confirm or contradict the estimate. Scan completion notifications now point to the briefing. System Health verifies the detailed briefing and scenario guard."
 }

@@ -1939,3 +1939,33 @@ unfinished targets into a practical weekly route instead of showing the boss cal
 System Health now verifies the Action Plan functions, all seven availability controls, and the
 minimum workspace destination text size. Planner build data, scan history, gear progress,
 inventory, backups, and user knowledge remain unchanged.
+
+
+## v22.0.16 - Scan Change Briefing and guarded 2x boss-drop scenario
+
+### Scan Change Briefing
+
+- Adds a visual briefing above Scan History after every successful refresh.
+- Compares exact probability values, crafting recipes, acquisition-route categories, equipment,
+  and general Questlog evidence against the previous scan for the same build URL.
+- Maps changed item names back to active Action Plan targets so the player can see whether the
+  weekly route needs to be re-ranked.
+- Keeps canonical before/after probability values visible in each history entry.
+- Clearly marks older history entries that predate detailed probability comparisons.
+
+### Update 4.7.0 community scenario
+
+The official notes confirm increased weapon drop rates for Ascended Talandre and Nix Field
+Bosses, but they do not publish a percentage or multiplier. The supplied video analysis argues
+for a 2x interpretation from historical patterns.
+
+The planner therefore provides a switchable **2x community working scenario**:
+
+- matching loaded-build rows show Questlog's canonical percentage beside the modeled 2x value;
+- relevant routes receive only a modest ranking signal while the scenario is enabled;
+- every scenario label says that the multiplier is not an official numeric claim;
+- scraped Questlog percentages are never changed or replaced;
+- later scans can confirm or contradict the scenario through exact before/after comparisons.
+
+System Health verifies both the detailed scan briefing and the scenario guard. Existing scan
+files, planner state, progress, inventory, backups, and user knowledge remain intact.

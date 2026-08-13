@@ -243,12 +243,66 @@ def _evidence_tokens(item):
     return tokens
 
 
+def _probability_rows(item):
+    rows = {}
+    for rel in (item or {}).get("acquisition", []):
+        kind = rel.get("kind", "")
+        for row in rel.get("rows", []):
+            probability = row.get("Probability")
+            if probability in (None, ""):
+                continue
+            key = json.dumps({
+                "kind": kind,
+                "name": row.get("Name"),
+                "type": row.get("Type"),
+                "drop_type": row.get("Drop Type"),
+                "quantity": row.get("Quantity"),
+            }, ensure_ascii=False, sort_keys=True)
+            rows[key] = {
+                "kind": kind,
+                "source": row.get("Name") or "Unknown source",
+                "type": row.get("Type") or "",
+                "drop_type": row.get("Drop Type") or "",
+                "probability": probability,
+            }
+    for rel in (item or {}).get("container_contents", []):
+        for row in rel.get("rows", []):
+            probability = row.get("Probability")
+            if probability in (None, ""):
+                continue
+            key = json.dumps({
+                "kind": "Container Contents",
+                "name": row.get("Name"),
+                "drop_type": row.get("Drop Type"),
+                "quantity": row.get("Quantity"),
+            }, ensure_ascii=False, sort_keys=True)
+            rows[key] = {
+                "kind": "Container Contents",
+                "source": row.get("Name") or "Unknown drop",
+                "type": "",
+                "drop_type": row.get("Drop Type") or "",
+                "probability": probability,
+            }
+    return rows
+
+
+def _route_kinds(item):
+    return sorted({
+        str(rel.get("kind") or "").strip()
+        for rel in (item or {}).get("acquisition", [])
+        if str(rel.get("kind") or "").strip()
+    })
+
+
 def summarize_scan_diff(previous, current):
     if not previous:
         return {
             "baseline": True,
             "equipment_changes": [],
             "data_changed_items": [],
+            "probability_changes": [],
+            "crafting_changed_items": [],
+            "route_changes": [],
             "evidence_added": 0,
             "evidence_removed": 0,
             "summary": "Baseline scan saved; future scans can be compared against it.",
@@ -260,6 +314,9 @@ def summarize_scan_diff(previous, current):
 
     equipment_changes = []
     data_changed_items = []
+    probability_changes = []
+    crafting_changed_items = []
+    route_changes = []
     evidence_added = 0
     evidence_removed = 0
 
@@ -281,6 +338,33 @@ def summarize_scan_diff(previous, current):
         if json.dumps(_stable_item_evidence(a), ensure_ascii=False, sort_keys=True) != json.dumps(_stable_item_evidence(b), ensure_ascii=False, sort_keys=True):
             data_changed_items.append(b.get("item_name") or a.get("item_name") or f"Slot {slot}")
 
+        item_name = b.get("item_name") or a.get("item_name") or f"Slot {slot}"
+        ap = _probability_rows(a)
+        bp = _probability_rows(b)
+        for key in sorted(set(ap) & set(bp)):
+            before = ap[key].get("probability")
+            after = bp[key].get("probability")
+            if str(before) != str(after):
+                probability_changes.append({
+                    "item": item_name,
+                    "source": bp[key].get("source"),
+                    "kind": bp[key].get("kind"),
+                    "before": before,
+                    "after": after,
+                })
+
+        if json.dumps(a.get("crafting_recipes", []), ensure_ascii=False, sort_keys=True) != json.dumps(b.get("crafting_recipes", []), ensure_ascii=False, sort_keys=True):
+            crafting_changed_items.append(item_name)
+
+        before_routes = _route_kinds(a)
+        after_routes = _route_kinds(b)
+        if before_routes != after_routes:
+            route_changes.append({
+                "item": item_name,
+                "added": sorted(set(after_routes) - set(before_routes)),
+                "removed": sorted(set(before_routes) - set(after_routes)),
+            })
+
         at = _evidence_tokens(a)
         bt = _evidence_tokens(b)
         evidence_added += len(bt - at)
@@ -294,6 +378,12 @@ def summarize_scan_diff(previous, current):
             parts.append(f"{len(equipment_changes)} equipment slot change(s)")
         if data_changed_items:
             parts.append(f"{len(data_changed_items)} item data change(s)")
+        if probability_changes:
+            parts.append(f"{len(probability_changes)} probability change(s)")
+        if crafting_changed_items:
+            parts.append(f"{len(crafting_changed_items)} crafting change(s)")
+        if route_changes:
+            parts.append(f"{len(route_changes)} acquisition-route change(s)")
         if evidence_added or evidence_removed:
             parts.append(f"{evidence_added} evidence row(s) added / {evidence_removed} removed")
         text = "; ".join(parts) + "."
@@ -302,6 +392,9 @@ def summarize_scan_diff(previous, current):
         "baseline": False,
         "equipment_changes": equipment_changes,
         "data_changed_items": data_changed_items,
+        "probability_changes": probability_changes,
+        "crafting_changed_items": crafting_changed_items,
+        "route_changes": route_changes,
         "evidence_added": evidence_added,
         "evidence_removed": evidence_removed,
         "summary": text,

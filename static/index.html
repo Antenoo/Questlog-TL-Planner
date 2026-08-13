@@ -377,8 +377,13 @@
     .history-metric b{display:block;font-size:17px}
     .history-metric span{font-size:10px;color:var(--muted)}
     .change-list{font-size:12px;color:#d6e1ed;margin-top:8px}
+    .change-briefing{position:relative;overflow:hidden;margin-bottom:14px;padding:18px;border:1px solid #3c5774;border-radius:15px;background:radial-gradient(circle at 88% 15%,rgba(108,77,222,.2),transparent 35%),linear-gradient(145deg,#142538,#101823);box-shadow:0 14px 32px rgba(0,0,0,.18)}
+    .change-briefing-kicker{color:#83c8ff;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}.change-briefing h2{margin:5px 0 4px;font-size:21px}.change-briefing>p{max-width:820px;margin:0;color:#9db0c2;font-size:11px;line-height:1.55}
+    .change-briefing-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}.change-briefing-metric{padding:10px;border:1px solid rgba(70,103,138,.4);border-radius:9px;background:rgba(7,15,24,.55)}.change-briefing-metric b{display:block;font-size:18px}.change-briefing-metric span{display:block;margin-top:2px;color:#8296aa;font-size:9px}
+    .change-impact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.change-impact-card{padding:11px;border:1px solid #2b3e52;border-radius:10px;background:#0e1823}.change-impact-card b{display:block;font-size:11px}.change-impact-card p{margin:4px 0 0;color:#8fa3b6;font-size:10px;line-height:1.45}.change-impact-card strong{color:#bdd8f1}
+    .probability-change-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;margin-top:7px;padding:8px 9px;border:1px solid #2d4054;border-radius:8px;background:#0c1621;font-size:10px}.probability-change-row .before{color:#a1afbd}.probability-change-row .after{color:#9ee1b7;font-weight:850}
     .state-owned{color:var(--good)}
-    @media(max-width:760px){.queue-row{grid-template-columns:28px 34px 1fr}.queue-actions{grid-column:2/-1}.history-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.queue-row{grid-template-columns:28px 34px 1fr}.queue-actions{grid-column:2/-1}.history-grid,.change-briefing-grid,.change-impact-grid{grid-template-columns:repeat(2,1fr)}}
     .today-card{
       background:linear-gradient(180deg,#151d27,#111820);
       border:1px solid #34475b;border-radius:13px;padding:15px;margin-bottom:12px
@@ -761,6 +766,7 @@
     .patch-impact-zones span{color:#7590a8;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.patch-impact-zones p{margin:5px 0 0;color:#b4c2cf;font-size:10px;line-height:1.5}
     .patch-card-actions{display:flex;gap:5px;margin-top:10px;padding-top:10px;border-top:1px solid #22303e}.patch-status-button{padding:5px 8px;background:transparent;color:#73889c;border-color:#2b3c4e;border-radius:7px;font-size:8px;box-shadow:none}.patch-status-button.active{background:#21364a;color:#d8ecff;border-color:#48759b}
     .patch-safety-note{margin-top:14px;padding:11px 13px;border:1px solid #5d4c2d;border-radius:10px;background:#211d15;color:#d8c38f;font-size:10px;line-height:1.5}
+    .drop-scenario{margin:0 0 14px;padding:15px;border:1px solid #5b4b79;border-radius:13px;background:linear-gradient(135deg,#181b2c,#211a35)}.drop-scenario-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.drop-scenario-kicker{color:#baa7ff;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.drop-scenario h3{margin:4px 0;font-size:17px}.drop-scenario p{margin:0;color:#a99fbe;font-size:10.5px;line-height:1.5}.drop-scenario-toggle{display:flex;gap:7px;align-items:center;padding:7px 9px;border:1px solid #65558a;border-radius:999px;background:#171426;color:#d9d0f7;font-size:10px;font-weight:850;white-space:nowrap}.drop-scenario-table{display:grid;gap:6px;margin-top:11px}.drop-scenario-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:8px 9px;border:1px solid rgba(91,75,121,.55);border-radius:8px;background:rgba(8,11,20,.42);font-size:10px}.drop-scenario-row .canonical{color:#aeb8c4}.drop-scenario-row .modeled{color:#cfbfff;font-weight:900}
 
     /* v22.0.11 friendly planner identity */
     :root{
@@ -1135,6 +1141,12 @@ const plannerReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 const PLANNER_ACTIVITY_KEY = 'questlogPlannerActivity';
 const PLANNER_ACTIVITY_LIMIT = 30;
 const OFFICIAL_UPDATE_470_URL = 'https://www.playthroneandliberty.com/en-us/news/articles/update-4-7-0';
+const COMMUNITY_DROP_SCENARIO_470 = {
+  multiplier:2,
+  label:'Community working scenario',
+  scope:'Ascended Talandre and Nix Field Boss weapon drops',
+  confirmed:false
+};
 const PLANNER_WHEEL_EASE_MS = 88;
 const PLANNER_ROTATING_PHRASES = ['next upgrade','boss priorities','crafting route','weekly goals'];
 const WORKSPACE_VIEW_GROUP = {
@@ -1148,7 +1160,7 @@ const PATCH_IMPACTS_470 = [
     id:'field-boss-drops',icon:'↑',area:'Field Bosses',priority:'high',defaultStatus:'watching',
     title:'Nix and Ascended Talandre weapon drops increased',
     evidence:'The official notes confirm higher weapon drop rates, but do not publish numeric percentages.',
-    action:'Keep current probability assumptions unchanged. Watch updated Questlog tables or verified player data before recalculating boss value.'
+    action:'Model a clearly labeled 2x community scenario for comparison, while keeping scraped Questlog percentages canonical until a refreshed table or numeric official source confirms the multiplier.'
   },
   {
     id:'ramux-rewards',icon:'+',area:'Drop table',priority:'high',defaultStatus:'needs-review',
@@ -1258,6 +1270,7 @@ const SETTINGS_DEFAULTS = {
   default_tab:'dashboard',
   auto_daily_suggestions:true,
   checklist_retention_days:35,
+  community_drop_scenario_2x:true,
   confirm_cache_clear:true,
   default_guild_eligible:false,
   update_repository:'',
@@ -1302,6 +1315,7 @@ function normalizedSettings(){
   s.auto_load_latest_scan=Boolean(s.auto_load_latest_scan);
   s.auto_health_check=Boolean(s.auto_health_check);
   s.auto_daily_suggestions=Boolean(s.auto_daily_suggestions);
+  s.community_drop_scenario_2x=Boolean(s.community_drop_scenario_2x);
   s.confirm_cache_clear=Boolean(s.confirm_cache_clear);
   s.default_guild_eligible=Boolean(s.default_guild_eligible);
   s.update_repository=String(s.update_repository || '').trim();
@@ -1500,6 +1514,55 @@ function patchStatusLabel(status){
   return status==='needs-review' ? 'Needs review' : status==='watching' ? 'Watching' : 'Reviewed';
 }
 
+function communityDropScenarioEnabled(){
+  return Boolean(settingValue('community_drop_scenario_2x',true));
+}
+
+function communityScenarioAppliesToSource(name,type=''){
+  const source=String(name || '');
+  const sourceType=String(type || '');
+  if(/\b(thuban|porfos)\b/i.test(source)) return true;
+  if(!/ascended/i.test(source)) return false;
+  if(/archboss/i.test(sourceType) || /queen bellandir|tevent|ramux/i.test(source)) return false;
+  return /boss/i.test(sourceType);
+}
+
+function communityScenarioProbability(value){
+  const canonical=probabilityNumber(value);
+  if(canonical===null) return null;
+  return Math.min(100,canonical*COMMUNITY_DROP_SCENARIO_470.multiplier);
+}
+
+function communityDropScenarioRows(){
+  if(!currentData) return [];
+  const rows=[];
+  const seen=new Set();
+  for(const item of currentData.items || []){
+    for(const rel of item.acquisition || []){
+      if(rel.kind!=='Direct Drops') continue;
+      for(const row of rel.rows || []){
+        if(!communityScenarioAppliesToSource(row.Name,row.Type)) continue;
+        const modeled=communityScenarioProbability(row.Probability);
+        if(modeled===null) continue;
+        const key=`${row.Name}|${row.Probability}`;
+        if(seen.has(key)) continue;
+        seen.add(key);
+        rows.push({source:row.Name,canonical:String(row.Probability),modeled:`${Number(modeled.toFixed(5))}%`});
+      }
+    }
+  }
+  return rows.sort((a,b)=>a.source.localeCompare(b.source)).slice(0,8);
+}
+
+function communityDropScenarioHtml(){
+  const enabled=communityDropScenarioEnabled();
+  const rows=communityDropScenarioRows();
+  return `<section class="drop-scenario">
+    <div class="drop-scenario-head"><div><div class="drop-scenario-kicker">Community estimate - not an official numeric claim</div><h3>2x Field Boss working scenario</h3><p>Official 4.7.0 notes say the affected weapon rates increased. The supplied video analysis interprets the change as 2x from historical patterns; the planner can model that comparison without replacing Questlog's scraped values.</p></div><label class="drop-scenario-toggle"><input id="communityDropScenarioToggle" type="checkbox" ${enabled?'checked':''}> Use in route ranking</label></div>
+    <div class="drop-scenario-table">${rows.length?rows.map(row=>`<div class="drop-scenario-row"><b>${esc(row.source)}</b><span class="canonical">Questlog ${esc(row.canonical)}</span><span class="modeled">Scenario ${esc(row.modeled)}</span></div>`).join(''):'<div class="muted">No matching numeric Nix or Ascended Talandre Field Boss rows are present in the loaded build. A future scan can confirm changes automatically.</div>'}</div>
+  </section>`;
+}
+
 function patchImpactCardHtml(item){
   const status=patchImpactStatus(item);
   return `
@@ -1557,6 +1620,7 @@ function renderPatchInbox(){
         ${[['all','All'],['needs-review','Review'],['watching','Watching'],['reviewed','Reviewed']].map(([value,label])=>`<button data-patch-filter="${value}" class="${patchInboxFilter===value?'active':''}">${label}</button>`).join('')}
       </div>
     </div>
+    ${communityDropScenarioHtml()}
     <section class="patch-impact-grid">
       ${visible.map(patchImpactCardHtml).join('') || '<div class="panel muted">No patch impacts match this filter.</div>'}
     </section>
@@ -1568,6 +1632,15 @@ function renderPatchInbox(){
       renderPatchInbox();
     };
   });
+  const scenarioToggle=$('communityDropScenarioToggle');
+  if(scenarioToggle) scenarioToggle.onchange=e=>{
+    const enabled=e.currentTarget.checked;
+    normalizedSettings().community_drop_scenario_2x=enabled;
+    savePlannerStateSoon();
+    renderPatchInbox();
+    if(currentData) renderWeeklyPlanner();
+    notifyPlanner(enabled?'2x community scenario enabled for route ranking.':'2x community scenario removed from route ranking.',{type:'info',title:'Drop scenario updated',dedupeKey:'community-drop-scenario'});
+  };
   host.querySelectorAll('[data-patch-set-status]').forEach(button=>{
     button.onclick=()=>{
       const item=PATCH_IMPACTS_470.find(entry=>entry.id===button.dataset.patchId);
@@ -4392,11 +4465,14 @@ function actionPlanCandidates(days){
     priority:row.state==='ready'?116-i:94-i*3,view:'farm',idx:row.idx
   }));
 
-  dashboardActivities().slice(0,5).forEach((activity,i)=>add({
-    id:`activity-${i}-${activity.name}`,title:`Run ${activity.name}`,
-    detail:`${activity.kind}${activity.meta?` - ${activity.meta}`:''}. Supports ${activity.indexes.length} unfinished item${activity.indexes.length===1?'':'s'}.`,
-    category:'activity',duration:60,priority:78-i*3,view:'farm',idx:activity.indexes[0]
-  }));
+  dashboardActivities().slice(0,8).forEach((activity,i)=>{
+    const scenario=communityDropScenarioEnabled() && communityScenarioAppliesToSource(activity.name,activity.meta);
+    add({
+      id:`activity-${i}-${activity.name}`,title:`Run ${activity.name}`,
+      detail:`${activity.kind}${activity.meta?` - ${activity.meta}`:''}. Supports ${activity.indexes.length} unfinished item${activity.indexes.length===1?'':'s'}.${scenario?' Route rank includes the labeled 2x community scenario; the displayed Questlog rate remains canonical.':''}`,
+      category:'activity',duration:60,priority:78-i*3+(scenario?12:0),view:'farm',idx:activity.indexes[0],communityScenario:scenario
+    });
+  });
 
   days.filter(day=>day.info.kind!=='none').forEach(day=>add({
     id:`boss-${day.dateKey}`,title:`Confirm and plan ${day.info.label}`,
@@ -4514,7 +4590,7 @@ function renderWeeklyPlanner(){
         const task=session.task;
         weeklyActionPlanCache.set(task.id,task);
         const done=Boolean(state.completed[completedKey(session.id)]);
-        return `<article class="action-session ${done?'done':''}"><div class="action-session-when"><b>${esc(plannerDayLabel(session.dateKey))}</b><span>${esc(plannerDisplayDate(session.dateKey))} - ${session.minutes} min</span></div><input class="action-session-check" type="checkbox" data-action-complete="${esc(session.id)}" ${done?'checked':''} aria-label="Complete session"><div><div class="action-session-title">${esc(task.title)}</div><div class="action-session-detail">${esc(task.detail)}</div><div class="action-session-meta"><span class="action-pill ${esc(task.category)}">${esc(actionPlanCategoryLabel(task.category))}</span>${task.scheduleDate?'<span class="action-pill">Confirm live type</span>':'<span class="action-pill">Build-derived</span>'}</div></div><div class="action-card-actions"><button class="secondary" data-action-open="${esc(task.id)}">Open</button><button class="secondary" data-action-add="${esc(task.id)}">Add to today</button></div></article>`;
+        return `<article class="action-session ${done?'done':''}"><div class="action-session-when"><b>${esc(plannerDayLabel(session.dateKey))}</b><span>${esc(plannerDisplayDate(session.dateKey))} - ${session.minutes} min</span></div><input class="action-session-check" type="checkbox" data-action-complete="${esc(session.id)}" ${done?'checked':''} aria-label="Complete session"><div><div class="action-session-title">${esc(task.title)}</div><div class="action-session-detail">${esc(task.detail)}</div><div class="action-session-meta"><span class="action-pill ${esc(task.category)}">${esc(actionPlanCategoryLabel(task.category))}</span>${task.scheduleDate?'<span class="action-pill">Confirm live type</span>':task.communityScenario?'<span class="action-pill">2x community scenario</span>':'<span class="action-pill">Build-derived</span>'}</div></div><div class="action-card-actions"><button class="secondary" data-action-open="${esc(task.id)}">Open</button><button class="secondary" data-action-add="${esc(task.id)}">Add to today</button></div></article>`;
       }).join(''):'<div class="action-empty">No actionable sessions are available for this build yet.</div>'}
     </div></section>
     <details class="schedule-evidence"><summary><span>Boss schedule evidence</span><span class="muted">${eventDays.length} recurring days - ${mixedUnknown} mixed slots to confirm</span></summary><div class="schedule-evidence-body"><div class="muted" style="margin-bottom:10px">Uses the recurring EU/Nix pattern observed from supplied in-game schedules. Peace/Guild assignment remains live information and is never guessed.</div>${weeklyScheduleEvidenceHtml(days,today)}</div></details>`;
@@ -5709,9 +5785,11 @@ async function poll(){
     saveRestoredScan(currentData);
     renderAll();
     await loadFreshness({render:true});
+    const briefing=currentData.change_summary || {};
+    const probabilityCount=(briefing.probability_changes || []).length;
     notifyPlanner(
-      `Scan completed with ${s.pages_requested || 0} page requests, ${s.pages_cache_hit || 0} cache hits, and ${s.pages_downloaded || 0} downloads.`,
-      {type:'success',title:'Scan complete',dedupeKey:'active-scan'}
+      `${briefing.summary || `Scan completed with ${s.pages_downloaded || 0} downloads.`}${probabilityCount?` ${probabilityCount} exact probability change${probabilityCount===1?' is':'s are'} ready in Library > Scan History.`:' Open Library > Scan History for the change briefing.'}`,
+      {type:'success',title:'Scan briefing ready',dedupeKey:'active-scan'}
     );
     return;
   }
@@ -5768,10 +5846,13 @@ async function renderScanHistory(){
       host.innerHTML='<div class="panel"><h3>Scan History</h3><div class="muted">No v21 scan history yet. Your next successful scan will create the baseline, and later scans will be compared automatically.</div></div>';
       return;
     }
-    host.innerHTML=`<div class="panel"><h3>Scan History & Change Detection</h3><div class="muted">Each successful scan is compared with the previous saved scan for the same Questlog build URL.</div></div>` + scanHistoryCache.map((entry,i)=>{
+    host.innerHTML=scanChangeBriefingHtml(scanHistoryCache[0]) + `<div class="panel"><h3>Scan History & Change Detection</h3><div class="muted">Each successful scan is compared with the previous saved scan for the same Questlog build URL. Detailed probability, crafting, and route comparisons begin with scans made on v22.0.16 or later.</div></div>` + scanHistoryCache.map((entry,i)=>{
       const d=entry.summary||{};
       const eq=d.equipment_changes||[];
       const changed=d.data_changed_items||[];
+      const probabilities=d.probability_changes||[];
+      const crafting=d.crafting_changed_items||[];
+      const routes=d.route_changes||[];
       return `<div class="history-card">
         <div class="history-head">
           <div><b>${esc(entry.filename||'Scan')}</b><div class="muted" style="font-size:11px">${entry.generated_at_utc ? esc(new Date(entry.generated_at_utc).toLocaleString()) : ''}</div></div>
@@ -5787,12 +5868,34 @@ async function renderScanHistory(){
           </div>
           ${eq.length ? `<div class="change-list"><b>Equipment:</b> ${eq.map(x=>`Slot ${x.slot_index}: ${esc(x.before||'—')} → ${esc(x.after||'—')}`).join('<br>')}</div>` : ''}
           ${changed.length ? `<div class="change-list"><b>Questlog data changed:</b> ${changed.map(esc).join(', ')}</div>` : ''}
+          ${probabilities.length ? `<div class="change-list"><b>Probability changes:</b>${probabilities.map(x=>`<div class="probability-change-row"><span>${esc(x.item)} - ${esc(x.source)}</span><span class="before">${esc(x.before)}</span><span class="after">&rarr; ${esc(x.after)}</span></div>`).join('')}</div>` : ''}
+          ${crafting.length ? `<div class="change-list"><b>Crafting data changed:</b> ${crafting.map(esc).join(', ')}</div>` : ''}
+          ${routes.length ? `<div class="change-list"><b>Acquisition routes changed:</b> ${routes.map(x=>`${esc(x.item)}${x.added?.length?` + ${x.added.map(esc).join(', ')}`:''}${x.removed?.length?` - ${x.removed.map(esc).join(', ')}`:''}`).join('<br>')}</div>` : ''}
         </div>
       </div>`;
     }).join('');
   }catch(e){
     host.innerHTML=`<div class="panel"><h3>Scan History</h3><div class="muted">Could not load scan history: ${esc(e)}</div></div>`;
   }
+}
+
+function scanChangeBriefingHtml(entry){
+  const d=entry?.summary || {};
+  const equipment=d.equipment_changes || [];
+  const probabilities=d.probability_changes || [];
+  const crafting=d.crafting_changed_items || [];
+  const routes=d.route_changes || [];
+  const changedNames=new Set([...(d.data_changed_items || []),...equipment.map(x=>x.after).filter(Boolean),...probabilities.map(x=>x.item).filter(Boolean),...crafting,...routes.map(x=>x.item).filter(Boolean)]);
+  const activeTargets=currentData ? dashboardPlannerTargets().filter(x=>changedNames.has(x.displayName)) : [];
+  const detailed='probability_changes' in d;
+  const headline=d.baseline?'Baseline ready':equipment.length || changedNames.size?'Your route has new evidence':'No route-changing evidence detected';
+  return `<section class="change-briefing">
+    <div class="change-briefing-kicker">Latest scan briefing</div><h2>${esc(headline)}</h2>
+    <p>${esc(d.summary || 'The next successful scan will create a comparison baseline.')} ${detailed?'Probability changes are compared directly against the preceding scan.':'This older entry predates detailed probability comparisons; refresh when ready to establish the new baseline.'}</p>
+    <div class="change-briefing-grid"><div class="change-briefing-metric"><b>${equipment.length}</b><span>Equipment changes</span></div><div class="change-briefing-metric"><b>${probabilities.length}</b><span>Probability changes</span></div><div class="change-briefing-metric"><b>${crafting.length+routes.length}</b><span>Crafting / route changes</span></div><div class="change-briefing-metric"><b>${activeTargets.length}</b><span>Active targets affected</span></div></div>
+    <div class="change-impact-grid"><div class="change-impact-card"><b>Action Plan impact</b><p>${activeTargets.length?`Re-rank these active targets: <strong>${activeTargets.map(x=>esc(x.displayName)).join(', ')}</strong>.`:'No current Action Plan target is directly named by the latest changed evidence.'}</p></div><div class="change-impact-card"><b>4.7.0 drop-rate confirmation</b><p>${probabilities.length?`${probabilities.length} numeric change${probabilities.length===1?' was':'s were'} detected. Compare the exact before/after rows below against the 2x working scenario.`:'No numeric rate change has been detected yet. The 2x value remains a labeled community scenario, not canonical data.'}</p></div></div>
+    ${probabilities.slice(0,6).map(x=>`<div class="probability-change-row"><span>${esc(x.item)} - ${esc(x.source)}</span><span class="before">${esc(x.before)}</span><span class="after">&rarr; ${esc(x.after)}</span></div>`).join('')}
+  </section>`;
 }
 
 function safeRenderView(name, fn){
@@ -6010,6 +6113,13 @@ function frontendHealthChecks(){
     'Time-budgeted action plan and readable workspace menus',
     typeof buildWeeklyActionPlan==='function' && typeof actionPlanCandidates==='function' && typeof ensureActionPlanSettings==='function' && ACTION_PLAN_DAY_NAMES.length===7 && workspaceDestinationLabel && parseFloat(getComputedStyle(workspaceDestinationLabel).fontSize)>=13 ? 'pass' : 'fail',
     `Action Plan combines build targets, crafting readiness, checklist tasks, activity routes, and observed boss windows; grouped destination labels render at ${workspaceDestinationLabel?getComputedStyle(workspaceDestinationLabel).fontSize:'unknown size'}.`
+  ));
+
+  checks.push(healthClientCheck(
+    'scan_change_briefing',
+    'Detailed scan briefing and guarded drop scenario',
+    typeof scanChangeBriefingHtml==='function' && typeof communityDropScenarioRows==='function' && typeof communityScenarioProbability==='function' && COMMUNITY_DROP_SCENARIO_470.multiplier===2 && COMMUNITY_DROP_SCENARIO_470.confirmed===false ? 'pass' : 'fail',
+    'Scan history can expose exact probability, crafting, route, and Action Plan impacts; the 2x Nix/Talandre value remains explicitly community-estimated and never overwrites canonical Questlog data.'
   ));
 
   checks.push(healthClientCheck(
