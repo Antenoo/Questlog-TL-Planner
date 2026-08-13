@@ -1154,9 +1154,9 @@ and EXE builder are present.
 
 ## v21.6 — Weekly Planner + Daily Checklist
 
-### Weekly Planner
-A new **Week Planner** tab turns the recurring EU/Nix Archboss observations into a
-compact Monday-Sunday view.
+### Weekly Planner (now Action Plan)
+The original **Week Planner** turned recurring EU/Nix Archboss observations into a compact
+Monday-Sunday view. In v22.0.15 this surface became the broader **Action Plan**.
 
 It shows:
 - Tue/Fri Ascended-pool days
@@ -1910,3 +1910,32 @@ The background was generated with the built-in image generation tool and saved a
 `static/assets/planner-astral-basin-v1.png`. Planner data, cached Questlog pages, scan history,
 progress, priorities, materials, Sollant, weekly/daily state, backups, and user knowledge are
 unchanged.
+
+
+## v22.0.15 - Time-budgeted Action Plan and readable workspace menus
+
+The former Week Planner is now a build-aware Action Plan Engine. It turns the player's actual
+unfinished targets into a practical weekly route instead of showing the boss calendar alone.
+
+### Action Plan Engine
+
+- Accepts a weekly playtime budget, preferred session length, focus mode, and available days.
+- Builds deterministic sessions from unfinished planner targets, priority crafting allocation,
+  current daily-checklist tasks, useful acquisition activities, and observed Archboss windows.
+- Offers direct shortcuts for a 30-minute window, tonight's best move, and the current
+  progression route.
+- Lets the player check off planned sessions independently from gear progress or inventory.
+- Can add any recommendation to today's checklist or open its exact Farm Plan, Upgrade Path,
+  Dashboard, or Boss Priority route.
+- Preserves the recurring schedule as collapsible evidence and continues to require live
+  Peace/Guild confirmation rather than guessing event eligibility.
+
+### More readable grouped navigation
+
+- Enlarges workspace group titles, descriptions, destination names, supporting copy, and icons.
+- Raises contrast on secondary menu descriptions and gives each destination more breathing room.
+- Keeps the compact one-column menu behavior on narrow windows.
+
+System Health now verifies the Action Plan functions, all seven availability controls, and the
+minimum workspace destination text size. Planner build data, scan history, gear progress,
+inventory, backups, and user knowledge remain unchanged.

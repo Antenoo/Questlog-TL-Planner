@@ -228,6 +228,21 @@
     .week-summary-box{background:#0d141c;border:1px solid #293646;border-radius:8px;padding:8px}
     .week-summary-box b{display:block;font-size:18px}
     .week-summary-box span{font-size:11px;color:var(--muted)}
+    .action-engine{position:relative;overflow:hidden;border:1px solid rgba(105,145,190,.34);border-radius:16px;padding:18px;margin-bottom:14px;background:linear-gradient(135deg,rgba(19,35,52,.96),rgba(21,25,47,.93) 55%,rgba(34,25,59,.91));box-shadow:0 18px 46px rgba(0,0,0,.22)}
+    .action-engine:after{content:"";position:absolute;right:-90px;top:-120px;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,rgba(130,88,255,.18),transparent 68%);pointer-events:none}
+    .action-engine-head{position:relative;z-index:1;display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    .action-engine-kicker{color:#86c8ff;font-size:10px;font-weight:900;letter-spacing:.13em;text-transform:uppercase}
+    .action-engine h3{margin:4px 0 3px;font-size:23px}.action-engine-copy{max-width:760px;color:#a9b9c9;font-size:12px;line-height:1.55}
+    .action-engine-controls{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:9px;margin-top:15px}
+    .action-control{display:grid;gap:6px;padding:10px 11px;border:1px solid rgba(79,108,139,.35);border-radius:10px;background:rgba(7,14,23,.52)}
+    .action-control label{color:#8fa5b9;font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}.action-control select{width:100%;border-color:#31465d;background:#0b1622;color:#e4edf6}
+    .action-days{position:relative;z-index:1;display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px}.action-days-label{margin-right:3px;color:#8fa5b9;font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
+    .action-day-toggle{position:relative}.action-day-toggle input{position:absolute;opacity:0;pointer-events:none}.action-day-toggle span{display:flex;align-items:center;justify-content:center;min-width:42px;padding:7px 9px;border:1px solid #304359;border-radius:999px;background:#0c1723;color:#8295a8;font-size:10px;font-weight:850;cursor:pointer}.action-day-toggle input:checked+span{border-color:#679dd4;background:#19304a;color:#ddecfb;box-shadow:0 0 0 1px rgba(103,157,212,.12)}
+    .action-engine-stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.action-engine-stat{padding:9px 10px;border:1px solid rgba(69,96,125,.34);border-radius:9px;background:rgba(8,15,24,.42)}.action-engine-stat b{display:block;color:#f1f5f9;font-size:16px}.action-engine-stat span{display:block;margin-top:2px;color:#8497aa;font-size:10px}
+    .action-quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}.action-quick-card{position:relative;overflow:hidden;min-height:145px;padding:14px;border:1px solid #2a3b50;border-radius:13px;background:linear-gradient(145deg,rgba(17,28,41,.96),rgba(11,18,28,.96))}.action-quick-card.primary{border-color:#4d6d9c;background:linear-gradient(145deg,rgba(25,44,68,.98),rgba(25,24,48,.98))}.action-quick-label{color:#7fbdf0;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.action-quick-card h4{margin:8px 0 5px;font-size:16px;line-height:1.25}.action-quick-detail{color:#91a5b8;font-size:11px;line-height:1.45}.action-card-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:12px}.action-card-actions button{padding:6px 9px;font-size:10px}
+    .action-plan-section{border:1px solid var(--line);border-radius:14px;background:rgba(13,21,31,.92);overflow:hidden;margin-bottom:14px}.action-plan-section-head{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 14px;border-bottom:1px solid var(--line);background:rgba(18,29,42,.82)}.action-plan-section-head h3{margin:0;font-size:16px}.action-plan-section-head span{color:#8497aa;font-size:10px}
+    .action-session-list{display:grid;gap:0}.action-session{display:grid;grid-template-columns:96px 28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 14px;border-bottom:1px solid #202c39}.action-session:last-child{border-bottom:0}.action-session.done{opacity:.55}.action-session.done .action-session-title{text-decoration:line-through}.action-session-when b{display:block;font-size:12px}.action-session-when span{display:block;margin-top:2px;color:#7f93a6;font-size:10px}.action-session-check{width:22px;height:22px}.action-session-title{font-size:13px;font-weight:850}.action-session-detail{margin-top:3px;color:#899db0;font-size:10.5px;line-height:1.4}.action-session-meta{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:6px}.action-pill{display:inline-flex;padding:3px 6px;border:1px solid #34475c;border-radius:999px;color:#9cb2c7;font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.05em}.action-pill.boss{border-color:#654f2b;color:#e7c985}.action-pill.crafting{border-color:#3b674c;color:#9bd8b1}.action-pill.progression{border-color:#4d4b7a;color:#bbb5ff}.action-empty{padding:24px;color:#8ea1b4;text-align:center}.schedule-evidence{margin-top:14px;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:rgba(11,18,27,.88)}.schedule-evidence>summary{display:flex;justify-content:space-between;gap:10px;padding:13px 14px;cursor:pointer;list-style:none;background:#111c29;font-weight:850}.schedule-evidence>summary::-webkit-details-marker{display:none}.schedule-evidence-body{padding:12px}
+    @media(max-width:900px){.action-engine-controls,.action-quick-grid{grid-template-columns:1fr}.action-session{grid-template-columns:78px 24px minmax(0,1fr)}.action-session>.action-card-actions{grid-column:3}.action-engine-stats{grid-template-columns:1fr}}
     .daily-checklist{margin-top:11px;background:#0d141c;border:1px solid var(--line);border-radius:10px;overflow:hidden}
     .daily-checklist>summary{cursor:pointer;list-style:none;padding:10px 11px;background:#111923;display:flex;justify-content:space-between;gap:10px;align-items:center}
     .daily-checklist>summary::-webkit-details-marker{display:none}
@@ -818,9 +833,9 @@
     .workspace-menu-trigger span{display:inline-block;margin-left:4px;color:#697f96;transition:transform .18s ease}.workspace-menu-trigger.open span{transform:rotate(180deg)}
     .workspace-current-view{display:flex;flex-direction:column;align-items:flex-end;margin-left:auto;padding:6px 9px;line-height:1.18}.workspace-current-view small{color:#6e8399;font-size:8px;text-transform:uppercase;letter-spacing:.09em}.workspace-current-view b{margin-top:2px;color:#d1deea;font-size:11px}
     .workspace-mega-menu{display:none;border-top:1px solid rgba(77,100,129,.25);background:linear-gradient(145deg,#101821,#0c121a);box-shadow:0 22px 38px rgba(0,0,0,.36)}
-    .workspace-mega-menu.open{display:block}.workspace-menu-panel{display:none;margin:0;padding:17px 18px 19px;border:0;border-radius:0;background:transparent}.workspace-menu-panel.open{display:grid;grid-template-columns:210px minmax(0,1fr);gap:18px}
-    .workspace-menu-heading{display:flex;gap:10px;align-items:flex-start;padding:3px 14px 3px 2px;border-right:1px solid rgba(77,99,126,.24)}.workspace-menu-symbol{display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex:0 0 36px;border:1px solid rgba(99,143,187,.25);border-radius:11px;background:#17283a;color:#88c9ff;font-size:15px}.workspace-menu-heading b{display:block;color:#eef4fa;font-size:13px}.workspace-menu-heading small{display:block;margin-top:3px;color:#74879a;font-size:9px;line-height:1.45}
-    .workspace-menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.workspace-destination{display:grid!important;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:center;text-align:left;padding:10px!important;border:1px solid transparent!important;border-radius:10px!important;background:transparent!important;color:#cbd7e2!important}.workspace-destination:hover,.workspace-destination.active{border-color:rgba(91,124,160,.3)!important;background:#172230!important;transform:none!important;box-shadow:none!important}.workspace-destination>span{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#1a2634;color:#9bcdf4;font-size:13px}.workspace-destination b{display:block;font-size:10px}.workspace-destination small{display:block;margin-top:2px;color:#718497;font-size:8px;line-height:1.35;font-weight:500}
+    .workspace-mega-menu.open{display:block}.workspace-menu-panel{display:none;margin:0;padding:19px 20px 21px;border:0;border-radius:0;background:transparent}.workspace-menu-panel.open{display:grid;grid-template-columns:240px minmax(0,1fr);gap:22px}
+    .workspace-menu-heading{display:flex;gap:12px;align-items:flex-start;padding:5px 18px 5px 2px;border-right:1px solid rgba(77,99,126,.24)}.workspace-menu-symbol{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:0 0 44px;border:1px solid rgba(99,143,187,.25);border-radius:12px;background:#17283a;color:#88c9ff;font-size:18px}.workspace-menu-heading b{display:block;color:#eef4fa;font-size:17px;line-height:1.25}.workspace-menu-heading small{display:block;margin-top:4px;color:#96a8ba;font-size:12px;line-height:1.5}
+    .workspace-menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.workspace-destination{display:grid!important;grid-template-columns:42px minmax(0,1fr);gap:11px;align-items:center;text-align:left;padding:13px!important;border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;color:#cbd7e2!important}.workspace-destination:hover,.workspace-destination.active{border-color:rgba(91,124,160,.3)!important;background:#172230!important;transform:none!important;box-shadow:none!important}.workspace-destination>span{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:10px;background:#1a2634;color:#9bcdf4;font-size:16px}.workspace-destination b{display:block;font-size:14px;line-height:1.3}.workspace-destination small{display:block;margin-top:3px;color:#9bacbd;font-size:11.5px;line-height:1.45;font-weight:500}
     .workspace-intro{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:-2px 0 8px;padding:0 2px}
     .workspace-intro b{font-size:12px}
     .workspace-intro span{font-size:10px;color:var(--muted)}
@@ -1006,7 +1021,7 @@
           <div class="workspace-menu-grid">
             <button class="tab workspace-destination" data-view="boss"><span>♛</span><div><b>Boss Priority</b><small>Schedule eligibility and boss value.</small></div></button>
             <button class="tab workspace-destination" data-view="patches"><span>◇</span><div><b>Patch Inbox</b><small>Review confirmed game changes safely.</small></div></button>
-            <button class="tab workspace-destination" data-view="week"><span>▦</span><div><b>Week Planner</b><small>Balance weekly goals and resets.</small></div></button>
+            <button class="tab workspace-destination" data-view="week"><span>▦</span><div><b>Action Plan</b><small>Turn available playtime into a focused route.</small></div></button>
           </div>
         </section>
         <section id="workspace-menu-progress" class="tab-group workspace-menu-panel" data-workspace-panel="progress" aria-label="Progress tools">
@@ -1253,7 +1268,7 @@ const SETTINGS_TABS = [
   ['dashboard','Farm Dashboard'],
   ['boss','Boss Priority'],
   ['patches','Patch Inbox'],
-  ['week','Week Planner'],
+  ['week','Action Plan'],
   ['farm','Farm Plan'],
   ['paths','Upgrade Paths'],
   ['knowledge','Knowledge Routes'],
@@ -4205,7 +4220,7 @@ function bindDailyChecklist(){
   if(clear) clear.onclick=clearCompletedDailyChecklist;
 }
 
-function renderWeeklyPlanner(){
+function renderWeeklyPlannerLegacy(){
   const host=$('viewWeek');
   if(!host || !currentData) return;
 
@@ -4309,6 +4324,213 @@ function renderWeeklyPlanner(){
   document.querySelectorAll('[data-week-open]').forEach(btn=>{
     btn.onclick=e=>openBossPreviewForDate(e.currentTarget.dataset.weekOpen);
   });
+}
+
+let weeklyActionPlanCache=new Map();
+const ACTION_PLAN_DAY_NAMES=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+function ensureActionPlanSettings(state){
+  state.minutesPerWeek=Math.max(60,Math.min(3600,Number(state.minutesPerWeek || 360)));
+  state.sessionMinutes=[30,45,60,90,120].includes(Number(state.sessionMinutes)) ? Number(state.sessionMinutes) : 60;
+  state.focus=['balanced','progression','crafting','bosses'].includes(state.focus) ? state.focus : 'balanced';
+  state.availableDays=Array.isArray(state.availableDays)
+    ? (state.availableDays.length===7 && state.availableDays.every(x=>typeof x==='boolean')
+        ? state.availableDays.map(Boolean)
+        : ACTION_PLAN_DAY_NAMES.map((_,i)=>state.availableDays.includes(i)))
+    : [true,true,true,true,true,true,true];
+  if(!state.availableDays.some(Boolean)) state.availableDays=[true,true,true,true,true,true,true];
+  state.completed=(state.completed && typeof state.completed==='object') ? state.completed : {};
+  return state;
+}
+
+function actionPlanCategoryLabel(category){
+  return ({daily:'Daily',progression:'Progression',crafting:'Crafting',activity:'Farm route',boss:'Boss window'})[category] || 'Plan';
+}
+
+function actionPlanScore(task,focus,dateKey=''){
+  let score=task.priority || 0;
+  if(task.scheduleDate && task.scheduleDate===dateKey) score+=60;
+  if(task.scheduleDate && task.scheduleDate!==dateKey) score-=80;
+  if(focus==='progression' && ['progression','activity'].includes(task.category)) score+=28;
+  if(focus==='crafting' && task.category==='crafting') score+=32;
+  if(focus==='bosses' && task.category==='boss') score+=34;
+  if(focus==='balanced' && task.category==='daily') score+=8;
+  return score;
+}
+
+function actionPlanCandidates(days){
+  const tasks=[];
+  const seen=new Set();
+  const add=task=>{
+    const signature=`${task.category}|${task.title}|${task.scheduleDate || ''}`;
+    if(seen.has(signature)) return;
+    seen.add(signature);
+    tasks.push(task);
+  };
+
+  checklistDateState(plannerDateKey()).tasks.filter(x=>!x.done).slice(0,3).forEach((task,i)=>add({
+    id:`daily-${task.id}`,title:task.text,detail:"Unfinished item from today's checklist.",
+    category:'daily',duration:20,priority:118-i*3,view:'today'
+  }));
+
+  dashboardPlannerTargets().slice(0,5).forEach((target,i)=>{
+    const action=String(target.action || 'Continue target');
+    const duration=/craft now|check crafting/i.test(action)?20:/finish craft/i.test(action)?45:60;
+    add({
+      id:`target-${target.kind || 'gear'}-${target.idx ?? target.slotIndex ?? i}`,
+      title:`${action}: ${target.displayName}`,detail:target.detail || 'Highest-ranked unfinished planner target.',
+      category:'progression',duration,priority:112-i*7,view:'target',
+      idx:Number.isFinite(Number(target.idx))?Number(target.idx):null,
+      slotIndex:Number.isFinite(Number(target.slotIndex))?Number(target.slotIndex):null,
+      explicit:target.kind==='upgrade-target'
+    });
+  });
+
+  priorityAllocation().rows.filter(x=>x.state==='ready' || x.state==='close').slice(0,4).forEach((row,i)=>add({
+    id:`craft-${row.idx}`,title:`${row.state==='ready'?'Craft now':'Close the gap'}: ${row.item.item_name}`,
+    detail:row.label,category:'crafting',duration:row.state==='ready'?20:45,
+    priority:row.state==='ready'?116-i:94-i*3,view:'farm',idx:row.idx
+  }));
+
+  dashboardActivities().slice(0,5).forEach((activity,i)=>add({
+    id:`activity-${i}-${activity.name}`,title:`Run ${activity.name}`,
+    detail:`${activity.kind}${activity.meta?` - ${activity.meta}`:''}. Supports ${activity.indexes.length} unfinished item${activity.indexes.length===1?'':'s'}.`,
+    category:'activity',duration:60,priority:78-i*3,view:'farm',idx:activity.indexes[0]
+  }));
+
+  days.filter(day=>day.info.kind!=='none').forEach(day=>add({
+    id:`boss-${day.dateKey}`,title:`Confirm and plan ${day.info.label}`,
+    detail:`Starts from the observed recurring pattern at ${day.rows[0]?.time || '19:00'}. Confirm Peace/Guild types in game before committing.`,
+    category:'boss',duration:60,priority:96,view:'boss',scheduleDate:day.dateKey
+  }));
+  return tasks;
+}
+
+function buildWeeklyActionPlan(days,state){
+  const settings=ensureActionPlanSettings(state);
+  const candidates=actionPlanCandidates(days);
+  const availableDates=days.filter((_,i)=>settings.availableDays[i]).map(x=>x.dateKey);
+  const sessionCount=Math.max(1,Math.ceil(settings.minutesPerWeek/settings.sessionMinutes));
+  const sessions=[];
+  const used=new Set();
+  let remaining=settings.minutesPerWeek;
+
+  for(let i=0;i<sessionCount && remaining>0;i++){
+    const dateKey=availableDates[i%availableDates.length];
+    const ranked=[...candidates].sort((a,b)=>actionPlanScore(b,settings.focus,dateKey)-actionPlanScore(a,settings.focus,dateKey) || a.id.localeCompare(b.id));
+    let task=ranked.find(x=>!used.has(x.id) && (!x.scheduleDate || x.scheduleDate===dateKey));
+    if(!task) task=ranked.find(x=>!used.has(x.id) && !x.scheduleDate);
+    if(!task){
+      const base=ranked.find(x=>!x.scheduleDate) || ranked[0];
+      if(!base) break;
+      task={...base,id:`${base.id}-continue-${i}`,title:`Continue: ${base.title}`};
+    }
+    used.add(task.id);
+    const minutes=Math.min(settings.sessionMinutes,remaining);
+    sessions.push({id:`${dateKey}|${task.id}`,dateKey,minutes,task});
+    remaining-=minutes;
+  }
+
+  const today=plannerDateKey();
+  const quick=[...candidates].filter(x=>!x.scheduleDate || x.scheduleDate===today)
+    .sort((a,b)=>actionPlanScore(b,settings.focus,today)-actionPlanScore(a,settings.focus,today));
+  return {
+    candidates,sessions,
+    short:quick.find(x=>x.duration<=30) || quick[0] || null,
+    tonight:quick.find(x=>x.category==='boss') || sessions.find(x=>x.dateKey===today)?.task || quick[0] || null,
+    route:quick.find(x=>['progression','crafting','activity'].includes(x.category)) || quick[0] || null
+  };
+}
+
+function actionPlanOpenTask(task){
+  if(!task) return;
+  if(task.view==='boss') return openBossPreviewForDate(task.scheduleDate || plannerDateKey());
+  if(task.view==='target'){
+    if(task.explicit && task.slotIndex!==null) return openUpgradePathSlot(task.slotIndex);
+    if(task.idx!==null) return openFarmItem(task.idx);
+  }
+  if(task.view==='farm' && task.idx!==null) return openFarmItem(task.idx);
+  activateView('today',{ensureResults:true,scroll:false});
+}
+
+function actionPlanQuickCard(label,task,primary=false){
+  if(!task) return `<article class="action-quick-card"><div class="action-quick-label">${esc(label)}</div><h4>No route available yet</h4><div class="action-quick-detail">Load or scan a build to create recommendations.</div></article>`;
+  weeklyActionPlanCache.set(task.id,task);
+  return `<article class="action-quick-card ${primary?'primary':''}">
+    <div class="action-quick-label">${esc(label)}</div><h4>${esc(task.title)}</h4>
+    <div class="action-quick-detail">${esc(task.detail)}</div>
+    <div class="action-session-meta"><span class="action-pill ${esc(task.category)}">${esc(actionPlanCategoryLabel(task.category))}</span><span class="action-pill">${task.duration} min baseline</span></div>
+    <div class="action-card-actions"><button class="secondary" data-action-open="${esc(task.id)}">Open route</button><button class="secondary" data-action-add="${esc(task.id)}">Add to today</button></div>
+  </article>`;
+}
+
+function weeklyScheduleEvidenceHtml(days,today){
+  return `<div class="week-grid">${days.map(day=>{
+    const info=day.info;
+    const isToday=day.dateKey===today;
+    const body=info.kind==='none'
+      ? '<div class="week-none">No recurring Archboss template observed.</div>'
+      : `<div class="week-template">${esc(info.label)}</div>
+        ${day.rows.map(row=>`<div class="week-event"><span class="week-time">${esc(row.time)}</span> - ${esc(row.text)}</div>`).join('')}
+        <div class="week-pref">Preferred profile: <b>${esc(day.poolPref || 'Not set')}</b></div>
+        ${info.kind==='ramux-mixed'?`<div class="week-warning">${day.mixed?`Known mixed slot: ${esc(day.mixed)}`:'Mixed slot must be confirmed in game.'}</div>`:''}
+        <div class="week-warning">Confirm Peace/Guild types from the live schedule.</div>`;
+    return `<div class="week-day ${isToday?'today':''}"><div class="week-day-head"><div class="week-day-name">${esc(plannerDayLabel(day.dateKey))}${isToday?' - Today':''}</div><div class="week-day-date">${esc(plannerDisplayDate(day.dateKey))}</div></div><div class="week-day-body">${body}${info.kind!=='none'?`<div class="week-actions"><button class="secondary" data-week-open="${esc(day.dateKey)}">Open in Boss Priority</button></div>`:''}</div></div>`;
+  }).join('')}</div>`;
+}
+
+function renderWeeklyPlanner(){
+  const host=$('viewWeek');
+  if(!host || !currentData) return;
+  const state=ensureActionPlanSettings(weeklyPlannerState());
+  const weekStart=mondayForDateKey(state.weekStart || plannerDateKey());
+  state.weekStart=weekStart;
+  const days=Array.from({length:7},(_,i)=>weeklyDayData(dateKeyAddDays(weekStart,i)));
+  const eventDays=days.filter(x=>x.info.kind!=='none');
+  const mixedUnknown=days.filter(x=>x.info.kind==='ramux-mixed' && !x.mixed).length;
+  const today=plannerDateKey();
+  const plan=buildWeeklyActionPlan(days,state);
+  const completedKey=id=>`${weekStart}|${id}`;
+  weeklyActionPlanCache=new Map();
+  const hours=(state.minutesPerWeek/60).toFixed(state.minutesPerWeek%60?1:0);
+  const availableCount=state.availableDays.filter(Boolean).length;
+
+  host.innerHTML=`
+    <section class="action-engine">
+      <div class="action-engine-head"><div><div class="action-engine-kicker">Time-budgeted route builder</div><h3>Action Plan Engine</h3><div class="action-engine-copy">Turns unfinished gear, material readiness, daily checklist items, and known boss windows into sessions you can actually follow. Recommendations update as your build changes.</div></div>
+        <div class="week-toolbar"><button id="weekPrevBtn" class="secondary">&larr; Previous</button><button id="weekTodayBtn" class="secondary">This Week</button><input id="weekStartInput" type="date" value="${esc(weekStart)}" title="Week start"><button id="weekNextBtn" class="secondary">Next &rarr;</button></div>
+      </div>
+      <div class="action-engine-controls">
+        <div class="action-control"><label for="actionWeeklyTime">Weekly playtime</label><select id="actionWeeklyTime">${[120,240,360,480,600,900,1200].map(n=>`<option value="${n}" ${state.minutesPerWeek===n?'selected':''}>${n/60} hours</option>`).join('')}</select></div>
+        <div class="action-control"><label for="actionSessionTime">Preferred session</label><select id="actionSessionTime">${[30,45,60,90,120].map(n=>`<option value="${n}" ${state.sessionMinutes===n?'selected':''}>${n} minutes</option>`).join('')}</select></div>
+        <div class="action-control"><label for="actionFocus">Planning focus</label><select id="actionFocus"><option value="balanced" ${state.focus==='balanced'?'selected':''}>Balanced route</option><option value="progression" ${state.focus==='progression'?'selected':''}>Gear progression</option><option value="crafting" ${state.focus==='crafting'?'selected':''}>Crafting readiness</option><option value="bosses" ${state.focus==='bosses'?'selected':''}>Boss windows</option></select></div>
+      </div>
+      <div class="action-days"><span class="action-days-label">Available days</span>${ACTION_PLAN_DAY_NAMES.map((name,i)=>`<label class="action-day-toggle"><input type="checkbox" data-action-day="${i}" ${state.availableDays[i]?'checked':''}><span>${name}</span></label>`).join('')}</div>
+      <div class="action-engine-stats"><div class="action-engine-stat"><b>${hours}h</b><span>Weekly time budget</span></div><div class="action-engine-stat"><b>${plan.sessions.length}</b><span>Planned sessions across ${availableCount} available day${availableCount===1?'':'s'}</span></div><div class="action-engine-stat"><b>${eventDays.length}</b><span>Observed boss-pattern days considered</span></div></div>
+    </section>
+    <div class="action-quick-grid">${actionPlanQuickCard('If you have 30 minutes',plan.short,true)}${actionPlanQuickCard('Best move tonight',plan.tonight)}${actionPlanQuickCard('Progression route',plan.route)}</div>
+    <section class="action-plan-section"><div class="action-plan-section-head"><h3>Your route this week</h3><span>Session checks do not change item progress</span></div><div class="action-session-list">
+      ${plan.sessions.length?plan.sessions.map(session=>{
+        const task=session.task;
+        weeklyActionPlanCache.set(task.id,task);
+        const done=Boolean(state.completed[completedKey(session.id)]);
+        return `<article class="action-session ${done?'done':''}"><div class="action-session-when"><b>${esc(plannerDayLabel(session.dateKey))}</b><span>${esc(plannerDisplayDate(session.dateKey))} - ${session.minutes} min</span></div><input class="action-session-check" type="checkbox" data-action-complete="${esc(session.id)}" ${done?'checked':''} aria-label="Complete session"><div><div class="action-session-title">${esc(task.title)}</div><div class="action-session-detail">${esc(task.detail)}</div><div class="action-session-meta"><span class="action-pill ${esc(task.category)}">${esc(actionPlanCategoryLabel(task.category))}</span>${task.scheduleDate?'<span class="action-pill">Confirm live type</span>':'<span class="action-pill">Build-derived</span>'}</div></div><div class="action-card-actions"><button class="secondary" data-action-open="${esc(task.id)}">Open</button><button class="secondary" data-action-add="${esc(task.id)}">Add to today</button></div></article>`;
+      }).join(''):'<div class="action-empty">No actionable sessions are available for this build yet.</div>'}
+    </div></section>
+    <details class="schedule-evidence"><summary><span>Boss schedule evidence</span><span class="muted">${eventDays.length} recurring days - ${mixedUnknown} mixed slots to confirm</span></summary><div class="schedule-evidence-body"><div class="muted" style="margin-bottom:10px">Uses the recurring EU/Nix pattern observed from supplied in-game schedules. Peace/Guild assignment remains live information and is never guessed.</div>${weeklyScheduleEvidenceHtml(days,today)}</div></details>`;
+
+  $('weekPrevBtn').onclick=()=>{state.weekStart=dateKeyAddDays(weekStart,-7);saveWeeklyPlannerState();renderWeeklyPlanner();};
+  $('weekNextBtn').onclick=()=>{state.weekStart=dateKeyAddDays(weekStart,7);saveWeeklyPlannerState();renderWeeklyPlanner();};
+  $('weekTodayBtn').onclick=()=>{state.weekStart=mondayForDateKey(plannerDateKey());saveWeeklyPlannerState();renderWeeklyPlanner();};
+  $('weekStartInput').onchange=e=>{state.weekStart=mondayForDateKey(e.target.value);saveWeeklyPlannerState();renderWeeklyPlanner();};
+  $('actionWeeklyTime').onchange=e=>{state.minutesPerWeek=Number(e.target.value);saveWeeklyPlannerState();renderWeeklyPlanner();};
+  $('actionSessionTime').onchange=e=>{state.sessionMinutes=Number(e.target.value);saveWeeklyPlannerState();renderWeeklyPlanner();};
+  $('actionFocus').onchange=e=>{state.focus=e.target.value;saveWeeklyPlannerState();renderWeeklyPlanner();};
+  document.querySelectorAll('[data-week-open]').forEach(btn=>btn.onclick=e=>openBossPreviewForDate(e.currentTarget.dataset.weekOpen));
+  document.querySelectorAll('[data-action-day]').forEach(input=>input.onchange=e=>{const index=Number(e.currentTarget.dataset.actionDay);state.availableDays[index]=e.currentTarget.checked;if(!state.availableDays.some(Boolean))state.availableDays[index]=true;saveWeeklyPlannerState();renderWeeklyPlanner();});
+  document.querySelectorAll('[data-action-open]').forEach(btn=>btn.onclick=e=>actionPlanOpenTask(weeklyActionPlanCache.get(e.currentTarget.dataset.actionOpen)));
+  document.querySelectorAll('[data-action-add]').forEach(btn=>btn.onclick=e=>{const task=weeklyActionPlanCache.get(e.currentTarget.dataset.actionAdd);if(!task)return;addDailyChecklistTask(task.title);notifyPlanner('Added to today',task.title,'success');renderWeeklyPlanner();});
+  document.querySelectorAll('[data-action-complete]').forEach(input=>input.onchange=e=>{const key=completedKey(e.currentTarget.dataset.actionComplete);if(e.currentTarget.checked)state.completed[key]=true;else delete state.completed[key];saveWeeklyPlannerState();renderWeeklyPlanner();});
 }
 
 function templateEvent(time,boss){
@@ -5647,7 +5869,7 @@ function frontendHealthChecks(){
     ['Farm Dashboard','dashboardBody'],
     ['Boss Priority','viewBoss'],
     ['Patch Inbox','viewPatches'],
-    ['Week Planner','viewWeek'],
+    ['Action Plan','viewWeek'],
     ['Farm Plan','viewFarm'],
     ['Upgrade Paths','viewPaths'],
     ['Knowledge Routes','viewKnowledge'],
@@ -5780,6 +6002,14 @@ function frontendHealthChecks(){
     'Visual dashboard command deck',
     document.querySelectorAll('.dashboard-command-deck').length===1 && document.querySelectorAll('.command-pulse').length===3 && document.querySelectorAll('.command-stage').length===4 && Boolean(document.querySelector('.command-focus [data-command-target],.command-focus [data-command-path]')) ? 'pass' : 'fail',
     `${document.querySelectorAll('.command-pulse').length} readiness pulses, ${document.querySelectorAll('.command-stage').length} build stages, and one direct objective shortcut turn saved build data into a responsive visual route.`
+  ));
+
+  const workspaceDestinationLabel=document.querySelector('.workspace-destination b');
+  checks.push(healthClientCheck(
+    'action_plan_engine',
+    'Time-budgeted action plan and readable workspace menus',
+    typeof buildWeeklyActionPlan==='function' && typeof actionPlanCandidates==='function' && typeof ensureActionPlanSettings==='function' && ACTION_PLAN_DAY_NAMES.length===7 && workspaceDestinationLabel && parseFloat(getComputedStyle(workspaceDestinationLabel).fontSize)>=13 ? 'pass' : 'fail',
+    `Action Plan combines build targets, crafting readiness, checklist tasks, activity routes, and observed boss windows; grouped destination labels render at ${workspaceDestinationLabel?getComputedStyle(workspaceDestinationLabel).fontSize:'unknown size'}.`
   ));
 
   checks.push(healthClientCheck(
@@ -5950,7 +6180,7 @@ function renderAll(){
   safeRenderView('Farm Dashboard', renderDashboard);
   safeRenderView('Boss Priority', renderBossPriority);
   safeRenderView('Patch Inbox', renderPatchInbox);
-  safeRenderView('Week Planner', renderWeeklyPlanner);
+  safeRenderView('Action Plan', renderWeeklyPlanner);
   safeRenderView('Farm Plan', renderFarm);
   safeRenderView('Upgrade Paths', renderUpgradePaths);
   safeRenderView('Knowledge Routes', renderKnowledgeRoutes);
