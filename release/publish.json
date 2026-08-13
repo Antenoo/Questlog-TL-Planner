@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.14",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Adds an original cinematic dark-fantasy environment beneath the planner as a fixed atmospheric page layer, with a carefully tuned navy transparency gradient so empty space has depth without reducing interface contrast. Panels, the product hero, and the workspace header now use restrained translucent surfaces and blur to create the requested image-under-dark-glass effect. Enlarges the workspace control surface: the live context rail grows to 54 px, navigation to 72 px, and icons, labels, active states, brand mark, and current-view treatment are all easier to scan. Compact layouts retain the two-column context rail and clean navigation wrapping. The generated background is included in the strict updater allowlist and required-package checks, and System Health verifies both the asset and enlarged desktop proportions. Planner data and scan state are unchanged."
