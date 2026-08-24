@@ -2017,3 +2017,17 @@ overriding the stale disabled marker on Questlog's recipe page for planner purpo
 
 The screenshot is treated as dated player-confirmed evidence, not a permanently live inventory
 sync. Players should update their material counts after acquiring or spending resources.
+
+
+## v22.0.19 - Calm planner and corrected gear comparison
+
+This release combines the preserved current-gear checkpoint with the reversible calm planner view.
+
+- Adds a personal Current Gear workspace while keeping the complete planner available.
+- Adds the simplified default view as a reversible presentation choice.
+- Keeps current and target items separate throughout the build comparison.
+- Opens the correct item's details when either side of a comparison is selected or hovered.
+- Makes stat gains and losses easier to read.
+- Uses the captured equipped loadout instead of describing desired gear as currently equipped.
+- Completes target removal after confirmation and refreshes the affected upgrade path.
+- Preserves the view-only relay helpers for future inventory and gear captures.
