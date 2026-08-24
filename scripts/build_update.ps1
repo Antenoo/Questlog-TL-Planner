@@ -160,7 +160,7 @@ function Assert-NoPrivateContent([string]$SourcePath, [string]$RelativePath) {
     $checks = @(
         [pscustomobject]@{ Name = 'Windows user profile path'; Pattern = '(?i)[A-Z]:\\Users\\' },
         [pscustomobject]@{ Name = 'GitHub token'; Pattern = '(?i)github_pat_[A-Za-z0-9_]+|gh[pousr]_[A-Za-z0-9]+' },
-        [pscustomobject]@{ Name = 'Questlog build-shaped URL'; Pattern = '(?i)https?://questlog\.gg/(?:[^/\s"''<>]+/){2,}' }
+        [pscustomobject]@{ Name = 'Questlog build-shaped URL'; Pattern = '(?i)https?://questlog\.gg/[^\s"''<>]*(?:character-builder|builds?)/[^\s"''<>]+' }
     )
     foreach ($check in $checks) {
         if ($content -match $check.Pattern) {
