@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "22.0.19",
-  "publish": true,
+  "publish": false,
   "prerelease": false,
   "display_name": "Questlog TL Farm Planner",
   "notes": "Adds the reversible calm planner view and the personal Current Gear workspace without removing the full planner. The build comparison now keeps current and target items separate, opens the correct item's details from each side, presents clearer stat gains and losses, and uses the captured equipped loadout instead of labeling desired gear as currently equipped. Target removal now completes after confirmation and refreshes the affected upgrade path. The update also preserves the current-gear capture checkpoint and view-only relay helpers for future inventory refreshes."
